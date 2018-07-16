@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6 lt-ie9 lt-ie8 lt-ie7" lang="en-US"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 lt-ie9 lt-ie8" lang="en-US"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 lt-ie9" lang="en-US"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class=" js no-flexbox canvas canvastext no-webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" lang="en-US"><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width">
+		<title>Forcing Smart Scans on Exadata – is the _serial_direct_read 
+parameter safe to use in production? | Tanel Poder's Performance &amp; 
+Troubleshooting blog</title>
+		<link rel="profile" href="http://gmpg.org/xfn/11">
+		<link rel="pingback" href="http://blog.tanelpoder.com/xmlrpc.php">
+		<style type="text/css">#wrapper{max-width:800px!important}</style>
+		
+<!-- All in One SEO Pack 2.2.6.2 by Michael Torbert of Semper Fi Web Design[495,670] -->
+<meta name="description" content="One of the most common Exadata performance problems I see is that the direct path reads (and thus also Smart Scans) don't sometimes kick in when running full">
+
+<meta name="keywords" content="exadata,oracle">
+
+<link rel="canonical" href="http://blog.tanelpoder.com/2013/05/29/forcing-smart-scans-on-exadata-is-_serial_direct_read-parameter-safe-to-use-in-production/">
+<!-- /all in one seo pack -->
+<link rel="alternate" type="application/rss+xml" title="Tanel Poder's Performance &amp; Troubleshooting blog » Feed" href="http://blog.tanelpoder.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Tanel Poder's Performance &amp; Troubleshooting blog » Comments Feed" href="http://blog.tanelpoder.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Tanel Poder's Performance &amp; Troubleshooting blog » Forcing Smart Scans on Exadata – is the _serial_direct_read parameter safe to use in production? Comments Feed" href="http://blog.tanelpoder.com/2013/05/29/forcing-smart-scans-on-exadata-is-_serial_direct_read-parameter-safe-to-use-in-production/feed/">
+		<script type="text/javascript">window._wpemojiSettings={"baseUrl":"http:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"http:\/\/blog.tanelpoder.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.2.1"}};!function(a,b,c){function d(a){var c=b.createElement("canvas"),d=c.getContext&&c.getContext("2d");return d&&d.fillText?(d.textBaseline="top",d.font="600 32px Arial","flag"===a?(d.fillText(String.fromCharCode(55356,56812,55356,56807),0,0),c.toDataURL().length>3e3):(d.fillText(String.fromCharCode(55357,56835),0,0),0!==d.getImageData(16,16,1,1).data[0])):!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f;c.supports={simple:d("simple"),flag:d("flag")},c.supports.simple&&c.supports.flag||(f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);</script><script type="text/javascript" src="Forcing%20Smart%20Scans%20on%20Exadata%20%E2%80%93%20is%20the%20_serial_direct_read%20parameter%20safe%20to%20use%20in%20production%20%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/wp-emoji-release.js"></script>
+		<style type="text/css">img.wp-smiley,img.emoji{display:inline!important;border:none!important;box-shadow:none!important;height:1em!important;width:1em!important;margin:0 .07em!important;vertical-align:-.1em!important;background:none!important;padding:0!important}</style>
+<style id="brunelleschi_left-heading-css" media="all">#branding{text-align:left!important}</style>
+<style id="brunelleschi_small-site-title-css" media="all">#site-title{font-size:20px}</style>
+<link rel="stylesheet" id="style.css-css" href="Forcing%20Smart%20Scans%20on%20Exadata%20%E2%80%93%20is%20the%20_serial_direct_read%20parameter%20safe%20to%20use%20in%20production%20%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/A_003.css" type="text/css" media="all">
+<link rel="stylesheet" id="dwqa-style-css" href="Forcing%20Smart%20Scans%20on%20Exadata%20%E2%80%93%20is%20the%20_serial_direct_read%20parameter%20safe%20to%20use%20in%20production%20%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/A_004.css" type="text/css" media="all">
+<style id="mailchimp-for-wp-checkbox-css" media="all">#mc4wp-checkbox{clear:both;display:block;position:static;width:auto}#mc4wp-checkbox input{float:none;width:auto;position:static;margin:0 6px 0 0;padding:0;vertical-align:middle;display:inline-block!important;max-width:21px;-webkit-appearance:checkbox}#mc4wp-checkbox label{float:none;display:block;cursor:pointer;width:auto;position:static}#_mc4wp_subscribe_woocommerce_checkout_field input,#_mc4wp_subscribe_woocommerce_checkout_field label{float:none!important;width:auto!important;display:inline-block!important}#registerform #mc4wp-checkbox{margin-bottom:10px}</style>
+<link rel="stylesheet" id="tablepress-default-css" href="Forcing%20Smart%20Scans%20on%20Exadata%20%E2%80%93%20is%20the%20_serial_direct_read%20parameter%20safe%20to%20use%20in%20production%20%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/default.css" type="text/css" media="all">
+<style id="mailchimp-for-wp-form-css" media="all">.mc4wp-form{margin:1em 0}.mc4wp-form form{width:auto}.mc4wp-form label{display:block;font-weight:700;margin-bottom:5px}.mc4wp-form input{vertical-align:baseline}.mc4wp-form input.placeholdersjs{color:#aaa!important}.mc4wp-form input[type=date],.mc4wp-form input[type=email],.mc4wp-form input[type=tel],.mc4wp-form input[type=text],.mc4wp-form input[type=url],.mc4wp-form select,.mc4wp-form textarea{cursor:auto;display:block;width:100%;height:auto;box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box}.mc4wp-form input[type=checkbox],.mc4wp-form input[type=radio]{position:relative;margin:0 6px 0 0;padding:0;height:13px;width:13px;display:inline-block;border:0}.mc4wp-form input[type=checkbox]{-webkit-appearance:checkbox}.mc4wp-form input[type=radio]{-webkit-appearance:radio}.mc4wp-form input[name="_mc4wp_required_but_not_really"]{display:none!important}.mc4wp-form button,.mc4wp-form input[type=button],.mc4wp-form input[type=submit]{cursor:pointer;display:inline-block}.mc4wp-form li,.mc4wp-form ul{list-style:none;margin:0;padding:0}.mc4wp-form label>span,.mc4wp-form li>label{font-weight:400}.mc4wp-alert{margin:1em 0;padding:10px 15px;color:#c09853;background-color:#fcf8e3;border:1px solid #fbeed5;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;display:block;position:relative}.mc4wp-success{color:#468847;background-color:#dff0d8;border-color:#d6e9c6}.mc4wp-notice{color:#3a87ad;background-color:#d9edf7;border-color:#bce8f1}.mc4wp-error{color:#b94a48;background-color:#f2dede;border-color:#eed3d7}</style>
+<link rel="stylesheet" id="genericons-css" href="Forcing%20Smart%20Scans%20on%20Exadata%20%E2%80%93%20is%20the%20_serial_direct_read%20parameter%20safe%20to%20use%20in%20production%20%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/A_002.css" type="text/css" media="all">
+<link rel="stylesheet" id="jetpack_css-css" href="Forcing%20Smart%20Scans%20on%20Exadata%20%E2%80%93%20is%20the%20_serial_direct_read%20parameter%20safe%20to%20use%20in%20production%20%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/A.css" type="text/css" media="all">
+<script src="Forcing%20Smart%20Scans%20on%20Exadata%20%E2%80%93%20is%20the%20_serial_direct_read%20parameter%20safe%20to%20use%20in%20production%20%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/modernizr-2.js"></script><script>eval(mod_pagespeed_d9Tsm3u5FU);</script>
+<script>eval(mod_pagespeed_Xjuv4cPKr5);</script>
+<script type="text/javascript" src="Forcing%20Smart%20Scans%20on%20Exadata%20%E2%80%93%20is%20the%20_serial_direct_read%20parameter%20safe%20to%20use%20in%20production%20%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/jquery.js"></script>
+<script src="Forcing%20Smart%20Scans%20on%20Exadata%20%E2%80%93%20is%20the%20_serial_direct_read%20parameter%20safe%20to%20use%20in%20production%20%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/wp-includes_js_jquery_jquery-migrate.js"></script><script>eval(mod_pagespeed_Hf0$z$LmEX);</script>
+<script>eval(mod_pagespeed_3g6VhoPJyg);</script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://blog.tanelpoder.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://blog.tanelpoder.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Debugger Dangers – Part 2" href="http://blog.tanelpoder.com/2013/05/27/debugger-dangers-part-2/">
+<link rel="next" title="Getting the Most Out of ASH online seminar" href="http://blog.tanelpoder.com/2013/06/05/getting-the-most-out-of-ash-online-seminar/">
+<meta name="generator" content="WordPress 4.2.1">
+<link rel="shortlink" href="http://wp.me/pp6nk-zl">
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-4749913-1','auto');ga('send','pageview');</script>
+<link rel="dns-prefetch" href="http://i0.wp.com/">
+<link rel="dns-prefetch" href="http://i1.wp.com/">
+<link rel="dns-prefetch" href="http://i2.wp.com/">
+<style type="text/css">.broken_link,a.broken_link{text-decoration:line-through}</style>	<style type="text/css">.site-title,.site-description{position:absolute!important;clip:rect(1px 1px 1px 1px);clip:rect(1px,1px,1px,1px)}</style>
+	<style type="text/css" id="syntaxhighlighteranchor"></style>
+<style type="text/css">.mc4wp-form input[name="_mc4wp_required_but_not_really"]{display:none!important}</style>		<style>div.entry-content p code{background-color:#fff;padding:.2em}div.entry-content pre{white-space:pre;overflow:scroll;-webkit-overflow-scrolling:touch;font-family:Consolas,\"Andale\ Mono\",\"DejaVu\ Sans\ Mono\",monospace;background-color:#f6f6f6;font-size:14px}div.entry-content{color:#222;font-size:15px;font-family:Georgia,Times,sans-serif}div.entry-utility{display:none}#comments-title{display:none}#comments{color:#222;font-size:15px;font-family:Georgia,Times,sans-serif}#reply-title{display:none}#nav-above div{display:none}#nav-above{display:none}.paged #nav-above{display:none}.single #nav-above{display:none}::-moz-selection{background:#ff6;color:#000;text-shadow:none}::selection{background:#ff6;color:#000;text-shadow:none}#access{border-top:none;border-bottom:none}.hentry{border-top:none}</style>
+	</head>
+	<body class="single single-post postid-2191 single-format-standard">
+	<div id="wrapper" class="hfeed container">
+		<header id="header" class="row clearfix">
+							<hgroup id="branding" class="threecol">
+					<h1 class="site-title"><a href="http://blog.tanelpoder.com/" title="Tanel Poder's Performance &amp; Troubleshooting blog" rel="home">Tanel Poder's Performance &amp; Troubleshooting blog</a></h1>
+					<h2 class="site-description">Linux, Oracle, Hadoop.</h2>
+				</hgroup>
+																						<div id="access" role="navigation" class="twelvecol last clearfix">
+					<div class="skip-link screen-reader-text"><a href="#content" title="Skip to content">Skip to content</a></div>
+					<div class="menu-header"><ul id="menu-menu-1" class="menu"><li id="menu-item-2401" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-2401"><a href="http://blog.tanelpoder.com/">Home</a></li>
+<li id="menu-item-2402" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2402"><a href="http://blog.tanelpoder.com/about-2/">About</a></li>
+<li id="menu-item-2446" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2446"><a href="http://blog.tanelpoder.com/downloads/">Downloads</a></li>
+<li id="menu-item-2443" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2443"><a href="http://blog.tanelpoder.com/archives/">Archives</a></li>
+<li id="menu-item-2410" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2410"><a href="http://blog.tanelpoder.com/seminar/">Training</a></li>
+</ul></div>				</div><!-- #access -->
+					</header><!-- #header -->
+		<div id="container" class="row clearfix">		
+		<div id="main" role="main" class="twelvecol last ">
+
+			
+				<nav id="nav-above" class="navigation">
+					<div class="nav-previous"><a href="http://blog.tanelpoder.com/2013/05/27/debugger-dangers-part-2/" rel="prev"><span class="meta-nav">←</span> Debugger Dangers – Part 2</a></div>
+					<div class="nav-next"><a href="http://blog.tanelpoder.com/2013/06/05/getting-the-most-out-of-ash-online-seminar/" rel="next">Getting the Most Out of ASH online seminar <span class="meta-nav">→</span></a></div>
+				</nav><!-- #nav-above -->
+
+				<article id="post-2191" class="post-2191 post type-post status-publish format-standard hentry category-exadata category-oracle">
+					<header>
+						<h1 class="entry-title">Forcing Smart Scans on Exadata – is the _serial_direct_read parameter safe to use in production?</h1>
+												<div class="entry-meta">
+							<span class="meta-sep">by</span> <span class="author vcard"><a class="url fn n" href="http://blog.tanelpoder.com/author/tanelp/" title="View all posts by Tanel Poder">Tanel Poder</a></span> <span class="meta-prep meta-prep-author">Posted on</span> <a href="http://blog.tanelpoder.com/2013/05/29/forcing-smart-scans-on-exadata-is-_serial_direct_read-parameter-safe-to-use-in-production/" title="7:38 am" rel="bookmark"><span class="entry-date">May 29, 2013</span></a>						</div><!-- .entry-meta -->
+											</header>
+					<div class="entry-content">
+						<p>One of the most common Exadata performance problems I see is 
+that the direct path reads (and thus also Smart Scans) don’t sometimes 
+kick in when running full scans in serial sessions. This is because in 
+Oracle 11g onwards, the <a href="http://blog.tanelpoder.com/2012/09/03/optimizer-statistics-driven-direct-path-read-decision-for-full-table-scans-_direct_read_decision_statistics_driven/" target="_blank">serial full segment scan IO path decision</a>
+ is done dynamically, at runtime, for every SQL execution – and for 
+every segment (partition) separately. Whether you get a direct path read
+ &amp; smart scan, depends on the current buffer cache size, how big 
+segment you’re about to scan and how much of that segment is actually 
+cached at the moment. Note that the automatic <a href="http://fritshoogland.wordpress.com/2013/05/09/direct-path-read-and-fast-full-index-scans/" target="_blank">IO path decision for index fast full scans</a> is slightly different from table scans.</p>
+<p>This dynamic decision unfortunately can cause unexpected surprises 
+and variance in your report/batch job runtimes. Additionally, it looks 
+like the SELECT part of your UPDATE/DELETE statements (the select part 
+finds the rows to update/delete) does not ever automatically get direct 
+path read/smart scan chosen – by design! So, when your SELECT statement 
+may use smart scan and be really fast, the same select operation in an 
+INSERT SELECT (or UPDATE/DELETE) context will not end up using smart 
+scans by default. There’s even a bug explaining that – closed as “not a 
+bug” (<strong>Exadata Smartscan Is Not Being Used On Insert As Select[Article ID 1348116.1]</strong>).</p>
+<p>To work around these problems and <em>force</em> a direct path read/smart scan,&nbsp;you can either:</p>
+<ol>
+<li>Run your query in parallel as parallel full segment scans will use direct path reads, <em>unless</em> your parallel_degree_policy = AUTO, then you <em>may</em> still get buffered reads thanks to the dynamic&nbsp;<a href="http://afatkulin.blogspot.com/2013/02/does-in-memory-pq-work-with.html" target="_blank">in-memory parallel execution</a> decision of Oracle 11.2</li>
+<li>Run your query in serial, but force the serial direct path reads by setting <strong><em>_serial_direct_read</em></strong> = TRUE (or ALWAYS in 11.2.0.2+)</li>
+</ol>
+<p>Here are the valid options for this parameter in 11.2.0.2+</p>
+<p><span id="more-2191"></span></p>
+<p><span style="font-family: Consolas, Monaco, monospace; font-size: 12px; line-height: 18px;">SQL&gt; @<a href="http://blog.tanelpoder.com/files/scripts/pvalid.sql" target="_blank">pvalid</a> _serial_direct_read</span></p>
+<pre>Display valid values for multioption parameters matching "_serial_direct_read"...
+
+  PAR# PARAMETER                                                 ORD VALUE                          DEFAULT
+------ -------------------------------------------------- ---------- ------------------------------ -------
+  1993 _serial_direct_read                                         1 ALWAYS
+       _serial_direct_read                                         2 AUTO
+       _serial_direct_read                                         3 NEVER
+       _serial_direct_read                                         4 TRUE
+       _serial_direct_read                                         5 FALSE</pre>
+<p>And this leads to the question – as <em>_serial_direct_read</em> is an undocumented, hidden parameter – is it safe to use it in production?</p>
+<p>In my mind, there are 3 kinds of parameters:</p>
+<ol>
+<li>Documented parameters – they should be safe and should work. If they don’t, it’s a bug and should get fixed by Oracle</li>
+<li>Undocumented parameters which nobody uses and knows much about</li>
+<li>Undocumented parameters which are documented in My Oracle Support (and are widely used in practice)</li>
+</ol>
+<p>You shouldn’t use #2 parameters in production without a written 
+blessing by Oracle Support – and I’d like to know some justification, <em>why</em> the recommended parameter ought to help.</p>
+<p>The <em>_serial_direct_read</em>, however belongs to category #3 – 
+it’s an undocumented parameter, but widely documented by public use and 
+more importantly (formally), documented in My Oracle Support. If you 
+search MOS for <em>_serial_direct_read</em>, you’ll find plenty of notes recommending the <em>_serial_direct_read</em> as a workaround – but the best of them is MOS note&nbsp;<strong>Best Practices for OLTP on the Sun Oracle Database Machine[Article ID 1269706.1]</strong>, which says this:</p>
+<blockquote><p>Direct reads bypass the buffer cache and go directly into
+ the process PGA. Cell offload operations occur for direct reads only. 
+Parallel query processes always use direct reads and therefore offload 
+any eligible operations (ex: scans).&nbsp;For normal foreground 
+processes running serially, the RDBMS decides whether direct or buffered
+ reads are the best option based on both the state of the buffer cache 
+and the size of the table. In the event that the RDBMS does not make the
+ correct choice to use direct reads/offload processing, <strong>you can set _serial_direct_read=TRUE</strong>
+ (available at session level). Keep in mind that it is possible that 
+setting this parameter will makes things worse if the app is better off 
+with buffered reads, so make sure you know that you want direct 
+reads/offload processing before setting it.</p></blockquote>
+<p><strong>Comments:</strong></p>
+<ol>
+<li><span style="line-height: 13px;">The abovementioned MOS note is actually incorrect stating that “<em>Parallel query processes <strong>always</strong> use direct reads</em>“, the in-memory parallel execution changes this, as explained above.</span></li>
+<li>The note recommends setting the <em>_serial_direct_read</em> = TRUE,
+ but I’ve used ALWAYS for clarity. The TRUE before 11.2.0.2+ really 
+meant “AUTO”, the dynamic decision and FALSE meant NEVER. But starting 
+from Oracle 11.2.0.2 onwards, the TRUE = ALWAYS, FALSE = NEVER and AUTO 
+means dynamic decision (like TRUE used to mean on 11.2.0.1 and before)</li>
+<li>This parameter forces direct reads only for full segment scans (full
+ table scan and fast full index scan variations), your “random” index 
+lookups and range scans etc will still use reads via buffer cache 
+regardless of this parameter – which is great for OLTP and mixed 
+workload systems</li>
+<li>The <em>_serial_direct_read</em>&nbsp;parameter controls the direct path read decision both for table and index segment scans</li>
+</ol>
+<p>I’m not a fan of setting such parameters at system level, but in past
+ I have created login triggers in mixed-workload environments, where the
+ OLTP sessions will never do a direct path read (or I leave the decision
+ automatic) and the reporting and batch sessions in the same database 
+will have forced direct path reads for their full segment scans.</p>
+<p>This article served two purposes, talking about direct path reads and
+ also evaluating whether that cool-undocumented-parameter should be used
+ in production at all. First, you must be able to argument,&nbsp;<em>why</em>
+ would this parameter help at all – and second, is it at least 
+documented as a valid workaround in some MOS article. If unsure, raise 
+an SR and get the Support’s official blessing before taking the risk.</p>
+<div id="crp_related" class="crp_related"><h4>Related Posts</h4><ul><li><a href="http://blog.tanelpoder.com/2012/04/13/exadata-smart-scan-predicate-offloading-and-sequence-nextval/" class="crp_title">Exadata Smart Scan predicate offloading and sequence.NEXTVAL</a></li><li><a href="http://blog.tanelpoder.com/2013/02/14/drilling-deep-into-exadata-performance-with-ash-sql-monitoring-and-exadata-snapper-slides-and-a-hacking-session/" class="crp_title">Drilling Deep Into Exadata Performance with ASH, SQL Monitoring and Exadata Snapper – slides…</a></li><li><a href="http://blog.tanelpoder.com/2014/09/17/about-index-range-scans-disk-re-reads-and-how-your-new-car-can-go-600-miles-per-hour/" class="crp_title">About index range scans, disk re-reads and how your new car can go 600 miles per hour!</a></li><li><a href="http://blog.tanelpoder.com/2011/08/11/full-scans-direct-path-reads-and-ora-8103-error-hacking-session-video-here-plus-itunes-podcast-address-2/" class="crp_title">Full scans, direct path reads and ORA-8103 error hacking session video here</a></li><li><a href="http://blog.tanelpoder.com/2012/09/03/optimizer-statistics-driven-direct-path-read-decision-for-full-table-scans-_direct_read_decision_statistics_driven/" class="crp_title">Optimizer statistics-driven direct path read decision for full table scans…</a></li></ul><div style="clear:both"></div></div><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon sd-sharing"><h3 class="sd-title">Share this post:</h3><div class="sd-content"><ul><li class="share-twitter"><a rel="nofollow" data-shared="sharing-twitter-2191" class="share-twitter sd-button share-icon no-text" href="http://blog.tanelpoder.com/2013/05/29/forcing-smart-scans-on-exadata-is-_serial_direct_read-parameter-safe-to-use-in-production/?share=twitter&amp;nb=1" target="_blank" title="Click to share on Twitter"><span><span class="share-count">11</span></span><span class="sharing-screen-reader-text">Click to share on Twitter (Opens in new window)<span class="share-count">11</span></span></a></li><li class="share-facebook"><a rel="nofollow" data-shared="sharing-facebook-2191" class="share-facebook sd-button share-icon no-text" href="http://blog.tanelpoder.com/2013/05/29/forcing-smart-scans-on-exadata-is-_serial_direct_read-parameter-safe-to-use-in-production/?share=facebook&amp;nb=1" target="_blank" title="Share on Facebook"><span></span><span class="sharing-screen-reader-text">Share on Facebook (Opens in new window)</span></a></li><li class="share-linkedin"><a rel="nofollow" data-shared="sharing-linkedin-2191" class="share-linkedin sd-button share-icon no-text" href="http://blog.tanelpoder.com/2013/05/29/forcing-smart-scans-on-exadata-is-_serial_direct_read-parameter-safe-to-use-in-production/?share=linkedin&amp;nb=1" target="_blank" title="Click to share on LinkedIn"><span><span class="share-count">7</span></span><span class="sharing-screen-reader-text">Click to share on LinkedIn (Opens in new window)<span class="share-count">7</span></span></a></li><li class="share-google-plus-1"><a rel="nofollow" data-shared="sharing-google-2191" class="share-google-plus-1 sd-button share-icon no-text" href="http://blog.tanelpoder.com/2013/05/29/forcing-smart-scans-on-exadata-is-_serial_direct_read-parameter-safe-to-use-in-production/?share=google-plus-1&amp;nb=1" target="_blank" title="Click to share on Google+"><span></span><span class="sharing-screen-reader-text">Click to share on Google+ (Opens in new window)</span></a></li><li><a href="#" class="sharing-anchor sd-button share-more"><span>More</span></a></li><li class="share-end"></li></ul><div class="sharing-hidden"><div class="inner" style="display: none;"><ul><li class="share-print"><a rel="nofollow" data-shared="" class="share-print sd-button share-icon no-text" href="http://blog.tanelpoder.com/2013/05/29/forcing-smart-scans-on-exadata-is-_serial_direct_read-parameter-safe-to-use-in-production/#print" target="_blank" title="Click to print"><span></span><span class="sharing-screen-reader-text">Click to print (Opens in new window)</span></a></li><li class="share-reddit"><a rel="nofollow" data-shared="" class="share-reddit sd-button share-icon no-text" href="http://blog.tanelpoder.com/2013/05/29/forcing-smart-scans-on-exadata-is-_serial_direct_read-parameter-safe-to-use-in-production/?share=reddit&amp;nb=1" target="_blank" title="Click to share on Reddit"><span></span><span class="sharing-screen-reader-text">Click to share on Reddit (Opens in new window)</span></a></li><li class="share-end"></li><li class="share-stumbleupon"><a rel="nofollow" data-shared="" class="share-stumbleupon sd-button share-icon no-text" href="http://blog.tanelpoder.com/2013/05/29/forcing-smart-scans-on-exadata-is-_serial_direct_read-parameter-safe-to-use-in-production/?share=stumbleupon&amp;nb=1" target="_blank" title="Click to share on StumbleUpon"><span></span><span class="sharing-screen-reader-text">Click to share on StumbleUpon (Opens in new window)</span></a></li><li class="share-pocket"><a rel="nofollow" data-shared="" class="share-pocket sd-button share-icon no-text" href="http://blog.tanelpoder.com/2013/05/29/forcing-smart-scans-on-exadata-is-_serial_direct_read-parameter-safe-to-use-in-production/?share=pocket&amp;nb=1" target="_blank" title="Click to share on Pocket"><span></span><span class="sharing-screen-reader-text">Click to share on Pocket (Opens in new window)</span></a></li><li class="share-end"></li><li class="share-pinterest"><a rel="nofollow" data-shared="sharing-pinterest-2191" class="share-pinterest sd-button share-icon no-text" href="http://blog.tanelpoder.com/2013/05/29/forcing-smart-scans-on-exadata-is-_serial_direct_read-parameter-safe-to-use-in-production/?share=pinterest&amp;nb=1" target="_blank" title="Click to share on Pinterest"><span></span><span class="sharing-screen-reader-text">Click to share on Pinterest (Opens in new window)</span></a></li><li class="share-tumblr"><a rel="nofollow" data-shared="" class="share-tumblr sd-button share-icon no-text" href="http://blog.tanelpoder.com/2013/05/29/forcing-smart-scans-on-exadata-is-_serial_direct_read-parameter-safe-to-use-in-production/?share=tumblr&amp;nb=1" target="_blank" title="Click to share on Tumblr"><span></span><span class="sharing-screen-reader-text">Click to share on Tumblr (Opens in new window)</span></a></li><li class="share-end"></li><li class="share-email share-service-visible"><a rel="nofollow" data-shared="" class="share-email sd-button share-icon no-text" href="http://blog.tanelpoder.com/2013/05/29/forcing-smart-scans-on-exadata-is-_serial_direct_read-parameter-safe-to-use-in-production/?share=email&amp;nb=1" target="_blank" title="Click to email this to a friend"><span></span><span class="sharing-screen-reader-text">Click to email this to a friend (Opens in new window)</span></a></li><li class="share-end"></li></ul></div></div></div></div></div>											</div><!-- .entry-content -->
+
+
+					<div class="entry-utility">
+												This entry was posted in <a href="http://blog.tanelpoder.com/category/exadata/" rel="category tag">Exadata</a>, <a href="http://blog.tanelpoder.com/category/oracle/" rel="category tag">Oracle</a>. Bookmark the <a href="http://blog.tanelpoder.com/2013/05/29/forcing-smart-scans-on-exadata-is-_serial_direct_read-parameter-safe-to-use-in-production/" title="Permalink to Forcing Smart Scans on Exadata – is the _serial_direct_read parameter safe to use in production?" rel="bookmark">permalink</a>.											</div><!-- .entry-utility -->
+				</article><!-- #post-## -->
+
+				<nav id="nav-below" class="navigation">
+					<div class="nav-previous"><a href="http://blog.tanelpoder.com/2013/05/27/debugger-dangers-part-2/" rel="prev"><span class="meta-nav">←</span> Debugger Dangers – Part 2</a></div>
+					<div class="nav-next"><a href="http://blog.tanelpoder.com/2013/06/05/getting-the-most-out-of-ash-online-seminar/" rel="next">Getting the Most Out of ASH online seminar <span class="meta-nav">→</span></a></div>
+				</nav><!-- #nav-below -->
+
+							<div id="comments">
+
+			<h3 id="comments-title">One Response to <em>Forcing Smart Scans on Exadata – is the _serial_direct_read parameter safe to use in production?</em></h3>
+
+	
+			<ol class="commentlist">
+						<li class="comment even thread-even depth-1" id="li-comment-27476">
+			<div id="comment-27476">
+			<div class="comment-author vcard">
+								<cite class="fn"><a href="http://progeeking.com/" rel="external nofollow" class="url">Nikolay Kovachev</a></cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+				
+			<div class="comment-meta commentmetadata"><a href="http://blog.tanelpoder.com/2013/05/29/forcing-smart-scans-on-exadata-is-_serial_direct_read-parameter-safe-to-use-in-production/comment-page-1/#comment-27476">
+				October 24, 2013 at 3:43 pm</a>			</div><!-- .comment-meta .commentmetadata -->
+	
+			<div class="comment-body"><p>Hi,<br>
+Also you can find it documented in “Exadata and Database Machine Administration Workshop – D67016GC20 E2.0″ course.<br>
+Lesson 5-16 – page 122 says:<br>
+” Direct path reads are mostly used by parallel operations.<br>
+Serial operations can do direct reads too, depending on factors such<br>
+as the table size and the state of the buffer cache. Direct path reads can also be forced<br>
+for serial access by setting _serial_direct_read to TRUE.”</p>
+</div>
+	
+			<div class="reply">
+				<a class="comment-reply-link" href="http://blog.tanelpoder.com/2013/05/29/forcing-smart-scans-on-exadata-is-_serial_direct_read-parameter-safe-to-use-in-production/?replytocom=27476#respond" onclick='return addComment.moveForm( "comment-27476", "27476", "respond", "2191" )' aria-label="Reply to Nikolay Kovachev">Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+	
+		</li><!-- #comment-## -->
+			</ol>
+
+	
+
+
+						<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://blog.tanelpoder.com/2013/05/29/forcing-smart-scans-on-exadata-is-_serial_direct_read-parameter-safe-to-use-in-production/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://blog.tanelpoder.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																			<p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span></p>							<p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" size="30" aria-required="true" required="required" type="text"></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" size="30" aria-describedby="email-notes" aria-required="true" required="required" type="text"></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" size="30" type="text"></p>
+												<p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" aria-describedby="form-allowed-tags" aria-required="true" required="required"></textarea></p>						<p class="form-allowed-tags" id="form-allowed-tags">You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes:  <code>&lt;a
+ href="" title=""&gt; &lt;abbr title=""&gt; &lt;acronym title=""&gt; 
+&lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;code&gt; &lt;del 
+datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;s&gt; 
+&lt;strike&gt; &lt;strong&gt; </code></p>
+						<p class="form-submit"><input name="submit" id="submit" class="submit" value="Post Comment" type="submit"> <input name="comment_post_ID" value="2191" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+</p><p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="2fe41b3398" type="hidden"></p><p class="comment-subscription-form"><input name="subscribe_comments" id="subscribe_comments" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" type="checkbox"> <label class="subscribe-label" id="subscribe-label" for="subscribe_comments">Notify me of follow-up comments by email.</label></p><p class="comment-subscription-form"><input name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" type="checkbox"> <label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog">Notify me of new posts by email.</label></p><p style="display: none;"></p>					<input id="ak_js" name="ak_js" value="1431155226682" type="hidden"></form>
+							</div><!-- #respond -->
+			
+</div><!-- #comments -->
+
+
+		</div><!-- #main -->
+				</div><!-- #container -->
+			<footer id="footer" role="contentinfo" class="row">
+				<div id="footerbar" class="twelvecol last">
+					
+			<div id="footer-widget-area" role="complementary">
+
+				<div id="first" class="widget-area">
+					<ul class="xoxo">
+						<li id="blog_subscription-6" class="widget-container threecol jetpack_subscription_widget"><h3 class="widget-title">Subscribe via Email</h3>
+			<form action="#" method="post" accept-charset="utf-8" id="subscribe-blog-blog_subscription-6">
+				<div id="subscribe-text"></div>					<p id="subscribe-email">
+						<label style="clip: rect(1px, 1px, 1px, 1px); position: absolute; height: 1px; width: 1px; overflow: hidden;" id="jetpack-subscribe-label" for="subscribe-field">
+							Email Address						</label>
+						<input name="email" required="required" class="required" id="subscribe-field" placeholder="Email Address" type="email">
+					</p>
+
+					<p id="subscribe-submit">
+						<input name="action" value="subscribe" type="hidden">
+						<input name="source" value="http://blog.tanelpoder.com/2013/05/29/forcing-smart-scans-on-exadata-is-_serial_direct_read-parameter-safe-to-use-in-production/" type="hidden">
+						<input name="sub-type" value="widget" type="hidden">
+						<input name="redirect_fragment" value="blog_subscription-6" type="hidden">
+												<input value="Subscribe" name="jetpack_subscriptions_widget" type="submit">
+					</p>
+							</form>
+
+			<script>(function(d){if(('placeholder'in d.createElement('input'))){var label=d.getElementById('jetpack-subscribe-label');label.style.clip='rect(1px, 1px, 1px, 1px)';label.style.position='absolute';label.style.height='1px';label.style.width='1px';label.style.overflow='hidden';}})(document);jQuery('#subscribe-blog-blog_subscription-6').submit(function(event){if(jQuery('.required').val()==''){event.preventDefault();jQuery('.required').focus();}});</script>
+		 
+		
+</li>					</ul>
+				</div><!-- #first .widget-area -->
+
+				<div id="second" class="widget-area">
+					<ul class="xoxo">
+						<li id="rss_links-7" class="widget-container threecol widget_rss_links"><h3 class="widget-title">RSS feed</h3><p><a target="_self" href="http://blog.tanelpoder.com/feed/" title="Subscribe to Posts"><script pagespeed_no_defer="">//<![CDATA[
+(function(){var g=this,h=function(b,d){var a=b.split("."),c=g;a[0]in c||!c.execScript||c.execScript("var "+a[0]);for(var e;a.length&&(e=a.shift());)a.length||void 0===d?c[e]?c=c[e]:c=c[e]={}:c[e]=d};var l=function(b){var d=b.length;if(0<d){for(var a=Array(d),c=0;c<d;c++)a[c]=b[c];return a}return[]};var m=function(b){var d=window;if(d.addEventListener)d.addEventListener("load",b,!1);else if(d.attachEvent)d.attachEvent("onload",b);else{var a=d.onload;d.onload=function(){b.call(this);a&&a.call(this)}}};var n,p=function(b,d,a,c,e){this.f=b;this.h=d;this.i=a;this.c=e;this.e={height:window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight,width:window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth};this.g=c;this.b={};this.a=[];this.d={}},q=function(b,d){var a,c,e=d.getAttribute("pagespeed_url_hash");if(a=e&&!(e in b.d))if(0>=d.offsetWidth&&0>=d.offsetHeight)a=!1;else{c=d.getBoundingClientRect();var f=document.body;a=c.top+("pageYOffset"in window?window.pageYOffset:(document.documentElement||f.parentNode||f).scrollTop);c=c.left+("pageXOffset"in window?window.pageXOffset:(document.documentElement||f.parentNode||f).scrollLeft);f=a.toString()+","+c;b.b.hasOwnProperty(f)?a=!1:(b.b[f]=!0,a=a<=b.e.height&&c<=b.e.width)}a&&(b.a.push(e),b.d[e]=!0)};p.prototype.checkImageForCriticality=function(b){b.getBoundingClientRect&&q(this,b)};h("pagespeed.CriticalImages.checkImageForCriticality",function(b){n.checkImageForCriticality(b)});h("pagespeed.CriticalImages.checkCriticalImages",function(){r(n)});var r=function(b){b.b={};for(var d=["IMG","INPUT"],a=[],c=0;c<d.length;++c)a=a.concat(l(document.getElementsByTagName(d[c])));if(0!=a.length&&a[0].getBoundingClientRect){for(c=0;d=a[c];++c)q(b,d);a="oh="+b.i;b.c&&(a+="&n="+b.c);if(d=0!=b.a.length)for(a+="&ci="+encodeURIComponent(b.a[0]),c=1;c<b.a.length;++c){var e=","+encodeURIComponent(b.a[c]);131072>=a.length+e.length&&(a+=e)}b.g&&(e="&rd="+encodeURIComponent(JSON.stringify(s())),131072>=a.length+e.length&&(a+=e),d=!0);t=a;if(d){c=b.f;b=b.h;var f;if(window.XMLHttpRequest)f=new XMLHttpRequest;else if(window.ActiveXObject)try{f=new ActiveXObject("Msxml2.XMLHTTP")}catch(k){try{f=new ActiveXObject("Microsoft.XMLHTTP")}catch(u){}}f&&(f.open("POST",c+(-1==c.indexOf("?")?"?":"&")+"url="+encodeURIComponent(b)),f.setRequestHeader("Content-Type","application/x-www-form-urlencoded"),f.send(a))}}},s=function(){var b={},d=document.getElementsByTagName("IMG");if(0==d.length)return{};var a=d[0];if(!("naturalWidth"in a&&"naturalHeight"in a))return{};for(var c=0;a=d[c];++c){var e=a.getAttribute("pagespeed_url_hash");e&&(!(e in b)&&0<a.width&&0<a.height&&0<a.naturalWidth&&0<a.naturalHeight||e in b&&a.width>=b[e].k&&a.height>=b[e].j)&&(b[e]={rw:a.width,rh:a.height,ow:a.naturalWidth,oh:a.naturalHeight})}return b},t="";h("pagespeed.CriticalImages.getBeaconData",function(){return t});h("pagespeed.CriticalImages.Run",function(b,d,a,c,e,f){var k=new p(b,d,a,e,f);n=k;c&&m(function(){window.setTimeout(function(){r(k)},0)})});})();pagespeed.CriticalImages.Run('/mod_pagespeed_beacon','http://blog.tanelpoder.com/2013/05/29/forcing-smart-scans-on-exadata-is-_serial_direct_read-parameter-safe-to-use-in-production/','SLoDkQnME-',true,false,'i9jbG1wJ0AE');
+//]]></script><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAACZ0lEQVQozzWQTWhUVxhAz/fdO+85TsQ6iclI/I2CVAP9WZhahIK6keJCkAQRREEolQpKN+KidOVOECldtVBqF6ZQXKgUl1IIKgF/QDEKYhTixInSmIZ5777700X0rM7mbI4APDyxsZVn+QVRGQspAYIISwiIgFUlhjA+9+btqR2/ddoycaR3cP26jdcayqfOddFMMHkNk2eYmqJWUCOIFbKapdPu3nsy8exrc2b3+l9WZnZPWLWBnr3fYAc2I5qQYg4Vh1qzFCqkFOmp11oupHVWRUYrX5H39lPfeZgPhJd3CJO/ktqTiMkQEXwZKV3CGh01333R+2NjRQO6Hfyjq8QXtxBJ2E27MB/vR2IF7ft4l6iKRHCwsFCgIKiJ2L615J8cQKzF3zxHdeUYaf4FZuQkadshqsUCX0Z8GYGECmBMxHw0QDZylGX7z5OPXkKy5fhr35L+fY4dOQH9n+EXC4JLpASKgtZz6DzAXT5EuP0T0ujH7rtIqg/Svf4Dokr+5XFCpfgykCIogLGKxi64eeLjvwg3TpNihf3qLO7lFO7xTWpDI0hzM6HrIIGKgEjA9A2RHbxE7cDvVK+mqCb/QPuGkDWf0737N2IsdnCYUFYAqFVBrSDWgqmRxOIrSzn1D6SEDmynnHm25CvXEFzCqiBPv986vmW4NepDQVi+Ab9Y4maniamO9G3Dzc1Qzb3GDg5Tzr4i687yX1b8acZWy0S9uWJPo563yrcd/Lt3RG8JRYVrT+MXFohVxM1Mk6cC32Puzbv2EQG4c3R1q9lsXjCqY1VY2k1KkHjvYBRQxp0rT23/+Xn7fyy5EEGJI0N2AAAAAElFTkSuQmCC" alt="RSS Feed" pagespeed_url_hash="3485948561" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></a>&nbsp;<a target="_self" href="http://blog.tanelpoder.com/feed/" title="Subscribe to Posts">RSS - Posts</a></p><p><a target="_self" href="http://blog.tanelpoder.com/comments/feed/" title="Subscribe to Comments"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAACZ0lEQVQozzWQTWhUVxhAz/fdO+85TsQ6iclI/I2CVAP9WZhahIK6keJCkAQRREEolQpKN+KidOVOECldtVBqF6ZQXKgUl1IIKgF/QDEKYhTixInSmIZ5777700X0rM7mbI4APDyxsZVn+QVRGQspAYIISwiIgFUlhjA+9+btqR2/ddoycaR3cP26jdcayqfOddFMMHkNk2eYmqJWUCOIFbKapdPu3nsy8exrc2b3+l9WZnZPWLWBnr3fYAc2I5qQYg4Vh1qzFCqkFOmp11oupHVWRUYrX5H39lPfeZgPhJd3CJO/ktqTiMkQEXwZKV3CGh01333R+2NjRQO6Hfyjq8QXtxBJ2E27MB/vR2IF7ft4l6iKRHCwsFCgIKiJ2L615J8cQKzF3zxHdeUYaf4FZuQkadshqsUCX0Z8GYGECmBMxHw0QDZylGX7z5OPXkKy5fhr35L+fY4dOQH9n+EXC4JLpASKgtZz6DzAXT5EuP0T0ujH7rtIqg/Svf4Dokr+5XFCpfgykCIogLGKxi64eeLjvwg3TpNihf3qLO7lFO7xTWpDI0hzM6HrIIGKgEjA9A2RHbxE7cDvVK+mqCb/QPuGkDWf0737N2IsdnCYUFYAqFVBrSDWgqmRxOIrSzn1D6SEDmynnHm25CvXEFzCqiBPv986vmW4NepDQVi+Ab9Y4maniamO9G3Dzc1Qzb3GDg5Tzr4i687yX1b8acZWy0S9uWJPo563yrcd/Lt3RG8JRYVrT+MXFohVxM1Mk6cC32Puzbv2EQG4c3R1q9lsXjCqY1VY2k1KkHjvYBRQxp0rT23/+Xn7fyy5EEGJI0N2AAAAAElFTkSuQmCC" alt="RSS Feed" pagespeed_url_hash="3485948561" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></a>&nbsp;<a target="_self" href="http://blog.tanelpoder.com/comments/feed/" title="Subscribe to Comments">RSS - Comments</a></p>
+</li>					</ul>
+				</div><!-- #second .widget-area -->
+
+				<div id="third" class="widget-area">
+					<ul class="xoxo">
+						<li id="text-449045842" class="widget-container threecol widget_text"><h3 class="widget-title">Training in 2015</h3>			<div class="textwidget"><a href="http://blog.tanelpoder.com/seminar/"><font color="red">New training by Tanel in 2015!</font></a><br>
+<a href="http://blog.tanelpoder.com/seminar/">Advanced Oracle Troubleshooting</a> - Launching March 2015! 
+
+</div>
+		</li>					</ul>
+				</div><!-- #third .widget-area -->
+
+				<div id="fourth" class="widget-area">
+					<ul class="xoxo">
+						<li id="search-5" class="widget-container threecol last widget_search"><h3 class="widget-title">Search</h3><form role="search" method="get" id="searchform" class="searchform" action="http://blog.tanelpoder.com/">
+				<div>
+					<label class="screen-reader-text" for="s">Search for:</label>
+					<input name="s" id="s" type="text">
+					<input id="searchsubmit" value="Search" type="submit">
+				</div>
+			</form></li>					</ul>
+				</div><!-- #fourth .widget-area -->
+
+			</div><!-- #footer-widget-area -->
+				</div><!-- #footerbar -->
+				<div id="colophon" class="twelvecol last">
+					<div id="site-info" class="sixcol">
+						<a href="http://blog.tanelpoder.com/" title="Tanel Poder's Performance &amp; Troubleshooting blog" rel="home">
+							Tanel Poder's Performance &amp; Troubleshooting blog						</a>
+					</div><!-- #site-info -->
+					<div id="site-generator" class="sixcol last">
+												<a href="http://wordpress.org/" title="Semantic Personal Publishing Platform">Proudly powered by WordPress.</a>
+					</div><!-- #site-generator -->
+				</div><!-- #colophon -->
+			</footer><!-- #footer -->
+		</div><!-- #wrapper -->
+			<div style="display:none">
+	</div>
+
+	<script type="text/javascript">window.WPCOM_sharing_counts={"http:\/\/blog.tanelpoder.com\/2013\/05\/29\/forcing-smart-scans-on-exadata-is-_serial_direct_read-parameter-safe-to-use-in-production\/":2191};window.WPCOM_site_ID=5982710;</script>
+		<script type="text/javascript">var windowOpen;jQuery(document).on('ready post-load',function(){jQuery('a.share-twitter').on('click',function(){if('undefined'!==typeof windowOpen){windowOpen.close();}
+windowOpen=window.open(jQuery(this).attr('href'),'wpcomtwitter','menubar=1,resizable=1,width=600,height=350');return false;});});</script>
+				<script type="text/javascript">var windowOpen;jQuery(document).on('ready post-load',function(){jQuery('a.share-facebook').on('click',function(){if('undefined'!==typeof windowOpen){windowOpen.close();}
+windowOpen=window.open(jQuery(this).attr('href'),'wpcomfacebook','menubar=1,resizable=1,width=600,height=400');return false;});});</script>
+				<script type="text/javascript">var windowOpen;jQuery(document).on('ready post-load',function(){jQuery('a.share-linkedin').on('click',function(){if('undefined'!==typeof windowOpen){windowOpen.close();}
+windowOpen=window.open(jQuery(this).attr('href'),'wpcomlinkedin','menubar=1,resizable=1,width=580,height=450');return false;});});</script>
+				<script type="text/javascript">var windowOpen;jQuery(document).on('ready post-load',function(){jQuery('a.share-google-plus-1').on('click',function(){if('undefined'!==typeof windowOpen){windowOpen.close();}
+windowOpen=window.open(jQuery(this).attr('href'),'wpcomgoogle-plus-1','menubar=1,resizable=1,width=480,height=550');return false;});});</script>
+				<script type="text/javascript">var windowOpen;jQuery(document).on('ready post-load',function(){jQuery('a.share-pocket').on('click',function(){if('undefined'!==typeof windowOpen){windowOpen.close();}
+windowOpen=window.open(jQuery(this).attr('href'),'wpcompocket','menubar=1,resizable=1,width=450,height=450');return false;});});</script>
+							<script type="text/javascript">jQuery(document).on('ready',function(){jQuery('body').on('click','a.share-pinterest',function(e){e.preventDefault();var s=document.createElement("script");s.type="text/javascript";s.src=window.location.protocol+"//assets.pinterest.com/js/pinmarklet.js?r="+(Math.random()*99999999);var x=document.getElementsByTagName("script")[0];x.parentNode.insertBefore(s,x);var s=document.createElement("script");s.type="text/javascript";s.src=this+(this.toString().indexOf('?')?'&':'?')+'js_only=1';var x=document.getElementsByTagName("script")[0];x.parentNode.insertBefore(s,x);});});</script>
+				<script type="text/javascript">var windowOpen;jQuery(document).on('ready post-load',function(){jQuery('a.share-tumblr').on('click',function(){if('undefined'!==typeof windowOpen){windowOpen.close();}
+windowOpen=window.open(jQuery(this).attr('href'),'wpcomtumblr','menubar=1,resizable=1,width=450,height=450');return false;});});</script>
+			
+<script src="Forcing%20Smart%20Scans%20on%20Exadata%20%E2%80%93%20is%20the%20_serial_direct_read%20parameter%20safe%20to%20use%20in%20production%20%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/wp-content_plugins_akismet__inc_form.js"></script><script>eval(mod_pagespeed_w0j0wNNgNS);</script>
+<script>eval(mod_pagespeed_IJG4ayv3Q$);</script>
+<script>eval(mod_pagespeed_CI_ve26wXe);</script>
+<script type="text/javascript" src="Forcing%20Smart%20Scans%20on%20Exadata%20%E2%80%93%20is%20the%20_serial_direct_read%20parameter%20safe%20to%20use%20in%20production%20%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/devicepx-jetpack.js"></script>
+<script type="text/javascript">//<![CDATA[
+var sharing_js_options={"lang":"en","counts":"1"};
+//]]></script>
+<script type="text/javascript" src="Forcing%20Smart%20Scans%20on%20Exadata%20%E2%80%93%20is%20the%20_serial_direct_read%20parameter%20safe%20to%20use%20in%20production%20%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/sharing.js"></script>
+	
+
+
+
+
+
+<div id="sharing_email" style="display: none;">
+		<form action="/2013/05/29/forcing-smart-scans-on-exadata-is-_serial_direct_read-parameter-safe-to-use-in-production/" method="post">
+			<label for="target_email">Send to Email Address</label>
+			<input name="target_email" id="target_email" type="email">
+
+			
+				<label for="source_name">Your Name</label>
+				<input name="source_name" id="source_name" type="text">
+
+				<label for="source_email">Your Email Address</label>
+				<input name="source_email" id="source_email" type="email">
+
+						<input id="jetpack-source_f_name" name="source_f_name" class="input" size="25" autocomplete="off" type="text">
+			<script>document.getElementById('jetpack-source_f_name').value='';</script>
+			
+			<img style="float: right; display: none" class="loading" src="data:image/gif;base64,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" alt="loading" pagespeed_url_hash="1637830375" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+			<input value="Send Email" class="sharing_send" type="submit">
+			<a rel="nofollow" href="#cancel" class="sharing_cancel">Cancel</a>
+
+			<div class="errors errors-1" style="display: none;">
+				Post was not sent - check your email addresses!			</div>
+
+			<div class="errors errors-2" style="display: none;">
+				Email check failed, please try again			</div>
+
+			<div class="errors errors-3" style="display: none;">
+				Sorry, your blog cannot share posts by email.			</div>
+		</form>
+	</div></body></html>
+<!-- Dynamic page generated in 0.728 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2015-05-09 01:07:00 -->
+<!-- super cache -->

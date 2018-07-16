@@ -1,0 +1,1677 @@
+<!DOCTYPE html>
+<html class="wf-lemondesans1-n4-active wf-active" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><script src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/pinit_main.js" async="" type="text/javascript"></script><script async="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/cbgapi.loaded_1"></script><script async="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/cbgapi.loaded_0"></script>
+<meta charset="UTF-8">
+<title>Exadata X3 Key Points | The Oracle Instructor</title>
+<link rel="pingback" href="http://uhesse.com/xmlrpc.php">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+
+<!--[if IE]>
+<style type="text/css">
+	#page-wrap1 {
+		background: url(https://s0.wp.com/wp-content/themes/pub/fusion/images/header-bg.png) repeat-x;
+	}
+</style>
+<![endif]-->
+
+<!--[if lte IE 6]>
+<script type="text/javascript">
+/* <![CDATA[ */
+	blankimgpath = 'https://s0.wp.com/wp-content/themes/pub/fusion/images/blank.gif';
+/* ]]> */
+</script>
+<![endif]-->
+
+<meta name="google-site-verification" content="4luI56nuKjb4glt5EazobSgS7l4rOuXXIhzJSC6Xz5w">
+<meta name="p:domain_verify" content="3da234ae0ead8bbd4af26cce1bfe0247">
+		<script src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/sdk.js" id="facebook-jssdk"></script><script gapi_processed="true" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/plusone.js" async="" type="text/javascript"></script><script async="" type="text/javascript" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/ggl5qiy.js"></script><script src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/remote-login.php" type="text/javascript"></script>
+		<script type="text/javascript">
+		/* <![CDATA[ */
+			if ( 'function' === typeof WPRemoteLogin ) {
+				document.cookie = "wordpress_test_cookie=test; path=/";
+				if ( document.cookie.match( /(;|^)\s*wordpress_test_cookie\=/ ) ) {
+					WPRemoteLogin();
+				}
+			}
+		/* ]]> */
+		</script>
+		<link rel="alternate" type="application/rss+xml" title="The Oracle Instructor » Feed" href="http://uhesse.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="The Oracle Instructor » Comments Feed" href="http://uhesse.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="The Oracle Instructor » Exadata X3 Key&nbsp;Points Comments Feed" href="http://uhesse.com/2012/10/01/exadata-x3-key-points/feed/">
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel="stylesheet" id="all-css-0" href="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/a.css" type="text/css" media="all">
+<!--[if lte IE 6]>
+<link rel='stylesheet' id='fusion-ie6-css'  href='https://s0.wp.com/wp-content/themes/pub/fusion/ie6.css?m=1282587368g&#038;ver=4.2-alpha-31722' type='text/css' media='all' />
+<![endif]-->
+<link rel="stylesheet" id="all-css-2" href="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/a_002.css" type="text/css" media="all">
+<link rel="stylesheet" id="print-css-2" href="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/global-print.css" type="text/css" media="print">
+<script type="text/javascript">
+/* <![CDATA[ */
+var LoggedOutFollow = {"invalid_email":"Your subscription did not succeed, please try again with a valid email address."};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/a.js"></script>
+<link rel="stylesheet" id="all-css-0" href="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/style.css" type="text/css" media="all">
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='https://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://uhesse.wordpress.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://s1.wp.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Auditing ALTER SYSTEM&nbsp;commands" href="http://uhesse.com/2012/09/19/auditing-alter-system-commands/">
+<link rel="next" title="Why you should use Application Services with your Oracle&nbsp;Database" href="http://uhesse.com/2012/10/31/why-you-should-use-application-services-with-your-oracle-database/">
+<meta name="generator" content="WordPress.com">
+<link rel="canonical" href="http://uhesse.com/2012/10/01/exadata-x3-key-points/">
+<link rel="shortlink" href="http://wp.me/ppZNJ-i6">
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=json&amp;url=http%3A%2F%2Fuhesse.com%2F2012%2F10%2F01%2Fexadata-x3-key-points%2F&amp;for=wpcom-auto-discovery"><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=xml&amp;url=http%3A%2F%2Fuhesse.com%2F2012%2F10%2F01%2Fexadata-x3-key-points%2F&amp;for=wpcom-auto-discovery">
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Exadata X3 Key Points">
+<meta property="og:url" content="http://uhesse.com/2012/10/01/exadata-x3-key-points/">
+<meta property="og:description" content="This post will give a brief summary of the Exadata Database Machine X3 as it was announced at the Oracle Open World by Larry Ellision: (URL above is the complete Keynote; X3 announcement comes at 3...">
+<meta property="article:published_time" content="2012-10-01T07:19:29+00:00">
+<meta property="article:modified_time" content="2012-10-05T07:19:53+00:00">
+<meta property="article:author" content="http://uhesse.com/author/uhesse/">
+<meta property="og:site_name" content="The Oracle Instructor">
+<meta property="og:image" content="http://uhesse.files.wordpress.com/2012/10/ellison_oow2012_keynote_x3.gif">
+<meta property="og:image" content="http://uhesse.files.wordpress.com/2012/10/f40.gif">
+<meta property="og:image" content="http://uhesse.files.wordpress.com/2012/10/sandybridge.png">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:site" content="@wordpressdotcom">
+<meta name="twitter:image" content="http://uhesse.files.wordpress.com/2012/10/ellison_oow2012_keynote_x3.gif?w=240">
+<meta name="twitter:card" content="summary">
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom">
+<link rel="shortcut icon" type="image/x-icon" href="http://1.gravatar.com/blavatar/dc801826a31d981cf2f59dab942d93ce?s=16" sizes="16x16">
+<link rel="icon" type="image/x-icon" href="http://1.gravatar.com/blavatar/dc801826a31d981cf2f59dab942d93ce?s=16" sizes="16x16">
+<link rel="apple-touch-icon-precomposed" href="http://1.gravatar.com/blavatar/b84180298f7f793d1504fa3912ccc5dd?s=114">
+<link rel="openid.server" href="http://uhesse.wordpress.com/?openidserver=1">
+<link rel="openid.delegate" href="http://uhesse.wordpress.com/">
+<link rel="search" type="application/opensearchdescription+xml" href="http://uhesse.com/osd.xml" title="The Oracle Instructor">
+<link rel="search" type="application/opensearchdescription+xml" href="https://wordpress.com/opensearch.xml" title="WordPress.com">
+	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+		<style type="text/css">
+			.recentcomments a {
+				display: inline !important;
+				padding: 0 !important;
+				margin: 0 !important;
+			}
+
+			table.recentcommentsavatartop img.avatar, table.recentcommentsavatarend img.avatar {
+				border: 0px;
+				margin: 0;
+			}
+
+			table.recentcommentsavatartop a, table.recentcommentsavatarend a {
+				border: 0px !important;
+				background-color: transparent !important;
+			}
+
+			td.recentcommentsavatarend, td.recentcommentsavatartop {
+				padding: 0px 0px 1px 0px;
+				margin: 0px;
+			}
+
+			td.recentcommentstextend {
+				border: none !important;
+				padding: 0px 0px 2px 10px;
+			}
+
+			.rtl td.recentcommentstextend {
+				padding: 0px 10px 2px 0px;
+			}
+
+			td.recentcommentstexttop {
+				border: none;
+				padding: 0px 0px 0px 10px;
+			}
+
+			.rtl td.recentcommentstexttop {
+				padding: 0px 10px 0px 0px;
+			}
+		</style>
+		<style type="text/css">
+.widget_twitter li {
+	word-wrap: break-word;
+}
+</style>
+
+<meta name="geo.position" content="48.139127;11.580186">
+<meta name="ICBM" content="48.139127, 11.580186">
+<meta name="application-name" content="The Oracle Instructor"><meta name="msapplication-window" content="width=device-width;height=device-height"><meta name="msapplication-tooltip" content="Explain, Exemplify, Empower"><meta name="msapplication-task" content="name=Subscribe;action-uri=http://uhesse.com/feed/;icon-uri=http://1.gravatar.com/blavatar/dc801826a31d981cf2f59dab942d93ce?s=16"><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="title" content="Exadata X3 Key&nbsp;Points | The Oracle Instructor on WordPress.com">
+<meta name="description" content="This post will give a brief summary of the Exadata Database Machine X3 as it was announced at the Oracle Open World by Larry Ellision: (URL above is the complete Keynote; X3 announcement comes at 31:29) The X3 Storage Servers have 4 times the Flash Capacity than X2: Each cell comes with 1600 GB, using…">
+	<style type="text/css">
+						#header h1 a {
+					color: #ffffff !important;
+				}
+			</style>
+		<!-- IPONWEB header script -->
+		<script type="text/javascript">
+			window.__ATA = {
+				scriptSrc: '//s.pubmine.com/showad.js',
+				slotPrefix: 'automattic-id-',
+				isSync: true,
+				initAd: function(o) {
+					var o = o || {},
+						g = window,
+						d = g.document,
+						wr = d.write,
+						id = g.__ATA.id();
+					wr.call(d, '<div id="' + id + '" data-section="' + (o.sectionId || 0) + '"' + (o.type ? ('data-type="' + o.type + '"') : '') + ' ' + (o.forcedUrl ? ('data-forcedurl="' + o.forcedUrl + '"') : '') + ' style="width:' + (o.width || 0) + 'px; height:' + (o.height || 0) + 'px;">');
+					g.__ATA.displayAd(id);
+					wr.call(d, '</div>');
+				},
+				displayAd: function(id) {
+					window.__ATA.ids = window.__ATA.ids || {};
+					window.__ATA.ids[id] = 1;
+				},
+				id: function() {
+					return window.__ATA.slotPrefix + (parseInt(Math.random() * 10000, 10) + 1 + (new Date()).getMilliseconds());
+				}
+			};
+
+			// including ad delivery script
+			(function(g, d, ata, sync) {
+				var pr = "https:" === d.location.protocol ? "https:" : "http:",
+					src = pr + ata.scriptSrc,
+					st = "text/javascript";
+				(sync === true) ? d.write('<scr' + 'ipt type="' + st + '" src="' + src + '"><\/scr' + 'ipt>'): inj(src, st);
+
+				function inj(url, st) {
+					var s = d.createElement("script"),
+						n = d.getElementsByTagName("script")[0],
+						p = n.parentNode,
+						ib = p.insertBefore;
+					s.type = st;
+					s.src = url;
+					s.async = true;
+					(navigator.userAgent.indexOf("Opera") !== -1) ? setTimeout(function() {
+						ib.call(p, s, n);
+					}, 0): ib.call(p, s, n);
+				}
+			})(window, window.document, window.__ATA, window.__ATA.isSync);
+		</script><script type="text/javascript" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/showad.js"></script>
+		<script type="text/javascript">
+		jQuery(window).ready(function () {
+			jQuery("a.wpa-about").text("About these ads");
+		});
+		</script><style type="text/css" id="syntaxhighlighteranchor"></style>
+<script type="text/javascript" id="custom-fonts-js">
+(function(doc) {
+	
+	var config = {"kitId":"ggl5qiy","scriptTimeout":3000},
+	h=doc.getElementsByTagName("html")[0];h.className+=" wf-loading";var t=setTimeout(function(){h.className=h.className.replace(/(\s|^)wf-loading(\s|$)/g," ");h.className+="wf-inactive"},config.scriptTimeout);var tk=doc.createElement("script"),d=false;tk.src='//use.typekit.net/'+config.kitId+'.js';tk.type="text/javascript";tk.async="true";tk.onload=tk.onreadystatechange=function(){var a=this.readyState;if(d||a&&a!="complete"&&a!="loaded")return;d=true;clearTimeout(t);try{Typekit.load(config)}catch(b){}};var s=doc.getElementsByTagName("script")[0];s.parentNode.insertBefore(tk,s);
+})(document);
+</script>
+<style type="text/css" id="custom-fonts-css">/* Site Title */ .wf-loading #header h1 { visibility: hidden; } .wf-active #header h1 { font-family: lemonde-sans-1,lemonde-sans-2,Georgia,Times,serif; font-style: normal; font-weight: 400; font-variant: normal; } .wf-loading #header h1 a { visibility: hidden; } .wf-active #header h1 a { font-weight: 400; } 
+/* Headings */ .wf-loading h1 { visibility: hidden; } .wf-active h1 { font-weight: 400; } .wf-loading h2 { visibility: hidden; } .wf-active h2 { font-family: lemonde-sans-1,lemonde-sans-2,"Palatino Linotype",Georgia,Times,serif; font-style: normal; font-weight: 400; font-variant: normal; } .wf-loading div.page h2,.wf-loading div.post h2,.wf-loading h3,.wf-loading h4,.wf-loading h5,.wf-loading h6 { visibility: hidden; } .wf-active div.page h2,.wf-active div.post h2,.wf-active h3,.wf-active h4,.wf-active h5,.wf-active h6 { font-family: lemonde-sans-1,lemonde-sans-2,"Lucida Grande",Helvetica,Arial,sans-serif; font-style: normal; font-weight: 400; font-variant: normal; } .wf-loading h3 { visibility: hidden; } .wf-active h3 { font-weight: 400; } .wf-loading h4 { visibility: hidden; } .wf-active h4 { font-weight: 400; } .wf-loading h5 { visibility: hidden; } .wf-active h5 { font-weight: 400; font-style: normal; } .wf-loading h6 { visibility: hidden; } .wf-active h6 { font-weight: 400; } .wf-loading .attachment h2.title,.wf-loading .page h2.title,.wf-loading .page h2.title,.wf-loading .post h2.title { visibility: hidden; } .wf-active .attachment h2.title,.wf-active .page h2.title,.wf-active .page h2.title,.wf-active .post h2.title { font-family: lemonde-sans-1,lemonde-sans-2,"Palatino Linotype",Georgia,Times,serif; font-style: normal; font-weight: 400; font-variant: normal; } .wf-loading .attachment h3.title,.wf-loading .post h3.title { visibility: hidden; } .wf-active .attachment h3.title,.wf-active .post h3.title { font-family: lemonde-sans-1,lemonde-sans-2,"Palatino Linotype",Georgia,Times,serif; font-style: normal; font-weight: 400; font-variant: normal; } .wf-loading #sidebar h2.title,.wf-loading #sidebar h3.title,.wf-loading #sidebar2 h2.title,.wf-loading #sidebar2 h3.title { visibility: hidden; } .wf-active #sidebar h2.title,.wf-active #sidebar h3.title,.wf-active #sidebar2 h2.title,.wf-active #sidebar2 h3.title { font-family: lemonde-sans-1,lemonde-sans-2,"Lucida Grande",Helvetica,Arial,sans-serif; font-style: normal; font-weight: 400; font-variant: normal; } .wf-loading #sidebar li.linkcat h2.title,.wf-loading #sidebar2 li.linkcat h2.title { visibility: hidden; } .wf-active #sidebar li.linkcat h2.title,.wf-active #sidebar2 li.linkcat h2.title { font-style: normal; } .wf-loading .widget_calendar table#wp-calendar thead th { visibility: hidden; } .wf-active .widget_calendar table#wp-calendar thead th { font-weight: 400; } .wf-loading ul#footer-widgets h4.title { visibility: hidden; } .wf-active ul#footer-widgets h4.title { font-family: lemonde-sans-1,lemonde-sans-2,"Lucida Grande",Helvetica,Arial,sans-serif; font-style: normal; font-weight: 400; font-variant: normal; } 
+</style><link media="all" href="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/d.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" id="gravatar-card-css" href="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/services.css"><script src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/secureAnonymousFramework"></script><style type="text/css">a.PIN_1431156025945_pin_it_button_20 { cursor: pointer!important; background-repeat: none!important; background-size: 40px 60px!important; height: 20px!important; padding: 0!important; vertical-align: baseline!important; text-decoration: none!important; width: 40px!important; background-position: 0 -20px }
+a.PIN_1431156025945_pin_it_button_20:hover { background-position: 0 0px }
+a.PIN_1431156025945_pin_it_button_20:active, a.PIN_1431156025945_pin_it_button_20.PIN_1431156025945_hazClick { background-position: 0 -40px }
+a.PIN_1431156025945_pin_it_button_inline_20 { cursor: pointer!important; position: relative!important; display: inline-block!important; }
+a.PIN_1431156025945_pin_it_button_floating_20 { cursor: pointer!important; position: absolute!important; }
+a.PIN_1431156025945_pin_it_button_en_20_red { background-image: url(https://s-passets.pinimg.com/images/pidgets/pinit_bg_en_rect_red_20_1.png)!important; }
+a.PIN_1431156025945_pin_it_button_en_20_white { background-image: url(https://s-passets.pinimg.com/images/pidgets/pinit_bg_en_rect_white_20_1.png)!important; }
+a.PIN_1431156025945_pin_it_button_en_20_gray { background-image: url(https://s-passets.pinimg.com/images/pidgets/pinit_bg_en_rect_gray_20_1.png)!important; }
+a.PIN_1431156025945_pin_it_button_ja_20_red { background-image: url(https://s-passets.pinimg.com/images/pidgets/pinit_bg_ja_rect_red_20_1.png)!important; }
+a.PIN_1431156025945_pin_it_button_ja_20_white { background-image: url(https://s-passets.pinimg.com/images/pidgets/pinit_bg_ja_rect_white_20_1.png)!important; }
+a.PIN_1431156025945_pin_it_button_ja_20_gray { background-image: url(https://s-passets.pinimg.com/images/pidgets/pinit_bg_ja_rect_gray_20_1.png)!important; }
+a.PIN_1431156025945_pin_it_above_20 span.PIN_1431156025945_pin_it_button_count { background: transparent url(https://s-passets.pinimg.com/images/pidgets/count_north_white_rect_20_1.png) 0 0 no-repeat!important; background-size: 40px 29px!important; position: absolute!important; bottom: 21px!important; left: 0px!important; height: 29px!important; width: 40px!important; font: 12px Arial, Helvetica, sans-serif!important; line-height: 24px!important; text-indent: 0!important;}
+a.PIN_1431156025945_pin_it_button_20 span.PIN_1431156025945_pin_it_button_count { position: absolute!important; color: #777!important; text-align: center!important; text-indent: 0!important; }
+a.PIN_1431156025945_pin_it_beside_20 span.PIN_1431156025945_pin_it_button_count, a.PIN_1431156025945_pin_it_beside_20 span.PIN_1431156025945_pin_it_button_count i { background-color: transparent!important; background-repeat: no-repeat!important; background-image: url(https://s-passets.pinimg.com/images/pidgets/count_east_white_rect_20_1.png)!important; }
+a.PIN_1431156025945_pin_it_beside_20 span.PIN_1431156025945_pin_it_button_count { padding: 0 3px 0 10px!important; background-size: 45px 20px!important; background-position: 0 0!important; position: absolute!important; top: 0!important; left: 41px!important; height: 20px!important; font: 10px Arial, Helvetica, sans-serif!important; line-height: 20px!important; }
+a.PIN_1431156025945_pin_it_beside_20 span.PIN_1431156025945_pin_it_button_count i { background-position: 100% 0!important; position: absolute!important; top: 0!important; right: -2px!important; height: 20px!important; width: 2px!important; }
+a.PIN_1431156025945_pin_it_button_20.PIN_1431156025945_pin_it_above { margin-top: 20px!important; }
+a.PIN_1431156025945_pin_it_above_20_pad { margin-top: 30px!important; }
+a.PIN_1431156025945_pin_it_beside_20_pad { margin-right: 45px!important; }
+a.PIN_1431156025945_pin_it_button_28 { cursor: pointer!important; background-repeat: none!important; background-size: 56px 84px!important; height: 28px!important; padding: 0!important; vertical-align: baseline!important; text-decoration: none!important; width: 56px!important; background-position: 0 -28px }
+a.PIN_1431156025945_pin_it_button_28:hover { background-position: 0 0px }
+a.PIN_1431156025945_pin_it_button_28:active, a.PIN_1431156025945_pin_it_button_28.PIN_1431156025945_hazClick { background-position: 0 -56px }
+a.PIN_1431156025945_pin_it_button_inline_28 { cursor: pointer!important; position: relative!important; display: inline-block!important; }
+a.PIN_1431156025945_pin_it_button_floating_28 { cursor: pointer!important; position: absolute!important; }
+a.PIN_1431156025945_pin_it_above_28_pad { margin-top: 38px!important;}
+a.PIN_1431156025945_pin_it_beside_28_pad { margin-right: 50px!important;}
+a.PIN_1431156025945_pin_it_button_en_28_red { background-image: url(https://s-passets.pinimg.com/images/pidgets/pinit_bg_en_rect_red_28_1.png)!important; }
+a.PIN_1431156025945_pin_it_button_en_28_white { background-image: url(https://s-passets.pinimg.com/images/pidgets/pinit_bg_en_rect_white_28_1.png)!important; }
+a.PIN_1431156025945_pin_it_button_en_28_gray { background-image: url(https://s-passets.pinimg.com/images/pidgets/pinit_bg_en_rect_gray_28_1.png)!important; }
+a.PIN_1431156025945_pin_it_button_ja_28_red { background-image: url(https://s-passets.pinimg.com/images/pidgets/pinit_bg_ja_rect_red_28_1.png)!important; }
+a.PIN_1431156025945_pin_it_button_ja_28_white { background-image: url(https://s-passets.pinimg.com/images/pidgets/pinit_bg_ja_rect_white_28_1.png)!important; }
+a.PIN_1431156025945_pin_it_button_ja_28_gray { background-image: url(https://s-passets.pinimg.com/images/pidgets/pinit_bg_ja_rect_gray_28_1.png)!important; }
+a.PIN_1431156025945_pin_it_button_en_16_red_round, a.PIN_1431156025945_pin_it_button_en_32_red_round { background-repeat: none!important; margin: 0!important; padding: 0!important; vertical-align: baseline!important; text-decoration: none!important; }
+a.PIN_1431156025945_pin_it_button_en_16_red_round { height: 16px!important; width: 16px!important; background-size: 16px 16px!important; background-image: url(https://s-passets.pinimg.com/images/pidgets/pinit_bg_en_round_red_16_1.png)!important;}
+a.PIN_1431156025945_pin_it_button_en_32_red_round { height: 32px!important; width: 32px!important; background-size: 32px 32px!important; background-image: url(https://s-passets.pinimg.com/images/pidgets/pinit_bg_en_round_red_32_1.png)!important;}
+a.PIN_1431156025945_pin_it_button_inline_en_16_red_round, a.PIN_1431156025945_pin_it_button_inline_en_32_red_round { position: relative!important; display: inline-block!important; }
+a.PIN_1431156025945_pin_it_button_floating_en_16_red_round, a.PIN_1431156025945_pin_it_button_floating_en_32_red_round  { position: absolute!important; }
+a.PIN_1431156025945_pin_it_button_28 span.PIN_1431156025945_pin_it_button_count { position: absolute!important; color: #777!important; text-align: center!important; text-indent: 0!important; }
+a.PIN_1431156025945_pin_it_above_28 span.PIN_1431156025945_pin_it_button_count { background: transparent url(https://s-passets.pinimg.com/images/pidgets/count_north_white_rect_28_1.png) 0 0 no-repeat!important; background-size: 56px 37px!important; position: absolute!important; bottom: 29px!important; left: 0px!important; height: 37px!important; width: 56px!important; font: 15px Arial, Helvetica, sans-serif!important; line-height: 28px!important; text-indent: 0!important;}
+a.PIN_1431156025945_pin_it_beside_28 span.PIN_1431156025945_pin_it_button_count, a.PIN_1431156025945_pin_it_beside_28 span.PIN_1431156025945_pin_it_button_count i { background-color: transparent!important; background-repeat: no-repeat!important; background-image: url(https://s-passets.pinimg.com/images/pidgets/count_east_white_rect_28_1.png)!important; }
+a.PIN_1431156025945_pin_it_beside_28 span.PIN_1431156025945_pin_it_button_count { padding: 0 3px 0 10px!important; background-size: 63px 28px!important; background-position: 0 0!important; position: absolute!important; top: 0!important; left: 57px!important; height: 28px!important; font: 12px Arial, Helvetica, sans-serif!important; line-height: 28px!important; }
+a.PIN_1431156025945_pin_it_beside_28 span.PIN_1431156025945_pin_it_button_count i { background-position: 100% 0!important; position: absolute!important; top: 0!important; right: -2px!important; height: 28px!important; width: 2px!important; }
+a.PIN_1431156025945_pin_it_button_28.PIN_1431156025945_pin_it_above { margin-top: 28px!important; }
+a.PIN_1431156025945_follow_me_button, a.PIN_1431156025945_follow_me_button i { background-size: 200px 60px!important; background: transparent url(https://s-passets.pinimg.com/images/pidgets/bfs1.png) 0 0 no-repeat }
+a.PIN_1431156025945_follow_me_button { cursor: pointer!important; color: #444!important; display: inline-block!important; font: bold normal normal 11px/20px "Helvetica Neue",helvetica,arial,san-serif!important; height: 20px!important; margin: 0!important; padding: 0!important; position: relative!important; text-decoration: none!important; text-indent: 19px!important; vertical-align: baseline!important;}
+a.PIN_1431156025945_follow_me_button:hover { background-position: 0 -20px}
+a.PIN_1431156025945_follow_me_button:active  { background-position: 0 -40px}
+a.PIN_1431156025945_follow_me_button b { position: absolute!important; top: 3px!important; left: 3px!important; height: 14px!important; width: 14px!important; background-size: 14px 14px!important; background-image: url(https://s-passets.pinimg.com/images/pidgets/log1.png)!important; }
+a.PIN_1431156025945_follow_me_button i { position: absolute!important; top: 0!important; right: -4px!important; height: 20px!important; width: 4px!important; background-position: 100% 0px!important; }
+a.PIN_1431156025945_follow_me_button:hover i { background-position: 100% -20px!important;  }
+a.PIN_1431156025945_follow_me_button:active i { background-position: 100% -40px!important; }
+a.PIN_1431156025945_follow_me_button_28, a.PIN_1431156025945_follow_me_button_28 i { background-size: 400px 84px!important; background: transparent url(https://s-passets.pinimg.com/images/pidgets/bft1.png) 0 0 no-repeat }
+a.PIN_1431156025945_follow_me_button_28 { cursor: pointer!important; color: #444!important; display: inline-block!important; font: bold normal normal 13px/28px "Helvetica Neue",helvetica,arial,san-serif!important; height: 28px!important; margin: 0!important; padding: 0!important; position: relative!important; text-decoration: none!important; text-indent: 33px!important; vertical-align: baseline!important;}
+a.PIN_1431156025945_follow_me_button_28:hover { background-position: 0 -28px}
+a.PIN_1431156025945_follow_me_button_28:active  { background-position: 0 -56px}
+a.PIN_1431156025945_follow_me_button_28 b { position: absolute!important; top: 5px!important; left: 10px!important; height: 18px!important; width: 18px!important; background-size: 18px 18px!important; background-image: url(https://s-passets.pinimg.com/images/pidgets/smt1.png)!important; }
+a.PIN_1431156025945_follow_me_button_28 i { position: absolute!important; top: 0!important; right: -10px!important; height: 28px!important; width: 10px!important; background-position: 100% 0px!important; }
+a.PIN_1431156025945_follow_me_button_28:hover i { background-position: 100% -28px!important;  }
+a.PIN_1431156025945_follow_me_button_28:active i { background-position: 100% -56px!important; }
+span.PIN_1431156025945_embed_pin { -webkit-font-smoothing: antialiased!important; cursor: pointer!important; display: inline-block!important; text-align: center!important; overflow: hidden!important; vertical-align: top!important; width: 237px }
+span.PIN_1431156025945_embed_pin.PIN_1431156025945_medium { width: 345px!important; }
+span.PIN_1431156025945_embed_pin.PIN_1431156025945_large { width: 600px!important; }
+span.PIN_1431156025945_embed_pin img { border: 0!important; padding: 0!important; box-shadow: none!important; }
+span.PIN_1431156025945_embed_pin.PIN_1431156025945_fancy { background: #fff!important; box-shadow: 0 1px 3px rgba(0, 0, 0, .33)!important; border-radius: 3px!important; }
+span.PIN_1431156025945_embed_pin a.PIN_1431156025945_embed_pin_link { display: block!important;  margin: 0 auto!important; padding: 0!important; position: relative!important;  line-height: 0}
+span.PIN_1431156025945_embed_pin img.PIN_1431156025945_embed_pin_link_img { border: 0!important; margin: 0!important; padding: 0!important; border-bottom: 1px solid rgba(0, 0, 0, .09)!important;}
+span.PIN_1431156025945_embed_pin a.PIN_1431156025945_embed_pin_link i.PIN_1431156025945_repin { left: 12px!important; top: 12px!important; position: absolute!important; height: 20px!important; width: 40px!important; background-size: 40px 60px!important;  background: transparent url(https://s-passets.pinimg.com/images/pidgets/pinit_bg_en_rect_red_20_1.png) }
+span.PIN_1431156025945_embed_pin a.PIN_1431156025945_embed_pin_link i.PIN_1431156025945_repin_ja { left: 12px!important; top: 12px!important; position: absolute!important; height: 20px!important; width: 40px!important; background-size: 40px 60px!important; background: transparent url(https://s-passets.pinimg.com/images/pidgets/pinit_bg_ja_rect_red_20_1.png) }
+span.PIN_1431156025945_embed_pin a.PIN_1431156025945_embed_pin_link i.PIN_1431156025945_repin:hover, span.PIN_1431156025945_embed_pin a.PIN_1431156025945_embed_pin_link i.PIN_1431156025945_repin_ja:hover { background-position: 0 -20px!important; }
+span.PIN_1431156025945_embed_pin a.PIN_1431156025945_embed_pin_link i.PIN_1431156025945_repin.PIN_1431156025945_hazClick, span.PIN_1431156025945_embed_pin a.PIN_1431156025945_embed_pin_link i.PIN_1431156025945_repin_ja.PIN_1431156025945_hazClick { background-position: 0 -40px!important; }
+span.PIN_1431156025945_embed_pin a.PIN_1431156025945_embed_pin_link i.PIN_1431156025945_play { display: block!important; width: 50px!important; white-space: pre!important; font-family: "Helvetica Neue",helvetica,arial,san-serif!important; font-weight: bold!important; font-style: normal!important; font-size: 9px!important; line-height: 12px!important; margin: 0!important; position: absolute!important; bottom: 12px!important; left: 12px!important; text-decoration: none!important; background: rgba(0, 0, 0, .4)!important; color: rgba(255, 255, 255, 1)!important; border-radius: 13px!important; padding: 5px 0!important; box-shadow: 0 0 2px rgba(0, 0, 0, .2)!important; border: 2px solid rgba(255, 255, 255, .68)!important;}
+span.PIN_1431156025945_embed_pin a.PIN_1431156025945_embed_pin_link i.PIN_1431156025945_play:hover { background: rgba(0, 0, 0, .8)!important; color: #fff!important; }
+span.PIN_1431156025945_embed_pin span.PIN_1431156025945_embed_pin_desc { color: #363636!important; white-space: normal!important; border-bottom: 1px solid rgba(0, 0, 0, .09)!important;!important; display: block!important; font-family: "Helvetica Neue", arial, sans-serif!important; font-size: 13px!important; line-height: 17px!important; padding: 12px!important; text-align: left!important; }
+span.PIN_1431156025945_embed_pin span.PIN_1431156025945_embed_pin_attrib { color: #a8a8a8!important; font-family: "Helvetica Neue", sans-serif!important; font-size: 11px!important; line-height: 18px!important; margin-top: 12px!important; font-weight: bold!important; display: block!important;}
+span.PIN_1431156025945_embed_pin span.PIN_1431156025945_embed_pin_attrib img.PIN_1431156025945_embed_pin_attrib_icon { height: 16px!important; width: 16px!important; vertical-align: middle!important; padding: 0!important; margin: 0 5px 0 0!important; float: left!important;}
+span.PIN_1431156025945_embed_pin span.PIN_1431156025945_embed_pin_attrib a { color: #a8a8a8!important; text-decoration: none!important;}
+span.PIN_1431156025945_embed_pin span.PIN_1431156025945_embed_pin_stats { display: block!important; }
+span.PIN_1431156025945_embed_pin span.PIN_1431156025945_embed_pin_stats span.PIN_1431156025945_embed_pin_stats_repin_count, span.PIN_1431156025945_embed_pin span.PIN_1431156025945_embed_pin_stats span.PIN_1431156025945_embed_pin_stats_like_count { display: inline-block!important; padding-left: 17px!important; padding-right: 10px!important; color: #a8a8a8!important; font-family: "Helvetica Neue", sans-serif!important; font-size: 11px!important; line-height: 12px!important; margin-top: 12px!important; font-weight: bold!important; }
+span.PIN_1431156025945_embed_pin span.PIN_1431156025945_embed_pin_stats span.PIN_1431156025945_embed_pin_stats_repin_count { background: url(data:image/png!important;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAALCAAAAABq7uO+AAAASklEQVQI10WNMQrAMBRCvf/Z3pQcImPplsIPdqhNXOSJqLxVtnWQsuUO9IM3cHlV8dSSDZQHAOPH2YA2FU+qtH7MRhaVh/xt/PQCEW6N4EV+CPEAAAAASUVORK5CYII=) 0 0 no-repeat!important; }
+span.PIN_1431156025945_embed_pin span.PIN_1431156025945_embed_pin_stats span.PIN_1431156025945_embed_pin_stats_like_count { background: url(data:image/png!important;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAKCAAAAAClR+AmAAAAUElEQVR4AT2HMQpFIQwEc/+zbXhFLBW8QUihIAT2E8Q/xe6M0Jv2zK7NKUcBzAlAjzjqtdZl4c8S2nOjMPS6BoWMr/wLVnAbYJs3mGMkXzx+OeRqUf5HHRoAAAAASUVORK5CYII=) 0 2px no-repeat!important; }
+span.PIN_1431156025945_embed_pin span.PIN_1431156025945_embed_pin_text { padding: 12px!important; position: relative!important; text-decoration: none!important; display: block!important; font-weight: bold!important; color: #b7b7b7!important; font-family: "Helvetica Neue", arial, sans-serif!important; font-size: 11px!important; line-height: 14px!important; height: 30px!important; text-align: left!important; }
+span.PIN_1431156025945_embed_pin span.PIN_1431156025945_embed_pin_text img.PIN_1431156025945_embed_pin_text_avatar { border-radius: 15px!important; border: none!important; overflow: hidden!important; height: 30px!important; width: 30px!important; vertical-align: middle!important; margin: 0 8px 12px 0!important; float: left!important;}
+span.PIN_1431156025945_embed_pin span.PIN_1431156025945_embed_pin_text span.PIN_1431156025945_embed_pin_text_container_pinner, span.PIN_1431156025945_embed_pin a.PIN_1431156025945_embed_pin_text span.PIN_1431156025945_embed_pin_text_container_board { display: block!important; width: 175px!important; white-space: nowrap!important; overflow: hidden!important; text-overflow: ellipsis!important;}
+span.PIN_1431156025945_embed_pin span.PIN_1431156025945_embed_pin_text span.PIN_1431156025945_embed_pin_text_container_pinner { color: #777!important;}
+span.PIN_1431156025945_embed_grid { display: inline-block!important; margin: 0!important; padding:10px 0!important; position: relative!important; text-align: center}
+span.PIN_1431156025945_embed_grid.PIN_1431156025945_fancy { background: #fff!important; box-shadow: 0 1px 3px rgba(0, 0, 0, .33)!important; border-radius: 3px!important; }
+span.PIN_1431156025945_embed_grid span.PIN_1431156025945_embed_grid_hd { display: block!important; margin: 0 10px!important; padding: 0!important; height: 45px!important; position: relative!important;}
+span.PIN_1431156025945_embed_grid span.PIN_1431156025945_embed_grid_hd a.PIN_1431156025945_avatar { position: absolute!important; top: 0!important; left: 0!important; height: 36px!important; width: 36px!important; }
+span.PIN_1431156025945_embed_grid span.PIN_1431156025945_embed_grid_hd a.PIN_1431156025945_avatar img { position: relative!important; height: 36px!important; width: 36px!important; min-height: 36px!important; min-width: 36px!important; margin: 0!important; padding: 0!important; border-radius: 3px!important; border: none!important;}
+span.PIN_1431156025945_embed_grid span.PIN_1431156025945_embed_grid_hd a { text-decoration: none!important; border: none!important; background: transparent!important; cursor: pointer!important; white-space: nowrap!important; position: absolute!important; left: 44px!important; text-align: left!important; overflow: hidden!important; text-overflow: ellipsis!important; }
+span.PIN_1431156025945_embed_grid span.PIN_1431156025945_embed_grid_hd a:hover { text-decoration: none!important; background: inherit!important; }
+span.PIN_1431156025945_embed_grid span.PIN_1431156025945_embed_grid_hd a:active { text-decoration: none!important; background: inherit!important; }
+span.PIN_1431156025945_embed_grid span.PIN_1431156025945_embed_grid_hd a.PIN_1431156025945_embed_grid_first { top: 2px!important; font-family: helvetica, sans-serif!important; font-weight: bold!important; color:#333!important; font-size: 14px!important; line-height: 16px!important; }
+span.PIN_1431156025945_embed_grid span.PIN_1431156025945_embed_grid_hd a.PIN_1431156025945_embed_grid_second { bottom: 11px!important; font-family: helvetica, sans-serif!important; color:#8e8e8e!important; font-size: 12px!important; line-height: 14px!important; }
+span.PIN_1431156025945_embed_grid span.PIN_1431156025945_embed_grid_hd a.PIN_1431156025945_embed_grid_mid { top: 12px!important; font-family: helvetica, sans-serif!important; font-weight: bold!important; color:#333!important; font-size: 14px!important; line-height: 16px!important; }
+span.PIN_1431156025945_embed_grid span.PIN_1431156025945_embed_grid_bd { display:block!important; margin: 0 10px!important; border-radius: 2px!important; position: relative!important; overflow: hidden }
+span.PIN_1431156025945_embed_grid span.PIN_1431156025945_embed_grid_scrolling_okay { overflow: auto!important; }
+span.PIN_1431156025945_embed_grid span.PIN_1431156025945_embed_grid_bd span.PIN_1431156025945_embed_grid_ct { display:block!important; position: relative!important; overflow: hidden!important; }
+span.PIN_1431156025945_embed_grid span.PIN_1431156025945_embed_grid_bd a.PIN_1431156025945_embed_grid_th { cursor: pointer!important; display: inline-block!important; position: absolute!important; overflow: hidden!important; }
+span.PIN_1431156025945_embed_grid span.PIN_1431156025945_embed_grid_bd a.PIN_1431156025945_embed_grid_th::before { position: absolute!important; content:""!important; z-index: 2!important; top: 0!important; left: 0!important; right: 0!important; bottom: 0!important; box-shadow: inset 0 0 2px #888!important; }
+span.PIN_1431156025945_embed_grid span.PIN_1431156025945_embed_grid_bd a.PIN_1431156025945_embed_grid_th img.PIN_1431156025945_embed_grid_img { border: none!important; margin-left: 0!important; margin-right: 0!important; margin-bottom: 0!important; padding: 0!important;position: absolute!important; top: 50%!important; left: 0!important; }
+a.PIN_1431156025945_embed_grid_ft { cursor: pointer!important; text-shadow: 0 1px #fff!important; display: block!important; text-align: center!important; border: 1px solid #ccc!important; margin: 10px 10px 0!important; height: 31px!important; line-height: 30px!important;border-radius: 2px!important; text-decoration: none!important; font-family: Helvetica!important; font-weight: bold!important; font-size: 13px!important; color: #746d6a!important; background: #f4f4f4 url(https://s-passets.pinimg.com/images/pidgets/board_button_link.png) 0 0 repeat-x}
+a.PIN_1431156025945_embed_grid_ft:hover { text-decoration: none!important; background: #fefefe url(https://s-passets.pinimg.com/images/pidgets/board_button_hover.png) 0 0 repeat-x}
+a.PIN_1431156025945_embed_grid_ft:active { text-decoration: none!important; background: #e4e4e4 url(https://s-passets.pinimg.com/images/pidgets/board_button_active.png) 0 0 repeat-x}
+a.PIN_1431156025945_embed_grid_ft span.PIN_1431156025945_embed_grid_ft_logo { vertical-align: top!important; display: inline-block!important; margin-left: 2px!important; height: 30px!important; width: 66px!important; background: transparent url(https://s-passets.pinimg.com/images/pidgets/board_button_logo.png) 50% 48% no-repeat!important; }
+.PIN_1431156025945_hidden { display:none!important; }</style><style type="text/css">* html #li_ui_li_gen_1431156029299_0 a#li_ui_li_gen_1431156029299_0-link{height:1% !important;}#li_ui_li_gen_1431156029299_0{position:relative !important;overflow:visible !important;display:block !important;}#li_ui_li_gen_1431156029299_0 span{-webkit-box-sizing:content-box !important;-moz-box-sizing:content-box !important;box-sizing:content-box !important;}#li_ui_li_gen_1431156029299_0 a#li_ui_li_gen_1431156029299_0-link{border:0 !important;height:20px !important;text-decoration:none !important;padding:0 !important;margin:0 !important;display:inline-block !important;}#li_ui_li_gen_1431156029299_0 a#li_ui_li_gen_1431156029299_0-link:link, #li_ui_li_gen_1431156029299_0 a#li_ui_li_gen_1431156029299_0-link:visited, #li_ui_li_gen_1431156029299_0 a#li_ui_li_gen_1431156029299_0-link:hover, #li_ui_li_gen_1431156029299_0 a#li_ui_li_gen_1431156029299_0-link:active{border:0 !important;text-decoration:none !important;}#li_ui_li_gen_1431156029299_0 a#li_ui_li_gen_1431156029299_0-link:after{content:"." !important;display:block !important;clear:both !important;visibility:hidden !important;line-height:0 !important;height:0 !important;}#li_ui_li_gen_1431156029299_0 #li_ui_li_gen_1431156029299_0-logo{background-image:url(https://static.licdn.com/scds/common/u/images/apps/connect/sprites/sprite_connect_v14.png) !important;background-position:0px -593px !important;background-repeat:no-repeat !important;background-color:#0077b5 !important;background-size:initial !important;cursor:pointer !important;border:0 !important;border-right:1px solid #066094 !important;text-indent:-9999em !important;overflow:hidden !important;padding:0 !important;margin:0 !important;position:absolute !important;left:0px !important;top:0px !important;display:block !important;width:20px !important;height:20px !important;float:right !important;border-radius:2px !important;-moz-border-radius:2px !important;border-top-right-radius:2px !important;border-bottom-right-radius:2px !important;-moz-border-radius-topright:2px !important;-moz-border-radius-bottomright:2px !important;}#li_ui_li_gen_1431156029299_0 #li_ui_li_gen_1431156029299_0-title{color:#fff !important;cursor:pointer !important;display:block !important;white-space:nowrap !important;float:left !important;margin-left:1px !important;vertical-align:top !important;overflow:hidden !important;text-align:center !important;height:18px !important;padding:0 4px 0 23px !important;border:1px solid #000 !important;border-top-color:#0077b5 !important;border-right-color:#0077b5 !important;border-bottom-color:#0077b5 !important;border-left-color:#0077b5 !important;text-shadow:0 -1px #005887 !important;line-height:20px !important;border-radius:2px !important;-moz-border-radius:2px !important;border-top-right-radius:2px !important;border-bottom-right-radius:2px !important;-moz-border-radius-topright:2px !important;-moz-border-radius-bottomright:2px !important;background-color:#0077b5 !important;background-image:-moz-linear-gradient(top, #0077b5 0%, #0077b5 100%) !important;}#li_ui_li_gen_1431156029299_0.hovered #li_ui_li_gen_1431156029299_0-title{border:1px solid #000 !important;border-top-color:#0369a0 !important;border-right-color:#0369a0 !important;border-bottom-color:#0369a0 !important;border-left-color:#0369a0 !important;background-color:#0369a0 !important;background-image:-moz-linear-gradient(top, #0369a0 0%, #0369a0 100%) !important;}#li_ui_li_gen_1431156029299_0.clicked #li_ui_li_gen_1431156029299_0-title, #li_ui_li_gen_1431156029299_0.down #li_ui_li_gen_1431156029299_0-title{color:#fff !important;border:1px solid #000 !important;border-top-color:#066094 !important;border-right-color:#066094 !important;border-bottom-color:#066094 !important;border-left-color:#066094 !important;background-color:#066094 !important;background-image:-moz-linear-gradient(top, #066094 0%, #066094 100%) !important;}.IN-shadowed #li_ui_li_gen_1431156029299_0 #li_ui_li_gen_1431156029299_0-title{}.IN-shadowed #li_ui_li_gen_1431156029299_0.hovered #li_ui_li_gen_1431156029299_0-title{}.IN-shadowed #li_ui_li_gen_1431156029299_0.clicked #li_ui_li_gen_1431156029299_0-title, .IN-shadowed #li_ui_li_gen_1431156029299_0.down #li_ui_li_gen_1431156029299_0-title{}#li_ui_li_gen_1431156029299_0 #li_ui_li_gen_1431156029299_0-title-text, #li_ui_li_gen_1431156029299_0 #li_ui_li_gen_1431156029299_0-title-text *{color:#fff !important;font-size:11px !important;font-family:Arial, sans-serif !important;font-weight:bold !important;font-style:normal !important;-webkit-font-smoothing:antialiased !important;display:inline-block !important;background:transparent none !important;vertical-align:top !important;height:18px !important;line-height:20px !important;float:none !important;}#li_ui_li_gen_1431156029299_0 #li_ui_li_gen_1431156029299_0-title-text strong{font-weight:bold !important;}#li_ui_li_gen_1431156029299_0 #li_ui_li_gen_1431156029299_0-title-text em{font-style:italic !important;}#li_ui_li_gen_1431156029299_0.hovered #li_ui_li_gen_1431156029299_0-title-text, #li_ui_li_gen_1431156029299_0.hovered #li_ui_li_gen_1431156029299_0-title-text *{color:#fff !important;}#li_ui_li_gen_1431156029299_0.clicked #li_ui_li_gen_1431156029299_0-title-text, #li_ui_li_gen_1431156029299_0.down #li_ui_li_gen_1431156029299_0-title-text, #li_ui_li_gen_1431156029299_0.clicked #li_ui_li_gen_1431156029299_0-title-text *, #li_ui_li_gen_1431156029299_0.down #li_ui_li_gen_1431156029299_0-title-text *{color:#fff !important;}#li_ui_li_gen_1431156029299_0 #li_ui_li_gen_1431156029299_0-title #li_ui_li_gen_1431156029299_0-mark{display:inline-block !important;width:0px !important;overflow:hidden !important;}.success #li_ui_li_gen_1431156029299_0 #li_ui_li_gen_1431156029299_0-title{color:#fff !important;border-top-color:#0077b5 !important;border-right-color:#0077b5 !important;border-bottom-color:#0077b5 !important;border-left-color:#0077b5 !important;background-color:#0077b5 !important;background-image:-moz-linear-gradient(top, #0077b5 0%, #0077b5 100%) !important;}.success #li_ui_li_gen_1431156029299_0 #li_ui_li_gen_1431156029299_0-title-text, .success #li_ui_li_gen_1431156029299_0 #li_ui_li_gen_1431156029299_0-title-text *{color:#fff !important;}.IN-shadowed .success #li_ui_li_gen_1431156029299_0 #li_ui_li_gen_1431156029299_0-title{}.success #li_ui_li_gen_1431156029299_0.hovered #li_ui_li_gen_1431156029299_0-title{color:#fff !important;border-top-color:#0369a0 !important;border-right-color:#0369a0 !important;border-bottom-color:#0369a0 !important;border-left-color:#0369a0 !important;background-color:#0369a0 !important;background-image:-moz-linear-gradient(top, #0369a0 0%, #0369a0 100%) !important;}.success #li_ui_li_gen_1431156029299_0.hovered #li_ui_li_gen_1431156029299_0-title-text, .success #li_ui_li_gen_1431156029299_0.hovered #li_ui_li_gen_1431156029299_0-title-text *{color:#fff !important;}.success #li_ui_li_gen_1431156029299_0.clicked #li_ui_li_gen_1431156029299_0-title, .success #li_ui_li_gen_1431156029299_0.down #li_ui_li_gen_1431156029299_0-title{color:#fff !important;border-top-color:#066094 !important;border-right-color:#066094 !important;border-bottom-color:#066094 !important;border-left-color:#066094 !important;background-color:#066094 !important;background-image:-moz-linear-gradient(top, #066094 0%, #066094 100%) !important;}.success #li_ui_li_gen_1431156029299_0.clicked #li_ui_li_gen_1431156029299_0-title-text, .success #li_ui_li_gen_1431156029299_0.down #li_ui_li_gen_1431156029299_0-title-text, .success #li_ui_li_gen_1431156029299_0.clicked #li_ui_li_gen_1431156029299_0-title-text *, .success #li_ui_li_gen_1431156029299_0.down #li_ui_li_gen_1431156029299_0-title-text *{color:#fff !important;}.IN-shadowed .success #li_ui_li_gen_1431156029299_0.clicked #li_ui_li_gen_1431156029299_0-title, .IN-shadowed .success #li_ui_li_gen_1431156029299_0.down #li_ui_li_gen_1431156029299_0-title{}#li_ui_li_gen_1431156029324_1-container.IN-right {display:inline-block !important;float:left !important;overflow:visible !important;position:relative !important;height:20px !important;padding-left:2px !important;line-height:1px !important;cursor:pointer !important;}#li_ui_li_gen_1431156029324_1.IN-right {display:block !important;float:left !important;height:20px !important;margin-right:4px !important;padding-right:4px !important;background-image:url(https://static.licdn.com/scds/common/u/images/apps/connect/sprites/sprite_connect_v14.png) !important;background-color:transparent !important;background-repeat:no-repeat !important;background-position:right -447px !important;}#li_ui_li_gen_1431156029324_1-inner.IN-right {display:block !important;float:left !important;padding-left:8px !important;text-align:center !important;background-image:url(https://static.licdn.com/scds/common/u/images/apps/connect/sprites/sprite_connect_v14.png) !important;background-color:transparent !important;background-repeat:no-repeat !important;background-position:0px -426px !important;}#li_ui_li_gen_1431156029324_1-content.IN-right {display:inline !important;font-size:11px !important;color:#4e4e4e !important;font-weight:bold !important;font-family:Arial, sans-serif !important;line-height:20px !important;padding:0 5px 0 5px !important;}#li_ui_li_gen_1431156029324_1-container.IN-empty {display:none !important;}#li_ui_li_gen_1431156029324_1-container.IN-hidden #li_ui_li_gen_1431156029324_1 {display:none !important;}</style><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f6f7f8;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3a5795;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #2f477a;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f6f7f8;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}</style></head>
+<body data-pin-hover="true" data-twttr-rendered="true" class="single single-post postid-1122 single-format-standard mp6 typekit-enabled customizer-styles-applied two-column content-sidebar flexible highlander-enabled highlander-light">
+
+<div id="page-wrap1">
+
+<div id="page-wrap2">
+
+	<!-- page (actual site content, custom width) -->
+	<div id="page">
+
+	<div id="main-wrap">
+
+		<div id="mid-wrap">
+
+		<div id="side-wrap">
+
+			<!-- mid column -->
+			<div id="mid">
+
+				<div id="header">
+
+				<div id="topnav" class="description"> Explain, Exemplify, Empower</div>
+
+				<h1 id="title"><a href="http://uhesse.com/">The Oracle Instructor</a></h1>
+
+					<div id="tabs">
+						<div class="menu"><ul><li><a href="http://uhesse.com/">Home</a></li><li class="page_item page-item-2 page_item_has_children"><a href="http://uhesse.com/about/">About</a><ul class="children"><li class="page_item page-item-1027"><a href="http://uhesse.com/about/book-recommendations/">Book Recommendations</a></li><li class="page_item page-item-491"><a href="http://uhesse.com/about/my-books/">My Books</a></li><li class="page_item page-item-617"><a href="http://uhesse.com/about/contactfeedback/">Contact/Feedback</a></li></ul></li><li class="page_item page-item-6345"><a href="http://uhesse.com/live-demonar/">Live Demonar</a></li><li class="page_item page-item-6330"><a href="http://uhesse.com/my-lvcs/">My LVCs</a></li><li class="page_item page-item-430"><a href="http://uhesse.com/oracle-database-ha-architecture/">Oracle HA Architecture</a></li><li class="page_item page-item-673"><a href="http://uhesse.com/data-guard/">Data Guard</a></li><li class="page_item page-item-717"><a href="http://uhesse.com/exadata/">Exadata</a></li><li class="page_item page-item-1408"><a href="http://uhesse.com/ou-course-formats/">OU course formats</a></li></ul></div>
+					</div>
+
+				</div>
+	<div id="mid-content">
+
+	
+		<div class="navigation">
+			<div class="alignleft">« <a href="http://uhesse.com/2012/09/19/auditing-alter-system-commands/" rel="prev">Auditing ALTER SYSTEM&nbsp;commands</a></div>
+			<div class="alignright"><a href="http://uhesse.com/2012/10/31/why-you-should-use-application-services-with-your-oracle-database/" rel="next">Why you should use Application Services with your Oracle&nbsp;Database</a> »</div>
+
+			<div class="clear"></div>
+		</div>
+
+		<div id="post-1122" class="post-1122 post type-post status-publish format-standard hentry category-toi tag-exadata tag-x3">
+
+			<h2 class="title">Exadata X3 Key&nbsp;Points</h2>
+
+			<div class="entry">
+				<div class="postbody entry clearfix">
+					<p style="text-align:justify;">This post will give a brief summary of the Exadata Database Machine X3 as it was <a href="http://www.youtube.com/watch?v=m4BPuQ0Da6k&amp;feature=relmfu" target="_blank">announced at the Oracle Open World by Larry Ellision: </a></p>
+<p style="text-align:center;"><a href="http://uhesse.files.wordpress.com/2012/10/ellison_oow2012_keynote_x3.gif"><img vdh-1078645035="" class="aligncenter size-full wp-image-1132" title="Ellison_OOW2012_Keynote_X3" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/ellison_oow2012_keynote_x3.gif" alt="" height="391" width="620"></a>(URL above is the complete Keynote; X3 announcement comes at 31:29)</p>
+<p>The<strong> X3 Storage Servers have 4 times the Flash Capacity than X2</strong>: Each cell comes with 1600 GB, using <a href="http://www.oracle.com/us/products/servers-storage/storage/flash-storage/f40/overview/index.html" target="_blank">Oracle’s Sun Flash Accelerator F40 PCIe Card</a> now</p>
+<p><a href="http://uhesse.files.wordpress.com/2012/10/f40.gif"><img vdh-1078645035="" class="aligncenter size-full wp-image-1123" title="F40" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/f40.gif" alt=""></a>The<strong> X3 Database Servers have now 2 x Eight-Core <a href="http://ark.intel.com/products/64596/Intel-Xeon-Processor-E5-2690-20M-Cache-2_90-GHz-8_00-GTs-Intel-QPI" target="_blank">Intel® Xeon® E5-2690(SandyBridge) Processors</a></strong> instead of 2 x Six-Cores in X2</p>
+<p style="text-align:justify;"><a href="http://uhesse.files.wordpress.com/2012/10/sandybridge.png"><img vdh-1078653840="" class="aligncenter size-full wp-image-1124" title="sandybridge" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/sandybridge.png" alt=""></a></p>
+<p style="text-align:justify;">They have<strong> 128 GB memory each</strong>, instead of 96 GB on X2</p>
+<p style="text-align:justify;">The <strong>price of an X3 Rack remains the same</strong> except for the Software Licenses that are computed by the number of cores.</p>
+<p style="text-align:justify;">The<strong> X3 Entry Level Rack is now 1/8 Rack.</strong> It has got the same hardware as a 1/4 rack, but half of the cores, <del>memory</del> and storage capacity disabled.</p>
+<p style="text-align:justify;">Not only on X3, the<strong> Flash Cache will now work as a Write Back Cache.</strong> Older versions will be enabled to use Write Back Flash Cache with a Software Update.</p>
+<p>More details:</p>
+<p><a href="http://www.oracle.com/technetwork/server-storage/engineered-systems/exadata/exadata-dbmachine-x3-2-ds-1855384.pdf" target="_blank">X3-2 DBM</a></p>
+<p><a href="http://www.oracle.com/technetwork/server-storage/engineered-systems/exadata/exadata-storage-server-x3-2-ds-1855391.pdf" target="_blank">X3-2 Cell</a></p>
+<p><a href="http://www.oracle.com/technetwork/server-storage/engineered-systems/exadata/index.html" target="_blank">X3 vs X2 video</a></p>
+		<div id="geo-post-1122" class="geo geo-post" style="display: none">
+			<span class="latitude">48.139127</span>
+			<span class="longitude">11.580186</span>
+		</div>		<div class="wpcnt">
+			<div class="wpa wpmrec">
+				<a class="wpa-about" href="http://wordpress.com/about-these-ads/" rel="nofollow">About these ads</a>
+				<div class="u">
+					<script type="text/javascript">
+					(function(g){g.__ATA.initAd({sectionId:61957671, width:300, height:250});})(window);
+					</script><div id="automattic-id-9555" data-section="61957671" style="width:300px; height:250px;"></div>
+				</div>
+			</div>
+		</div><div id="jp-post-flair" class="sharedaddy sd-like-enabled sd-sharing-enabled"><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-official sd-sharing"><div class="sd-content"><ul><li class="share-twitter"><div class="twitter_button"><iframe allowtransparency="true" scrolling="no" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/tweet_button.htm" style="width:101px; height:20px;" frameborder="0"></iframe></div></li><li class="share-google-plus-1"><div class="googleplus1_button"><div id="___plus_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 82px; height: 20px;"><iframe title="+Share" data-gapiattached="true" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/sharebutton.htm" name="I0_1431156023686" id="I0_1431156023686" vspace="0" tabindex="0" style="position: static; top: 0px; width: 82px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" scrolling="no" marginwidth="0" marginheight="0" hspace="0" frameborder="0" width="100%"></iframe></div></div></li><li class="share-facebook"><div fb-iframe-plugin-query="app_id=249643311490&amp;container_width=0&amp;href=http%3A%2F%2Fuhesse.com%2F2012%2F10%2F01%2Fexadata-x3-key-points%2F&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey" fb-xfbml-state="rendered" class="fb-share-button fb_iframe_widget" data-href="http://uhesse.com/2012/10/01/exadata-x3-key-points/" data-layout="button_count"><span style="vertical-align: bottom; width: 86px; height: 20px;"><iframe class="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/share_button.htm" style="border: medium none; visibility: visible; width: 86px; height: 20px;" title="fb:share_button Facebook Social Plugin" scrolling="no" allowfullscreen="true" allowtransparency="true" name="f34d2876cf55a46" frameborder="0" height="1000px" width="1000px"></iframe></span></div></li><li class="share-linkedin"><div class="linkedin_button"><span class="IN-widget" style="line-height: 1; vertical-align: baseline; display: inline-block; text-align: center;"><span style="padding: 0px ! important; margin: 0px ! important; text-indent: 0px ! important; display: inline-block ! important; vertical-align: baseline ! important; font-size: 1px ! important;"><span id="li_ui_li_gen_1431156029299_0"><a id="li_ui_li_gen_1431156029299_0-link" href="javascript:void(0);"><span id="li_ui_li_gen_1431156029299_0-logo">in</span><span id="li_ui_li_gen_1431156029299_0-title"><span id="li_ui_li_gen_1431156029299_0-mark"></span><span id="li_ui_li_gen_1431156029299_0-title-text">Share</span></span></a></span></span><span style="padding: 0px ! important; margin: 0px ! important; text-indent: 0px ! important; display: inline-block ! important; vertical-align: baseline ! important; font-size: 1px ! important;"><span id="li_ui_li_gen_1431156029324_1-container" class="IN-right"><span id="li_ui_li_gen_1431156029324_1" class="IN-right"><span id="li_ui_li_gen_1431156029324_1-inner" class="IN-right"><span id="li_ui_li_gen_1431156029324_1-content" class="IN-right">28</span></span></span></span></span></span><script type="in/share+init" data-url="http://uhesse.com/2012/10/01/exadata-x3-key-points/" data-counter="right"></script></div></li><li class="share-email share-service-visible"><a rel="nofollow" class="share-email sd-button" href="http://uhesse.com/2012/10/01/exadata-x3-key-points/?share=email&amp;nb=1" title="Click to email this to a friend"><span>Email</span></a></li><li class="share-reddit"><div class="reddit_button"><iframe src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/button1.htm" scrolling="no" frameborder="0" height="22" width="120"></iframe></div></li><li class="share-tumblr"><a target="" href="http://www.tumblr.com/share/link/?url=http%3A%2F%2Fuhesse.com%2F2012%2F10%2F01%2Fexadata-x3-key-points%2F&amp;name=Exadata%20X3%20Key%20Points" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:62px; height:20px; background:url('//platform.tumblr.com/v1/share_2.png') top left no-repeat transparent;">Share on Tumblr</a></li><li class="share-pinterest"><div class="pinterest_button"><a data-pin-config="beside" class="PIN_1431156025945_pin_it_button_20 PIN_1431156025945_pin_it_button_en_20_gray PIN_1431156025945_pin_it_button_inline_20 PIN_1431156025945_pin_it_beside_20" data-pin-log="button_pinit_bookmarklet" data-pin-href="http://pinterest.com/pin/create/button/?url=http%3A%2F%2Fuhesse.com%2F2012%2F10%2F01%2Fexadata-x3-key-points%2F&amp;description=Exadata%20X3%20Key%20Points"><span id="PIN_1431156025945_pin_count_0" class="PIN_1431156025945_hidden"><i></i></span></a></div></li><li class="share-pocket"><div class="pocket_button"><div class="pocket-btn"><iframe id="pocket-button-0" allowtransparency="true" scrolling="NO" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/button.htm" frameborder="0" height="22" width="135"></iframe></div></div></li><li class="share-end"></li></ul></div></div></div><div class="sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-loaded" id="like-post-wrapper-6195767-1122-554db537a86a7" data-src="//widgets.wp.com/likes/#blog_id=6195767&amp;post_id=1122&amp;origin=uhesse.wordpress.com&amp;obj_id=6195767-1122-554db537a86a7" data-name="like-post-frame-6195767-1122-554db537a86a7"><h3 class="sd-title">Like this:</h3><div class="likes-widget-placeholder post-likes-widget-placeholder" style="height: 55px; display: none;"><span class="button"><span>Like</span></span> <span class="loading">Loading...</span></div><iframe class="post-likes-widget jetpack-likes-widget" name="like-post-frame-6195767-1122-554db537a86a7" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/a.htm" frameborder="0" height="55px" width="100%"></iframe><span class="sd-text-color"></span><a class="sd-link-color"></a></div>
+<div style="display: block;" id="jp-relatedposts" class="jp-relatedposts">
+	<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+<div class="jp-relatedposts-items jp-relatedposts-items-minimal"><p class="jp-relatedposts-post jp-relatedposts-post0" data-post-id="665" data-post-format="false"><span class="jp-relatedposts-post-title"><a data-position="0" data-origin="1122" rel="nofollow" title="Exadata Part IV: Flash Cache
+
+With this posting we will look at the Flash Cache, built into the Exadata Database Machine. This feature is one major reason why Exadata is not only beneficial for Data Warehouse but also for OLTP. In a Full Rack, we have 8 Database Servers and 14 Storage Servers. Each Storage…" href="http://uhesse.com/2011/02/02/exadata-part-iv-flash-cache/" class="jp-relatedposts-post-a">Exadata Part IV: Flash Cache</a></span><span class="jp-relatedposts-post-context">In "TOI"</span></p><p class="jp-relatedposts-post jp-relatedposts-post1" data-post-id="635" data-post-format="false"><span class="jp-relatedposts-post-title"><a data-position="1" data-origin="1122" rel="nofollow" title="Exadata Part I: Smart Scan
+
+As many of you will know, Oracle has introduced a new flagship in the core area: The Exadata Database Machine is a combined Hardware &amp;amp; Software offer, consisting of an 8 Node Cluster (each Node with 2 Six-Core CPUs and 72 GB RAM) and 14 Storage Servers (each with 2…" href="http://uhesse.com/2011/01/19/exadata-part-i-smart-scan/" class="jp-relatedposts-post-a">Exadata Part I: Smart Scan</a></span><span class="jp-relatedposts-post-context">In "TOI"</span></p><p class="jp-relatedposts-post jp-relatedposts-post2" data-post-id="677" data-post-format="false"><span class="jp-relatedposts-post-title"><a data-position="2" data-origin="1122" rel="nofollow" title="Exadata Part V: Monitoring with Database Control
+
+This posting will show how we can use Oracle Enterprise Manager Database Control to monitor an Exadata Database Machine, especially the Storage Servers (Cells). The other option would be of course to use Grid Control for that purpose, which is described here on OTN. I have prepared a small installation…" href="http://uhesse.com/2011/02/15/exadata-part-v-monitoring-with-database-control/" class="jp-relatedposts-post-a">Exadata Part V: Monitoring with Database Control</a></span><span class="jp-relatedposts-post-context">In "TOI"</span></p></div></div></div>				</div>
+
+					
+										<p class="tags"><a href="http://uhesse.com/tag/exadata/" rel="tag">exadata</a>, <a href="http://uhesse.com/tag/x3/" rel="tag">X3</a></p>
+
+					<div class="clear"></div>
+					
+				<p class="postmetadata alt">
+
+					<small>
+					This entry was posted on October 1, 2012, 09:19 and is filed under <a href="http://uhesse.com/category/toi/" rel="category tag">TOI</a>. You can follow any responses to this entry through <a href="http://uhesse.com/2012/10/01/exadata-x3-key-points/feed/" title="RSS 2.0">RSS 2.0</a>.
+					
+					You can <a href="#respond">leave a response</a>, or <a href="http://uhesse.com/2012/10/01/exadata-x3-key-points/trackback/" rel="trackback">trackback</a> from your own site.
+					
+										</small>
+
+				</p>
+
+			</div>
+
+		</div>
+
+	
+<div id="post-extra-content">
+
+	<ul class="secondary-tabs">
+		<li><a href="#comments"><span><span>Comments (6)</span></span></a></li>
+				<li><a href="#trackbacks"><span><span>Trackbacks (2)</span></span></a></li>
+			</ul>
+
+	<div id="commentlist">
+		<ol id="comments">
+
+		
+				<!-- comment entry -->
+	<li class="comment byuser comment-author-saruamit4 even thread-even depth-1 with-avatars highlander-comment" id="comment-4421">
+
+	<div class="wrap tiptrigger">
+
+		
+		<div class="avatar">
+	 		<a class="gravatar"><img id="grav-677410c8ba45e048fb339f02080369ff-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/677410c8ba45e048fb339f02080369ff.jpg" class="avatar avatar-64 grav-hashed grav-hijack" height="64" width="64"></a>
+		</div>
+
+		
+		<div class="details regularcomment">
+
+			<p class="head">
+			<span class="info">
+				<a href="#comment-4421">#1</a> by <a id="commentauthor-4421" href="http://saruamit4.wordpress.com/">Amit Saraswat</a> on October 1, 2012 - 11:14			</span>
+			</p>
+
+			<!-- comment contents -->
+			<div class="text">
+
+			 
+				<div id="commentbody-4421">
+					<p>Sounds like Exadata X2 got adrenal boost. Faster got fastest in servers for business operations.</p>
+				</div>
+
+		 	</div>
+
+			<!-- /comment contents -->
+ 			</div>
+
+		 	<div class="act tip">
+					 			
+										 	</div>
+
+		</div>
+</li><!-- #comment-## -->
+	<!-- comment entry -->
+	<li class="comment odd alt thread-odd thread-alt depth-1 with-avatars highlander-comment" id="comment-4422">
+
+	<div class="wrap tiptrigger">
+
+		
+		<div class="avatar">
+	 		<a class="gravatar"><img id="grav-1740e027647cb8ca1644bc3edc904f41-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/1740e027647cb8ca1644bc3edc904f41.png" class="avatar avatar-64 grav-hashed grav-hijack" height="64" width="64"></a>
+		</div>
+
+		
+		<div class="details regularcomment">
+
+			<p class="head">
+			<span class="info">
+				<a href="#comment-4422">#2</a> by <a id="commentauthor-4422" href="http://www.gloworld.co.uk/">Alan Nolan-Davies</a> on October 1, 2012 - 12:02			</span>
+			</p>
+
+			<!-- comment contents -->
+			<div class="text">
+
+			 
+				<div id="commentbody-4422">
+					<p>Is the Exadata Training workshop being updated to cover the X3?</p>
+				</div>
+
+		 	</div>
+
+			<!-- /comment contents -->
+ 			</div>
+
+		 	<div class="act tip">
+					 			
+										 	</div>
+
+		</div>
+</li><!-- #comment-## -->
+	<!-- comment entry -->
+	<li class="comment byuser comment-author-uhesse comment-author-is-site-member bypostauthor even thread-even depth-1 with-avatars highlander-comment" id="comment-4423">
+
+	<div class="wrap tiptrigger">
+
+		
+		<div class="avatar">
+	 		<a class="gravatar"><img id="grav-73cdb20b4d2a2fa1f3c7b63f8d32b6b0-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/73cdb20b4d2a2fa1f3c7b63f8d32b6b0_002.jpg" class="avatar avatar-64 grav-hashed grav-hijack" height="64" width="64"></a>
+		</div>
+
+		
+		<div class="details admincomment">
+
+			<p class="head">
+			<span class="info">
+				<a href="#comment-4423">#3</a> by <a id="commentauthor-4423" href="http://uhesse.com/">Uwe Hesse</a> on October 1, 2012 - 12:49			</span>
+			</p>
+
+			<!-- comment contents -->
+			<div class="text">
+
+			 
+				<div id="commentbody-4423">
+					<p>Amit, yes, as Larry said: “If you thought Exadata X2 was fast, you ain’t seen nothing yet!” <span class="wp-smiley wp-emoji wp-emoji-smile" title=":-)">:-)</span></p>
+				</div>
+
+		 	</div>
+
+			<!-- /comment contents -->
+ 			</div>
+
+		 	<div class="act tip">
+					 			
+										 	</div>
+
+		</div>
+</li><!-- #comment-## -->
+	<!-- comment entry -->
+	<li class="comment byuser comment-author-uhesse comment-author-is-site-member bypostauthor odd alt thread-odd thread-alt depth-1 with-avatars highlander-comment" id="comment-4424">
+
+	<div class="wrap tiptrigger">
+
+		
+		<div class="avatar">
+	 		<a class="gravatar"><img id="grav-73cdb20b4d2a2fa1f3c7b63f8d32b6b0-1" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/73cdb20b4d2a2fa1f3c7b63f8d32b6b0_002.jpg" class="avatar avatar-64 grav-hashed grav-hijack" height="64" width="64"></a>
+		</div>
+
+		
+		<div class="details admincomment">
+
+			<p class="head">
+			<span class="info">
+				<a href="#comment-4424">#4</a> by <a id="commentauthor-4424" href="http://uhesse.com/">Uwe Hesse</a> on October 1, 2012 - 12:53			</span>
+			</p>
+
+			<!-- comment contents -->
+			<div class="text">
+
+			 
+				<div id="commentbody-4424">
+					<p>Alan, I see no new version of the existing Oracle University 
+Exadata Admin Workshop in the making yet, but an OU Instructor will add 
+the X3 information to the delivery of the course, for sure.</p>
+				</div>
+
+		 	</div>
+
+			<!-- /comment contents -->
+ 			</div>
+
+		 	<div class="act tip">
+					 			
+										 	</div>
+
+		</div>
+</li><!-- #comment-## -->
+	<!-- comment entry -->
+	<li class="comment even thread-even depth-1 with-avatars highlander-comment" id="comment-4461">
+
+	<div class="wrap tiptrigger">
+
+		
+		<div class="avatar">
+	 		<a class="gravatar"><img id="grav-c43a594c78bf4eda6b1aed3cb2537f53-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/c43a594c78bf4eda6b1aed3cb2537f53.png" class="avatar avatar-64 grav-hashed grav-hijack" height="64" width="64"></a>
+		</div>
+
+		
+		<div class="details regularcomment">
+
+			<p class="head">
+			<span class="info">
+				<a href="#comment-4461">#5</a> by <a id="commentauthor-4461" href="http://martincarstenbach.wordpress.com/">Martin Bach</a> on October 5, 2012 - 09:33			</span>
+			</p>
+
+			<!-- comment contents -->
+			<div class="text">
+
+			 
+				<div id="commentbody-4461">
+					<p>I especially like the processor upgrade. The E5 2690 is a real 
+performance monster, and the old Westmere processors weren’t slow 
+either. Now if only I could get one to experiment on <span class="wp-smiley wp-emoji wp-emoji-smile" title=":)">:)</span></p>
+				</div>
+
+		 	</div>
+
+			<!-- /comment contents -->
+ 			</div>
+
+		 	<div class="act tip">
+					 			
+										 	</div>
+
+		</div>
+</li><!-- #comment-## -->
+	<!-- comment entry -->
+	<li class="comment byuser comment-author-uhesse comment-author-is-site-member bypostauthor odd alt thread-odd thread-alt depth-1 with-avatars highlander-comment" id="comment-4462">
+
+	<div class="wrap tiptrigger">
+
+		
+		<div class="avatar">
+	 		<a class="gravatar"><img id="grav-73cdb20b4d2a2fa1f3c7b63f8d32b6b0-2" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/73cdb20b4d2a2fa1f3c7b63f8d32b6b0_002.jpg" class="avatar avatar-64 grav-hashed grav-hijack" height="64" width="64"></a>
+		</div>
+
+		
+		<div class="details admincomment">
+
+			<p class="head">
+			<span class="info">
+				<a href="#comment-4462">#6</a> by <a id="commentauthor-4462" href="http://uhesse.com/">Uwe Hesse</a> on October 5, 2012 - 10:29			</span>
+			</p>
+
+			<!-- comment contents -->
+			<div class="text">
+
+			 
+				<div id="commentbody-4462">
+					<p>Same here! One processor alone costs (a lot) more than my notebook <span class="wp-smiley wp-emoji wp-emoji-smile" title=":-)">:-)</span></p>
+				</div>
+
+		 	</div>
+
+			<!-- /comment contents -->
+ 			</div>
+
+		 	<div class="act tip">
+					 			
+										 	</div>
+
+		</div>
+</li><!-- #comment-## -->
+
+		
+		</ol>
+
+				<ol id="trackbacks">
+			
+	<li id="comment-4465"><a href="http://uhesse.com/2011/02/02/exadata-part-iv-flash-cache/" rel="external nofollow" class="url">Exadata Part IV: Flash Cache « The Oracle Instructor</a>
+</li><!-- #comment-## -->
+
+	<li id="comment-4487"><a href="http://aprakash.wordpress.com/2012/10/09/interesting-blogs-after-oow/" rel="external nofollow" class="url">Interesting blogs after OOW « Anand's Blog</a>
+</li><!-- #comment-## -->
+		</ol>
+		
+		<div class="commentnavi">
+			<div class="commentpager">
+							</div>
+		</div>
+
+								<div id="respond" class="comment-respond js">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://uhesse.com/2012/10/01/exadata-x3-key-points/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://uhesse.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																										
+
+
+												<input id="highlander_comment_nonce" name="highlander_comment_nonce" value="b4d04a4064" type="hidden"><input name="_wp_http_referer" value="/2012/10/01/exadata-x3-key-points/" type="hidden">
+<input name="hc_post_as" id="hc_post_as" value="guest" type="hidden">
+
+<div class="comment-form-field comment-textarea">
+	
+	<div id="comment-form-comment"><textarea class="autosizejs " tabindex="-1" style="position: absolute; top: -999px; left: 0px; right: auto; bottom: auto; border: 0px none; padding: 0px; box-sizing: content-box; word-wrap: break-word; height: 0px ! important; min-height: 0px ! important; overflow: hidden; transition: none 0s ease 0s ; font-family: Arial,Helvetica,Tahoma,Verdana,sans-serif; font-size: 14px; font-weight: 400; font-style: normal; letter-spacing: 0px; text-transform: none; text-decoration: none; word-spacing: 0px; text-indent: 0px; line-height: 16px; width: 824.45px;">Enter your comment here...</textarea><textarea style="height: 36px; overflow: hidden; word-wrap: break-word; resize: none;" placeholder="Enter your comment here..." id="comment" name="comment" title="Enter your comment here..."></textarea></div>
+</div>
+
+<div style="display: none;" id="comment-form-identity">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="#comment-form-guest" id="postas-guest" title="Guest">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:WordPress.com" id="postas-wordpress" title="WordPress.com">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook">
+					<span></span>
+				</a>
+			</li>
+			<li>
+		</li></ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a href="https://gravatar.com/site/signup/" target="_blank">				<img src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/ad516503a11cd5ca435acc9bb6523536.png" alt="Gravatar" class="no-grav" width="25">
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email"></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text"></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text"></div>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/wplogo.png" alt="WordPress.com Logo" class="no-grav" width="25">
+			</div>
+
+				<div class="comment-form-fields">
+				<input name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="" type="hidden">
+				<input name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="" type="hidden">
+				<input name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="" type="hidden">
+				<p class="comment-form-posting-as pa-wordpress"><strong></strong> You are commenting using your WordPress.com account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout(%20'wordpress'%20);">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/ad516503a11cd5ca435acc9bb6523536.png" alt="Twitter picture" class="no-grav" width="25">
+			</div>
+
+				<div class="comment-form-fields">
+				<input name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="" type="hidden">
+				<input name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="" type="hidden">
+				<input name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="" type="hidden">
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout(%20'twitter'%20);">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/ad516503a11cd5ca435acc9bb6523536.png" alt="Facebook photo" class="no-grav" width="25">
+			</div>
+
+				<div class="comment-form-fields">
+				<input name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="" type="hidden">
+				<input name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="" type="hidden">
+				<input name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="" type="hidden">
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout(%20'facebook'%20);">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-googleplus" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/ad516503a11cd5ca435acc9bb6523536.png" alt="Google+ photo" class="no-grav" width="25">
+			</div>
+
+				<div class="comment-form-fields">
+				<input name="googleplus_avatar" id="googleplus-avatar" class="comment-meta-googleplus" value="" type="hidden">
+				<input name="googleplus_user_id" id="googleplus-user_id" class="comment-meta-googleplus" value="" type="hidden">
+				<input name="googleplus_access_token" id="googleplus-access_token" class="comment-meta-googleplus" value="" type="hidden">
+				<p class="comment-form-posting-as pa-googleplus"><strong></strong> You are commenting using your Google+ account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout(%20'googleplus'%20);">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+var highlander_expando_javascript = function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+}
+jQuery(document).ready( highlander_expando_javascript );
+</script>
+
+<div style="display: none;" id="comment-form-subscribe">
+	<p class="comment-subscription-form"><input name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6" type="checkbox"> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of new comments via email.</label></p></div>
+
+						
+						<p style="display: none;" class="form-submit"><input name="submit" id="comment-submit" class="submit" value="Post Comment" type="submit"> <input name="comment_post_ID" value="1122" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+</p><p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="4502774029" type="hidden"></p>
+<input name="genseq" value="1431156023" type="hidden">
+<p style="display: none;"></p>					<input id="ak_js" name="ak_js" value="1431156023011" type="hidden"></form>
+							</div><!-- #respond -->
+			<div style="clear: both"></div>
+	</div>
+
+</div>
+
+	
+	</div>
+	<!-- mid content -->
+
+</div>
+<!-- /mid -->
+
+
+<div id="sidebar">
+
+	<div id="sidebar-wrap1">
+
+	<div id="sidebar-wrap2">
+	
+		<ul id="sidelist">
+			
+				<li><div id="text-330055442" class="widget widget_text"><h2 class="title">Uwe Hesse, OCM</h2>			<div class="textwidget"></div>
+		</div></li><li><div id="gravatar-4" class="widget widget_gravatar"><p><img id="grav-577d61dbda1e4de82c737dadb52fb6ae-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/577d61dbda1e4de82c737dadb52fb6ae.jpg" class="avatar avatar-128 grav-widget-none grav-hashed grav-hijack" height="128" width="128"></p>
+</div></li><li><div id="image-2" class="widget widget_image"><div style="overflow:hidden;"><a href="http://oaktable.net/"><img src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/oaktablelogo.jpg" title="Proud member of the OakTable Network" class="alignnone" height="89" width="150"></a></div>
+</div></li><li><div id="image-3" class="widget widget_image"><h2 class="title">I’ll be speaking</h2><div style="overflow:hidden;"><a href="http://www.oracle.com/uk/education/eblast/uk-expert-seminar-230415-ol-2525195.html"><img src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/expert_summit_london_2015.jpg" alt="Expert Summit London 2015" class="alignnone" height="137" width="614"></a></div>
+</div></li><li><div id="twitter-3" class="widget widget_twitter"><h2 class="title"><a href="http://twitter.com/UweHesse">Last Tweet</a></h2><ul class="tweets">
+			<li>
+				Thanks for the retweets this week @<a href="http://twitter.com/fourcornerstone">fourcornerstone</a> @<a href="http://twitter.com/SubashVanga">SubashVanga</a> much appreciated :) (insight by <a href="http://commun.it/"> commun.it</a>) 				<a href="http://twitter.com/UweHesse/statuses/596719912359481344" class="timesince">14&nbsp;hours&nbsp;ago</a>
+			</li>
+
+			</ul><iframe style="position: static; visibility: visible; width: 133px; height: 20px;" data-twttr-rendered="true" title="Twitter Follow Button" class="twitter-follow-button twitter-follow-button" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/follow_button.htm" allowtransparency="true" scrolling="no" id="twitter-widget-0" frameborder="0"></iframe></div></li><li><div id="text-330055446" class="widget widget_text">			<div class="textwidget"><a href="http://de.linkedin.com/in/uwehesse">
+      
+          <img src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/btn_viewmy_120x33.png" alt="View Uwe Hesse's profile on LinkedIn" border="0" height="33" width="120">
+        
+    </a></div>
+		</div></li><li><div id="text-330055447" class="widget widget_text">			<div class="textwidget"><!-- Place this code where you want the badge to render. -->
+<a href="http://plus.google.com/106672584224509200298?prsrc=3" rel="publisher" style="text-decoration:none;display:inline-block;color:#333;text-align:center;font:13px/16px arial, sans-serif;white-space:nowrap;">
+<span style="display:inline-block;font-weight:bold;vertical-align:top;margin-right:5px;margin-top:8px;">Add me to your circles</span><span style="display:inline-block;vertical-align:top;margin-right:15px;margin-top:8px;">on</span>
+<img src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/gplus-32.png" alt="Google+" style="border:0;width:32px;height:32px;"></a></div>
+		</div></li><li><div id="text-330055449" class="widget widget_text">			<div class="textwidget"><span style="display:inline-block;font-weight:bold;vertical-align:top;margin-right:5px;margin-top:8px;">Like uhesse.com on Facebook  </span>
+<a href="https://www.facebook.com/TheOracleInstructor" target="_blank">
+<img src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/facebook_32.png" border="0"></a></div>
+		</div></li><li><div id="text-330055452" class="widget widget_text">			<div class="textwidget"><a href="http://uhesse.com/about/" target="_blank">
+<img src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/logo_klein1.png" border="0"></a></div>
+		</div></li><li><div id="blog_subscription-3" class="widget widget_blog_subscription"><h2 class="title"><label for="subscribe-field">Email Subscription</label></h2>
+				<form action="https://subscribe.wordpress.com" method="post" accept-charset="utf-8" id="subscribe-blog">
+											<p>Enter your email address to subscribe to this blog and receive notifications of new posts by email.</p>
+<p>Join 3,281 other followers</p>
+						<p><input name="email" style="width: 95%; padding: 1px 2px" placeholder="Enter your email address" id="subscribe-field" type="text"></p>
+					
+					<p>
+						<input name="action" value="subscribe" type="hidden">
+						<input name="blog_id" value="6195767" type="hidden">
+						<input name="source" value="http://uhesse.com/2012/10/01/exadata-x3-key-points/" type="hidden">
+						<input name="sub-type" value="widget" type="hidden">
+						<input name="redirect_fragment" value="blog_subscription-3" type="hidden">
+						<input id="_wpnonce" name="_wpnonce" value="530b5dbdd8" type="hidden">						<input value="Sign me up!" type="submit">
+					</p>
+				</form>
+			
+</div></li><li><div id="top-posts-2" class="widget widget_top-posts"><h2 class="title">Top Posts</h2><ul><li><a href="http://uhesse.com/2015/05/08/what-happens-to-the-standby-when-you-move-a-datafile-on-the-primary/" class="bump-view" data-bump-view="tp">What happens to the Standby when you move a datafile on the Primary?</a></li>
+<li><a href="http://uhesse.com/2014/01/20/speed-up-import-with-transformdisable_archive_logging-in-oracle-12c/" class="bump-view" data-bump-view="tp">Speed up Import with TRANSFORM=DISABLE_ARCHIVE_LOGGING in #Oracle 12c</a></li>
+<li><a href="http://uhesse.com/2014/08/31/windows-7-error-key-not-valid-for-use-in-specified-state/" class="bump-view" data-bump-view="tp">Windows 7 error "key not valid for use in specified state"</a></li>
+<li><a href="http://uhesse.com/2010/06/25/turning-flashback-database-on-off-with-instance-in-status-open/" class="bump-view" data-bump-view="tp">Turning Flashback Database on &amp; off with Instance in Status OPEN</a></li>
+<li><a href="http://uhesse.com/2011/06/01/adrci-a-survival-guide-for-the-dba/" class="bump-view" data-bump-view="tp">adrci: A survival guide for the DBA</a></li>
+<li><a href="http://uhesse.com/exadata/" class="bump-view" data-bump-view="tp">Exadata</a></li>
+<li><a href="http://uhesse.com/2009/07/08/brief-introduction-into-materialized-views/" class="bump-view" data-bump-view="tp">Brief introduction into Materialized Views</a></li>
+<li><a href="http://uhesse.com/2010/08/23/reorganizing-tables-in-oracle-is-it-worth-the-effort/" class="bump-view" data-bump-view="tp">Reorganizing Tables in Oracle - is it worth the effort?</a></li>
+<li><a href="http://uhesse.com/2010/10/06/voting-disk-and-ocr-in-11gr2-some-changes/" class="bump-view" data-bump-view="tp">Voting Disk and OCR in 11gR2: Some changes</a></li>
+<li><a href="http://uhesse.com/2015/04/29/how-to-pass-the-oracle-database-11g-ocm-exam/" class="bump-view" data-bump-view="tp">How to pass the #Oracle Database 11g OCM Exam</a></li>
+</ul></div></li><li><div id="recent-comments-2" class="widget widget_recent_comments"><h2 class="title">Recent Comments</h2>				<table class="recentcommentsavatar" border="0" cellpadding="0" cellspacing="0">
+					<tbody><tr><td title="PaulaWalters" class="recentcommentsavatartop" style="height:48px; width:48px;"><a href="http://uhesse.com/" rel="nofollow"><img id="grav-51ccda1ab4b82a101a881703129317ea-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/51ccda1ab4b82a101a881703129317ea.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></td><td class="recentcommentstexttop" style=""><a href="http://uhesse.com/" rel="nofollow">PaulaWalters</a> on <a href="http://uhesse.com/2010/06/25/turning-flashback-database-on-off-with-instance-in-status-open/#comment-71734">Turning Flashback Database on…</a></td></tr><tr><td title="Uwe Hesse" class="recentcommentsavatarend" style="height:48px; width:48px;"><a href="http://uhesse.com/" rel="nofollow"><img id="grav-73cdb20b4d2a2fa1f3c7b63f8d32b6b0-3" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/73cdb20b4d2a2fa1f3c7b63f8d32b6b0.jpg" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></td><td class="recentcommentstextend" style=""><a href="http://uhesse.com/" rel="nofollow">Uwe Hesse</a> on <a href="http://uhesse.com/2015/04/29/how-to-pass-the-oracle-database-11g-ocm-exam/#comment-71529">How to pass the #Oracle Databa…</a></td></tr><tr><td title="Uwe Hesse" class="recentcommentsavatarend" style="height:48px; width:48px;"><a href="http://uhesse.com/" rel="nofollow"><img id="grav-73cdb20b4d2a2fa1f3c7b63f8d32b6b0-4" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/73cdb20b4d2a2fa1f3c7b63f8d32b6b0.jpg" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></td><td class="recentcommentstextend" style=""><a href="http://uhesse.com/" rel="nofollow">Uwe Hesse</a> on <a href="http://uhesse.com/2015/04/29/how-to-pass-the-oracle-database-11g-ocm-exam/#comment-71528">How to pass the #Oracle Databa…</a></td></tr><tr><td title="Ivica Arsov" class="recentcommentsavatarend" style="height:48px; width:48px;"><a href="http://iarsov.com/" rel="nofollow"><img id="grav-896349331f8a46c61a20c02041153e14-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/896349331f8a46c61a20c02041153e14.jpg" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></td><td class="recentcommentstextend" style=""><a href="http://iarsov.com/" rel="nofollow">Ivica Arsov</a> on <a href="http://uhesse.com/2015/04/29/how-to-pass-the-oracle-database-11g-ocm-exam/#comment-71497">How to pass the #Oracle Databa…</a></td></tr><tr><td title="jim Basler" class="recentcommentsavatarend" style="height:48px; width:48px;"><img id="grav-7ef44663ad1c6897735c422b0bc6c8f1-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/7ef44663ad1c6897735c422b0bc6c8f1.png" class="avatar avatar-48 grav-hashed grav-hijack" height="48" width="48"></td><td class="recentcommentstextend" style="">jim Basler on <a href="http://uhesse.com/2011/06/01/adrci-a-survival-guide-for-the-dba/#comment-71489">adrci: A survival guide for th…</a></td></tr><tr><td title="Franck Pachot (@FranckPachot)" class="recentcommentsavatarend" style="height:48px; width:48px;"><a href="http://twitter.com/FranckPachot" rel="nofollow"><img alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/N8gP0VrX_normal.jpg" class="avatar avatar-48" height="48" width="48"></a></td><td class="recentcommentstextend" style=""><a href="http://twitter.com/FranckPachot" rel="nofollow">Franck Pachot (@Fran…</a> on <a href="http://uhesse.com/2015/04/29/how-to-pass-the-oracle-database-11g-ocm-exam/#comment-71488">How to pass the #Oracle Databa…</a></td></tr><tr><td title="Uwe Hesse" class="recentcommentsavatarend" style="height:48px; width:48px;"><a href="http://uhesse.com/" rel="nofollow"><img id="grav-73cdb20b4d2a2fa1f3c7b63f8d32b6b0-5" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/73cdb20b4d2a2fa1f3c7b63f8d32b6b0.jpg" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></td><td class="recentcommentstextend" style=""><a href="http://uhesse.com/" rel="nofollow">Uwe Hesse</a> on <a href="http://uhesse.com/2009/07/08/brief-introduction-into-materialized-views/#comment-71484">Brief introduction into Materi…</a></td></tr><tr><td title="Uwe Hesse" class="recentcommentsavatarend" style="height:48px; width:48px;"><a href="http://uhesse.com/" rel="nofollow"><img id="grav-73cdb20b4d2a2fa1f3c7b63f8d32b6b0-6" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/73cdb20b4d2a2fa1f3c7b63f8d32b6b0.jpg" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></td><td class="recentcommentstextend" style=""><a href="http://uhesse.com/" rel="nofollow">Uwe Hesse</a> on <a href="http://uhesse.com/2009/07/08/brief-introduction-into-materialized-views/#comment-71482">Brief introduction into Materi…</a></td></tr><tr><td title="Uwe Hesse" class="recentcommentsavatarend" style="height:48px; width:48px;"><a href="http://uhesse.com/" rel="nofollow"><img id="grav-73cdb20b4d2a2fa1f3c7b63f8d32b6b0-7" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/73cdb20b4d2a2fa1f3c7b63f8d32b6b0.jpg" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></td><td class="recentcommentstextend" style=""><a href="http://uhesse.com/" rel="nofollow">Uwe Hesse</a> on <a href="http://uhesse.com/2011/12/02/exadata-quarter-rack-architecture-picture/#comment-71481">Exadata Quarter Rack Architect…</a></td></tr><tr><td title="Uwe Hesse" class="recentcommentsavatarend" style="height:48px; width:48px;"><a href="http://uhesse.com/" rel="nofollow"><img id="grav-73cdb20b4d2a2fa1f3c7b63f8d32b6b0-8" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/73cdb20b4d2a2fa1f3c7b63f8d32b6b0.jpg" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></td><td class="recentcommentstextend" style=""><a href="http://uhesse.com/" rel="nofollow">Uwe Hesse</a> on <a href="http://uhesse.com/2010/11/17/real-time-query-and-abmr/#comment-71480">Real-Time Query and Automatic…</a></td></tr><tr><td title="Asgar" class="recentcommentsavatarend" style="height:48px; width:48px;"><img id="grav-14dce1f32158fc6498435e1cd5b83945-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/14dce1f32158fc6498435e1cd5b83945.png" class="avatar avatar-48 grav-hashed grav-hijack" height="48" width="48"></td><td class="recentcommentstextend" style="">Asgar on <a href="http://uhesse.com/2011/06/01/adrci-a-survival-guide-for-the-dba/#comment-71250">adrci: A survival guide for th…</a></td></tr><tr><td title="Wneiton" class="recentcommentsavatarend" style="height:48px; width:48px;"><img id="grav-07d43dee65362737a615b09d79f41879-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/07d43dee65362737a615b09d79f41879.png" class="avatar avatar-48 grav-hashed grav-hijack" height="48" width="48"></td><td class="recentcommentstextend" style="">Wneiton on <a href="http://uhesse.com/2011/12/02/exadata-quarter-rack-architecture-picture/#comment-70178">Exadata Quarter Rack Architect…</a></td></tr>				</tbody></table>
+				</div></li><li><div id="archives-3" class="widget widget_archive"><h2 class="title">Archives</h2>		<label class="screen-reader-text" for="archives-dropdown-3">Archives</label>
+		<select id="archives-dropdown-3" name="archive-dropdown" onchange="document.location.href=this.options[this.selectedIndex].value;">
+			
+			<option selected="selected" value="">Select Month</option>
+				<option value="http://uhesse.com/2015/05/"> May 2015 &nbsp;(3)</option>
+	<option value="http://uhesse.com/2015/04/"> April 2015 &nbsp;(1)</option>
+	<option value="http://uhesse.com/2015/03/"> March 2015 &nbsp;(2)</option>
+	<option value="http://uhesse.com/2015/02/"> February 2015 &nbsp;(1)</option>
+	<option value="http://uhesse.com/2015/01/"> January 2015 &nbsp;(2)</option>
+	<option value="http://uhesse.com/2014/12/"> December 2014 &nbsp;(4)</option>
+	<option value="http://uhesse.com/2014/11/"> November 2014 &nbsp;(4)</option>
+	<option value="http://uhesse.com/2014/10/"> October 2014 &nbsp;(3)</option>
+	<option value="http://uhesse.com/2014/09/"> September 2014 &nbsp;(3)</option>
+	<option value="http://uhesse.com/2014/08/"> August 2014 &nbsp;(4)</option>
+	<option value="http://uhesse.com/2014/07/"> July 2014 &nbsp;(1)</option>
+	<option value="http://uhesse.com/2014/06/"> June 2014 &nbsp;(2)</option>
+	<option value="http://uhesse.com/2014/05/"> May 2014 &nbsp;(3)</option>
+	<option value="http://uhesse.com/2014/04/"> April 2014 &nbsp;(3)</option>
+	<option value="http://uhesse.com/2014/03/"> March 2014 &nbsp;(1)</option>
+	<option value="http://uhesse.com/2014/02/"> February 2014 &nbsp;(2)</option>
+	<option value="http://uhesse.com/2014/01/"> January 2014 &nbsp;(4)</option>
+	<option value="http://uhesse.com/2013/12/"> December 2013 &nbsp;(3)</option>
+	<option value="http://uhesse.com/2013/11/"> November 2013 &nbsp;(1)</option>
+	<option value="http://uhesse.com/2013/10/"> October 2013 &nbsp;(4)</option>
+	<option value="http://uhesse.com/2013/09/"> September 2013 &nbsp;(4)</option>
+	<option value="http://uhesse.com/2013/08/"> August 2013 &nbsp;(1)</option>
+	<option value="http://uhesse.com/2013/07/"> July 2013 &nbsp;(2)</option>
+	<option value="http://uhesse.com/2013/06/"> June 2013 &nbsp;(1)</option>
+	<option value="http://uhesse.com/2013/05/"> May 2013 &nbsp;(1)</option>
+	<option value="http://uhesse.com/2013/04/"> April 2013 &nbsp;(1)</option>
+	<option value="http://uhesse.com/2013/03/"> March 2013 &nbsp;(1)</option>
+	<option value="http://uhesse.com/2013/02/"> February 2013 &nbsp;(1)</option>
+	<option value="http://uhesse.com/2013/01/"> January 2013 &nbsp;(1)</option>
+	<option value="http://uhesse.com/2012/12/"> December 2012 &nbsp;(5)</option>
+	<option value="http://uhesse.com/2012/10/"> October 2012 &nbsp;(2)</option>
+	<option value="http://uhesse.com/2012/09/"> September 2012 &nbsp;(4)</option>
+	<option value="http://uhesse.com/2012/08/"> August 2012 &nbsp;(2)</option>
+	<option value="http://uhesse.com/2012/07/"> July 2012 &nbsp;(1)</option>
+	<option value="http://uhesse.com/2012/06/"> June 2012 &nbsp;(2)</option>
+	<option value="http://uhesse.com/2012/05/"> May 2012 &nbsp;(2)</option>
+	<option value="http://uhesse.com/2012/04/"> April 2012 &nbsp;(2)</option>
+	<option value="http://uhesse.com/2012/03/"> March 2012 &nbsp;(6)</option>
+	<option value="http://uhesse.com/2012/02/"> February 2012 &nbsp;(2)</option>
+	<option value="http://uhesse.com/2012/01/"> January 2012 &nbsp;(2)</option>
+	<option value="http://uhesse.com/2011/12/"> December 2011 &nbsp;(2)</option>
+	<option value="http://uhesse.com/2011/11/"> November 2011 &nbsp;(2)</option>
+	<option value="http://uhesse.com/2011/10/"> October 2011 &nbsp;(1)</option>
+	<option value="http://uhesse.com/2011/09/"> September 2011 &nbsp;(5)</option>
+	<option value="http://uhesse.com/2011/08/"> August 2011 &nbsp;(2)</option>
+	<option value="http://uhesse.com/2011/07/"> July 2011 &nbsp;(2)</option>
+	<option value="http://uhesse.com/2011/06/"> June 2011 &nbsp;(3)</option>
+	<option value="http://uhesse.com/2011/05/"> May 2011 &nbsp;(3)</option>
+	<option value="http://uhesse.com/2011/04/"> April 2011 &nbsp;(1)</option>
+	<option value="http://uhesse.com/2011/03/"> March 2011 &nbsp;(4)</option>
+	<option value="http://uhesse.com/2011/02/"> February 2011 &nbsp;(3)</option>
+	<option value="http://uhesse.com/2011/01/"> January 2011 &nbsp;(4)</option>
+	<option value="http://uhesse.com/2010/12/"> December 2010 &nbsp;(6)</option>
+	<option value="http://uhesse.com/2010/11/"> November 2010 &nbsp;(3)</option>
+	<option value="http://uhesse.com/2010/10/"> October 2010 &nbsp;(3)</option>
+	<option value="http://uhesse.com/2010/09/"> September 2010 &nbsp;(3)</option>
+	<option value="http://uhesse.com/2010/08/"> August 2010 &nbsp;(2)</option>
+	<option value="http://uhesse.com/2010/07/"> July 2010 &nbsp;(1)</option>
+	<option value="http://uhesse.com/2010/06/"> June 2010 &nbsp;(4)</option>
+	<option value="http://uhesse.com/2010/05/"> May 2010 &nbsp;(1)</option>
+	<option value="http://uhesse.com/2010/04/"> April 2010 &nbsp;(1)</option>
+	<option value="http://uhesse.com/2010/03/"> March 2010 &nbsp;(2)</option>
+	<option value="http://uhesse.com/2010/02/"> February 2010 &nbsp;(3)</option>
+	<option value="http://uhesse.com/2010/01/"> January 2010 &nbsp;(1)</option>
+	<option value="http://uhesse.com/2009/12/"> December 2009 &nbsp;(1)</option>
+	<option value="http://uhesse.com/2009/11/"> November 2009 &nbsp;(2)</option>
+	<option value="http://uhesse.com/2009/10/"> October 2009 &nbsp;(4)</option>
+	<option value="http://uhesse.com/2009/09/"> September 2009 &nbsp;(2)</option>
+	<option value="http://uhesse.com/2009/08/"> August 2009 &nbsp;(3)</option>
+	<option value="http://uhesse.com/2009/07/"> July 2009 &nbsp;(5)</option>
+	<option value="http://uhesse.com/2009/06/"> June 2009 &nbsp;(4)</option>
+	<option value="http://uhesse.com/2009/05/"> May 2009 &nbsp;(6)</option>
+	<option value="http://uhesse.com/2009/04/"> April 2009 &nbsp;(4)</option>
+	<option value="http://uhesse.com/2009/03/"> March 2009 &nbsp;(4)</option>
+	<option value="http://uhesse.com/2009/02/"> February 2009 &nbsp;(5)</option>
+	<option value="http://uhesse.com/2009/01/"> January 2009 &nbsp;(6)</option>
+
+		</select>
+</div></li><li><div id="search-2" class="widget widget_search"><h2 class="title">Search inside this Blog</h2>
+<form method="get" id="searchform" action="http://uhesse.com/">
+	<input name="s" size="40" id="searchbox" class="searchfield" type="text">
+	<input value="Search" class="searchbutton" type="submit">
+</form></div></li><li><div id="wp_tag_cloud-2" class="widget wp_widget_tag_cloud"><h2 class="title"></h2><div style="overflow:hidden"><a href="http://uhesse.com/tag/doag2014/" class="tag-link-252578074" title="2 topics" style="font-size: 9.8947368421053pt;">#DOAG2014</a>
+<a href="http://uhesse.com/tag/kb2918614/" class="tag-link-263293560" title="1 topic" style="font-size: 8pt;">#KB2918614</a>
+<a href="http://uhesse.com/tag/ougn2015/" class="tag-link-333660274" title="1 topic" style="font-size: 8pt;">#ougn2015</a>
+<a href="http://uhesse.com/tag/ukoug_tech13/" class="tag-link-203443189" title="1 topic" style="font-size: 8pt;">#ukoug_tech13</a>
+<a href="http://uhesse.com/tag/ukoug_tech14/" class="tag-link-233788659" title="2 topics" style="font-size: 9.8947368421053pt;">#ukoug_tech14</a>
+<a href="http://uhesse.com/tag/3e/" class="tag-link-618924" title="2 topics" style="font-size: 9.8947368421053pt;">3e</a>
+<a href="http://uhesse.com/tag/10g-new-features/" class="tag-link-15840573" title="15 topics" style="font-size: 17.473684210526pt;">10g New Features</a>
+<a href="http://uhesse.com/tag/11g-new-features/" class="tag-link-2399508" title="42 topics" style="font-size: 22pt;">11g New Features</a>
+<a href="http://uhesse.com/tag/12c-new-features/" class="tag-link-119154390" title="12 topics" style="font-size: 16.526315789474pt;">12c New Features</a>
+<a href="http://uhesse.com/tag/abmr/" class="tag-link-46209090" title="2 topics" style="font-size: 9.8947368421053pt;">ABMR</a>
+<a href="http://uhesse.com/tag/active-data-guard/" class="tag-link-24738514" title="6 topics" style="font-size: 13.789473684211pt;">Active Data Guard</a>
+<a href="http://uhesse.com/tag/ado/" class="tag-link-10367" title="1 topic" style="font-size: 8pt;">ADO</a>
+<a href="http://uhesse.com/tag/adrci/" class="tag-link-8116192" title="2 topics" style="font-size: 9.8947368421053pt;">adrci</a>
+<a href="http://uhesse.com/tag/advert/" class="tag-link-101150" title="3 topics" style="font-size: 11.157894736842pt;">advert</a>
+<a href="http://uhesse.com/tag/asm/" class="tag-link-52145" title="4 topics" style="font-size: 12.210526315789pt;">ASM</a>
+<a href="http://uhesse.com/tag/auditing/" class="tag-link-84847" title="4 topics" style="font-size: 12.210526315789pt;">auditing</a>
+<a href="http://uhesse.com/tag/awr/" class="tag-link-448086" title="2 topics" style="font-size: 9.8947368421053pt;">AWR</a>
+<a href="http://uhesse.com/tag/backup-recovery/" class="tag-link-466440" title="11 topics" style="font-size: 16.210526315789pt;">Backup &amp; Recovery</a>
+<a href="http://uhesse.com/tag/brief-introduction/" class="tag-link-79629" title="4 topics" style="font-size: 12.210526315789pt;">Brief Introduction</a>
+<a href="http://uhesse.com/tag/database-control/" class="tag-link-6046914" title="1 topic" style="font-size: 8pt;">Database Control</a>
+<a href="http://uhesse.com/tag/data-guard/" class="tag-link-1367181" title="41 topics" style="font-size: 21.894736842105pt;">Data Guard</a>
+<a href="http://uhesse.com/tag/data-warehouse/" class="tag-link-1588" title="9 topics" style="font-size: 15.368421052632pt;">Data Warehouse</a>
+<a href="http://uhesse.com/tag/dba-jta/" class="tag-link-61869413" title="2 topics" style="font-size: 9.8947368421053pt;">DBA JTA</a>
+<a href="http://uhesse.com/tag/dbms_monitor/" class="tag-link-12333555" title="1 topic" style="font-size: 8pt;">dbms_monitor</a>
+<a href="http://uhesse.com/tag/dbms_redefinition/" class="tag-link-814846" title="1 topic" style="font-size: 8pt;">dbms_redefinition</a>
+<a href="http://uhesse.com/tag/dbms_rls/" class="tag-link-13022375" title="1 topic" style="font-size: 8pt;">DBMS_RLS</a>
+<a href="http://uhesse.com/tag/dcli/" class="tag-link-53662300" title="1 topic" style="font-size: 8pt;">dcli</a>
+<a href="http://uhesse.com/tag/digital-learning/" class="tag-link-290181" title="2 topics" style="font-size: 9.8947368421053pt;">Digital Learning</a>
+<a href="http://uhesse.com/tag/doag2013/" class="tag-link-191636244" title="2 topics" style="font-size: 9.8947368421053pt;">DOAG2013</a>
+<a href="http://uhesse.com/tag/exadata/" class="tag-link-11470830" title="26 topics" style="font-size: 19.894736842105pt;">exadata</a>
+<a href="http://uhesse.com/tag/extended-rac/" class="tag-link-32707012" title="2 topics" style="font-size: 9.8947368421053pt;">Extended RAC</a>
+<a href="http://uhesse.com/tag/external-tables/" class="tag-link-8118179" title="1 topic" style="font-size: 8pt;">external tables</a>
+<a href="http://uhesse.com/tag/fine-grained-access-control/" class="tag-link-13022377" title="1 topic" style="font-size: 8pt;">fine grained access control</a>
+<a href="http://uhesse.com/tag/flashback/" class="tag-link-55843" title="13 topics" style="font-size: 16.947368421053pt;">flashback</a>
+<a href="http://uhesse.com/tag/flash-cache/" class="tag-link-13893165" title="1 topic" style="font-size: 8pt;">flash cache</a>
+<a href="http://uhesse.com/tag/griddisk/" class="tag-link-57310412" title="1 topic" style="font-size: 8pt;">griddisk</a>
+<a href="http://uhesse.com/tag/grid-infrastructure/" class="tag-link-24997932" title="2 topics" style="font-size: 9.8947368421053pt;">Grid Infrastructure</a>
+<a href="http://uhesse.com/tag/hcc/" class="tag-link-718341" title="1 topic" style="font-size: 8pt;">hcc</a>
+<a href="http://uhesse.com/tag/high-availability/" class="tag-link-29461" title="29 topics" style="font-size: 20.421052631579pt;">High Availability</a>
+<a href="http://uhesse.com/tag/ilm/" class="tag-link-58173" title="1 topic" style="font-size: 8pt;">ILM</a>
+<a href="http://uhesse.com/tag/logminer/" class="tag-link-7933408" title="1 topic" style="font-size: 8pt;">logminer</a>
+<a href="http://uhesse.com/tag/lvc/" class="tag-link-3050332" title="6 topics" style="font-size: 13.789473684211pt;">LVC</a>
+<a href="http://uhesse.com/tag/materialized-views/" class="tag-link-1663980" title="2 topics" style="font-size: 9.8947368421053pt;">Materialized Views</a>
+<a href="http://uhesse.com/tag/multitenant/" class="tag-link-16732435" title="3 topics" style="font-size: 11.157894736842pt;">Multitenant</a>
+<a href="http://uhesse.com/tag/nyoug/" class="tag-link-10645688" title="1 topic" style="font-size: 8pt;">NYOUG</a>
+<a href="http://uhesse.com/tag/ocm/" class="tag-link-97573" title="1 topic" style="font-size: 8pt;">OCM</a>
+<a href="http://uhesse.com/tag/oracle-certification/" class="tag-link-475075" title="1 topic" style="font-size: 8pt;">Oracle Certification</a>
+<a href="http://uhesse.com/tag/oracle-enterprise-manager/" class="tag-link-991688" title="1 topic" style="font-size: 8pt;">Oracle Enterprise Manager</a>
+<a href="http://uhesse.com/tag/oracle-restart/" class="tag-link-25902583" title="2 topics" style="font-size: 9.8947368421053pt;">Oracle Restart</a>
+<a href="http://uhesse.com/tag/oracle-university/" class="tag-link-823042" title="1 topic" style="font-size: 8pt;">oracle university</a>
+<a href="http://uhesse.com/tag/ou-emea-newsletter/" class="tag-link-23316649" title="15 topics" style="font-size: 17.473684210526pt;">OU EMEA Newsletter</a>
+<a href="http://uhesse.com/tag/oug-ireland-2014/" class="tag-link-213583171" title="2 topics" style="font-size: 9.8947368421053pt;">OUG Ireland 2014</a>
+<a href="http://uhesse.com/tag/ougn2012/" class="tag-link-83706425" title="3 topics" style="font-size: 11.157894736842pt;">OUGN2012</a>
+<a href="http://uhesse.com/tag/ou-streams/" class="tag-link-282782362" title="1 topic" style="font-size: 8pt;">OU Streams</a>
+<a href="http://uhesse.com/tag/partitioning/" class="tag-link-198593" title="8 topics" style="font-size: 14.842105263158pt;">partitioning</a>
+<a href="http://uhesse.com/tag/performance-tuning/" class="tag-link-161679" title="33 topics" style="font-size: 20.947368421053pt;">Performance Tuning</a>
+<a href="http://uhesse.com/tag/rac/" class="tag-link-505044" title="12 topics" style="font-size: 16.526315789474pt;">RAC</a>
+<a href="http://uhesse.com/tag/real-time-query/" class="tag-link-43099453" title="3 topics" style="font-size: 11.157894736842pt;">Real-Time Query</a>
+<a href="http://uhesse.com/tag/reorganizing/" class="tag-link-5573148" title="1 topic" style="font-size: 8pt;">reorganizing</a>
+<a href="http://uhesse.com/tag/rman/" class="tag-link-617706" title="11 topics" style="font-size: 16.210526315789pt;">RMAN</a>
+<a href="http://uhesse.com/tag/security/" class="tag-link-801" title="9 topics" style="font-size: 15.368421052632pt;">security</a>
+<a href="http://uhesse.com/tag/services/" class="tag-link-1736" title="1 topic" style="font-size: 8pt;">services</a>
+<a href="http://uhesse.com/tag/smart-scan/" class="tag-link-1371179" title="1 topic" style="font-size: 8pt;">smart scan</a>
+<a href="http://uhesse.com/tag/snapshot-standby/" class="tag-link-22494820" title="4 topics" style="font-size: 12.210526315789pt;">Snapshot Standby</a>
+<a href="http://uhesse.com/tag/storage-index/" class="tag-link-49765940" title="2 topics" style="font-size: 9.8947368421053pt;">storage index</a>
+<a href="http://uhesse.com/tag/tod/" class="tag-link-63857" title="1 topic" style="font-size: 8pt;">TOD</a>
+<a href="http://uhesse.com/tag/total-recall/" class="tag-link-518590" title="2 topics" style="font-size: 9.8947368421053pt;">Total Recall</a>
+<a href="http://uhesse.com/tag/tracing/" class="tag-link-573157" title="1 topic" style="font-size: 8pt;">tracing</a>
+<a href="http://uhesse.com/tag/trcsess/" class="tag-link-121624691" title="1 topic" style="font-size: 8pt;">trcsess</a>
+<a href="http://uhesse.com/tag/ukoug2012/" class="tag-link-129147276" title="1 topic" style="font-size: 8pt;">ukoug2012</a>
+<a href="http://uhesse.com/tag/video/" class="tag-link-412" title="2 topics" style="font-size: 9.8947368421053pt;">video</a>
+<a href="http://uhesse.com/tag/vpd/" class="tag-link-877320" title="1 topic" style="font-size: 8pt;">vpd</a>
+<a href="http://uhesse.com/tag/webinar/" class="tag-link-465168" title="1 topic" style="font-size: 8pt;">Webinar</a>
+<a href="http://uhesse.com/tag/whoami/" class="tag-link-149478" title="2 topics" style="font-size: 9.8947368421053pt;">whoami</a>
+<a href="http://uhesse.com/tag/x3/" class="tag-link-619689" title="1 topic" style="font-size: 8pt;">X3</a></div></div></li><li><div id="linkcat-1356" class="widget widget_links"><h2 class="title">Blogroll</h2>
+	<ul class="xoxo blogroll">
+<li><a href="http://www.thatjeffsmith.com/" title="Great SQL Developer (mostly) resource">(That) Jeff Smith</a></li>
+<li><a href="http://siebel-essentials.blogspot.com/" title="If you use Siebel – highly recommended">Alexander Hansal</a></li>
+<li><a href="http://www.morganslibrary.org/blog.html" title="Well known in the Oracle Community, Dan is the man behind Morgan’s Library">Dan Morgan</a></li>
+<li><a href="http://db-blog.web.cern.ch/" title="CERN IT staff is top-notch and publishes interesting articles here">Databases at CERN blog</a></li>
+<li><a href="http://gavinsoorma.com/" title="Oracle DBA – Tips and Techniques">Gavin Soorma</a></li>
+<li><a href="http://prutser.wordpress.com/" title="My colleague &amp; SME Team member maintains this fine Blog">Harald van Breederode</a></li>
+<li><a href="http://dbatrain.wordpress.com/" title="My colleague &amp; SME Team Leader maintains this fine Blog">Joel Goodman</a></li>
+<li><a href="http://jonathanlewis.wordpress.com/all-postings/" title="No need to introduce because you know him already">Jonathan Lewis</a></li>
+<li><a href="http://juliandontcheff.wordpress.com/" title="An OCM’s fine DBA &amp; Exadata Blog">Julian Dontcheff</a></li>
+<li><a href="http://kamranagayev.com/" title="Fine Blog with DBA, especially RMAN topics">Kamran Agayev</a></li>
+<li><a href="http://dbakevlar.com/" title="The Blog of the DBA Goth Princess">Kellyn Pot’Vin</a></li>
+<li><a href="http://kerryosborne.oracle-guy.com/" title="One of the authors of “Expert Exadata” – ‘nough said">Kerry Osborne</a></li>
+<li><a href="http://www.oraclerealworld.com/" title="About Oracle Database Performance Montoring &amp; Tuning – Kyle was e.g. responsible for the Oracle Enterprise Manager Performance Pages">Kyle Hailey</a></li>
+<li><a href="http://markjbobak.wordpress.com/" title="Fine DBA blog run by a fellow Oakie">Mark J. Bobak</a></li>
+<li><a href="https://blogs.oracle.com/UPGRADE/" title="Probably the best source of information about Oracle Database Upgrade">Mike Dietrich's Upgrade Blog</a></li>
+<li><a href="http://blogs.oracle.com/optimizer/" title="Maria Colgan (but not only) publishes here: Highly recommended">Oracle Optimizer Dev Group</a></li>
+<li><a href="http://blogs.oracle.com/ou_trainers/" title="See here postings from other Oracle University instructors (not only Core Tech)">OU Instructor Blog</a></li>
+<li><a href="http://petewhodidnottweet.com/blogposts/" title="Mostly about the Enterprise Manager and DBaaS">Pete Sharman</a></li>
+<li><a href="http://richardfoote.wordpress.com/" title="Mostly about Indexes – Richard is probably the one with the highest reputation in the Oracle Community especially about this topic">Richard Foote</a></li>
+<li><a href="http://blog.tanelpoder.com/" title="One of the shining stars in the Oracle Database Realm – not only about Exadata">Tanel Poder</a></li>
+<li><a href="http://www.oracle-base.com/blog/" title="Many useful postings about Oracle Core Tech – especially some about Oracle (RAC) DB installation inside VirtualBox">Tim Hall</a></li>
+<li><a href="http://tkyte.blogspot.com/" title="This is not AskTom but the Blog of Tom Kyte, which is a different thing">Tom Kyte</a></li>
+
+	</ul>
+</div></li>
+<li><div id="linkcat-2200" class="widget widget_links"><h2 class="title">Links</h2>
+	<ul class="xoxo blogroll">
+<li><a href="http://asktom.oracle.com/" title="You know that one already, right?">Ask Tom</a></li>
+<li><a href="http://www.linkedin.com/groups?mostPopular=&amp;gid=918317">Exadata on LinkedIn (IOUG SIG)</a></li>
+<li><a href="http://www.oracle.com/technetwork/database/exadata/index.html" title="Major Exadata Landing Pad – a must when you run Exadata">Exadata public Info OTN</a></li>
+<li><a href="http://www.oracle.com/us/products/database/exadata-reference-booklet-400018.pdf" title="PDF containing 20 worldwide Customer References" target="_blank">Exadata References Booklet</a></li>
+<li><a href="http://education.oracle.com/pls/web_prod-plq-dad/db_pages.getpage?page_id=402&amp;p_nl=OXDA" title="Oracle University offers complete Learning Paths for Sites running or planning to run Exadata">Exadata related OU courses</a></li>
+<li><a href="https://support.oracle.com/CSP/main/article?cmd=show&amp;type=NOT&amp;id=1101938.1" title="Requires My Oracle Support Account!">MOS Master Note Data Guard</a></li>
+<li><a href="https://support.oracle.com/CSP/main/article?cmd=show&amp;type=NOT&amp;doctype=ANNOUNCEMENT&amp;id=1187674.1" title="Requires My Oracle Support Account!">MOS Master Note Exadata</a></li>
+<li><a href="https://support.oracle.com/CSP/main/article?cmd=show&amp;type=NOT&amp;id=1096952.1" title="Requires My Oracle Support Account!">MOS Master Note RAC</a></li>
+<li><a href="https://support.oracle.com/CSP/main/article?cmd=show&amp;type=NOT&amp;id=565535.1" title="How to size the Recovery Area (incl. Data Guard Configuraions)">MOS Note Flashback Database Best Practices &amp; Performance</a></li>
+<li><a href="http://www.oraclecommunity.net/">Oracle Community</a></li>
+<li><a href="http://tahiti.oracle.com/">Oracle Database Documentation</a></li>
+<li><a href="http://forums.oracle.com/forums/forum.jspa?forumID=849&amp;start=0">OTN Data Guard Forum</a></li>
+<li><a href="http://forums.oracle.com/forums/forum.jspa?forumID=61&amp;start=0">OTN Database Forum</a></li>
+<li><a href="http://forums.oracle.com/forums/forum.jspa?forumID=829">OTN Exadata Forum</a></li>
+<li><a href="http://forums.oracle.com/forums/forum.jspa?forumID=62">OTN RAC Installation Forum</a></li>
+<li><a href="http://www.oracle.com/us/corporate/acquisitions/index.html" title="Whom did we buy when and what were they doing? See the ever increasing list here">Strategic Acquisitions of Oracle</a></li>
+<li><a href="http://oracle.com.edgesuite.net/timeline/oracle/" title="Great presentation about Oracle’s history from the very start until today with many stories &amp; pictures!">Timeline of Oracle 1977-now</a></li>
+
+	</ul>
+</div></li>
+<li><div id="linkcat-1270668" class="widget widget_links"><h2 class="title">Random Posting</h2>
+	<ul class="xoxo blogroll">
+<li><a href="http://uhesse.wordpress.com/?random" title="I am always curious myself what comes up when I click here :)">One of my postings at random</a></li>
+
+	</ul>
+</div></li>
+<li><div id="jetpack_my_community-2" class="widget widget_jetpack_my_community"><h2 class="title">TOI Community</h2><div class="widgets-multi-column-grid"><ul><li><a href="http://tekgul.wordpress.com/"><img id="grav-57c3818286070681e3073b1fd22039e3-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/57c3818286070681e3073b1fd22039e3.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://amansharma.wordpress.com/"><img id="grav-4ae23c139d00ff10e8281cb948856aae-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/4ae23c139d00ff10e8281cb948856aae.jpg" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://dborasol.wordpress.com/"><img id="grav-5b06c2610b2e997bea6fc8982a214dde-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/5b06c2610b2e997bea6fc8982a214dde.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://oraclemirror.wordpress.com/"><img id="grav-8ba440b421f25d01eb53210d16831f09-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/8ba440b421f25d01eb53210d16831f09.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://achoudharyblog.wordpress.com/"><img id="grav-c6dbe37a311d786a0e222adeee5cae35-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/c6dbe37a311d786a0e222adeee5cae35.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://jasonbrownsite.wordpress.com/"><img id="grav-63534bc880ac13f78793185c290778cd-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/63534bc880ac13f78793185c290778cd.jpg" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href=""><img id="grav-02be70e4186f65faef936faf174b9417-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/02be70e4186f65faef936faf174b9417.jpg" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://oracledock.wordpress.com/"><img id="grav-38fb1d5ddb2b2b8fb2a935f192616e2d-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/38fb1d5ddb2b2b8fb2a935f192616e2d.jpg" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://zeddba.wordpress.com/"><img id="grav-2a084e1b6a80e7d46598b9db4a69c958-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/2a084e1b6a80e7d46598b9db4a69c958.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href=""><img id="grav-4a98030faf2ce6f2418123329bd7b66a-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/4a98030faf2ce6f2418123329bd7b66a.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href=""><img id="grav-a819435cdd00d8f668f91ba7eb888066-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/a819435cdd00d8f668f91ba7eb888066.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://copyrightunitedking.wordpress.com/"><img id="grav-3d80d92384001627e0e5a61a1daa7ddc-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/3d80d92384001627e0e5a61a1daa7ddc.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://pygator.wordpress.com/"><img id="grav-e72d2f84ac105ca2da16af82681aaf1a-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/e72d2f84ac105ca2da16af82681aaf1a.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href=""><img id="grav-cfd20beaaedc5f3774d23d5abb474fb2-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/cfd20beaaedc5f3774d23d5abb474fb2.jpg" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href=""><img id="grav-b544d1013fb218e12f264e0e46b6071d-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/b544d1013fb218e12f264e0e46b6071d.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://oliveirafv.wordpress.com/"><img id="grav-d6c7f3c3ce8ec4b1b960177cdf8acac1-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/d6c7f3c3ce8ec4b1b960177cdf8acac1.jpg" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href=""><img id="grav-dd679881ccb454066ea60a3d5dca970a-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/dd679881ccb454066ea60a3d5dca970a.jpg" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://thilakan.wordpress.com/"><img id="grav-b6c5be5b59177c77f36d4b59b39e6706-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/b6c5be5b59177c77f36d4b59b39e6706.jpg" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://orasols.wordpress.com/"><img id="grav-f3d77d06557d0a6c93d3a9598e176f44-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/f3d77d06557d0a6c93d3a9598e176f44.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href=""><img id="grav-6cf8c048da98e77988799e87961a47c3-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/6cf8c048da98e77988799e87961a47c3.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://yasinyazici.wordpress.com/"><img id="grav-1176708e25d6982e12116179ffdfc186-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/1176708e25d6982e12116179ffdfc186.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://lotharflatz.wordpress.com/"><img id="grav-df76e41fafd975f954720fd892c5004f-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/df76e41fafd975f954720fd892c5004f.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://baigstuff.wordpress.com/"><img id="grav-6f62d6859230d3d78dfe38fa9939a519-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/6f62d6859230d3d78dfe38fa9939a519.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href=""><img id="grav-623ff079d9282dbb61b9011a843e0a6f-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/623ff079d9282dbb61b9011a843e0a6f.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://nikhildbasavvy.wordpress.com/"><img id="grav-6ac91bd6ac23e05e7ecd43d0ce968ee3-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/6ac91bd6ac23e05e7ecd43d0ce968ee3.jpg" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://ycolin.wordpress.com/"><img id="grav-40703f76076373de57abbed4875d50a6-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/40703f76076373de57abbed4875d50a6.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://powertheenterprise.wordpress.com/"><img id="grav-b8bd5b7cf0e8afe84e286c7167ce1cc9-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/b8bd5b7cf0e8afe84e286c7167ce1cc9.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href=""><img id="grav-99c23dc3da1b569a4747d58aeb044aff-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/99c23dc3da1b569a4747d58aeb044aff.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://gatelockservice.wordpress.com/"><img id="grav-58708cf6381645d52bcb96a569f96e6a-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/58708cf6381645d52bcb96a569f96e6a.jpg" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://marksmithdba.wordpress.com/"><img id="grav-926b79d7011ea1e1b011ba755a4a3bd9-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/926b79d7011ea1e1b011ba755a4a3bd9.jpg" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://beerandoracle.wordpress.com/"><img id="grav-260ed5b06d570936e6a69be8cc7d1f45-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/260ed5b06d570936e6a69be8cc7d1f45.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://felipelealdba.wordpress.com/"><img id="grav-e58b1eea7baa92ca4e61b956bd555fbd-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/e58b1eea7baa92ca4e61b956bd555fbd.jpg" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://robustmk.wordpress.com/"><img id="grav-34a56d00f6efb235b8dcd066da722ece-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/34a56d00f6efb235b8dcd066da722ece.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://ydalem.wordpress.com/"><img id="grav-e34ae78365fe8f26dace10b927a920d8-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/e34ae78365fe8f26dace10b927a920d8.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://madelei42.wordpress.com/"><img id="grav-a6af173789e67078eec7539b22f9ede9-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/a6af173789e67078eec7539b22f9ede9.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href=""><img id="grav-508daeb2f88e70b5c6c45bc39e2376c9-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/508daeb2f88e70b5c6c45bc39e2376c9.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://www.photoeditingcompany.com/"><img id="grav-c0526d2477cd69019fc3985373032b87-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/c0526d2477cd69019fc3985373032b87.jpg" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://anjulsahu.wordpress.com/"><img id="grav-880d40362a10a980919f93bb116b1cd3-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/880d40362a10a980919f93bb116b1cd3.jpg" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://vinoracledba.wordpress.com/"><img id="grav-b79f5523628fda2d487663c4b929475a-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/b79f5523628fda2d487663c4b929475a.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://wellingtonprado.com/"><img id="grav-fab336d2cb31f2b8d613a004ba7d851a-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/fab336d2cb31f2b8d613a004ba7d851a.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href=""><img id="grav-cb02ebf017b8e34295ad7fe3f4648085-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/cb02ebf017b8e34295ad7fe3f4648085.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://midhungt.wordpress.com/"><img id="grav-75b6522e45318e3208d5d921af52ee33-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/75b6522e45318e3208d5d921af52ee33.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://kolodochko.wordpress.com/"><img id="grav-28f73e81b141f84e606bb618710823e0-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/28f73e81b141f84e606bb618710823e0.jpg" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href=""><img id="grav-58d1a181572c5c7c8681d6ddff409068-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/58d1a181572c5c7c8681d6ddff409068.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://dbarj.wordpress.com/"><img id="grav-8fa0d688cef53e291368f4a93c3770c4-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/8fa0d688cef53e291368f4a93c3770c4.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href=""><img id="grav-2c5ba4f3790b469b9ec272797203fac5-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/2c5ba4f3790b469b9ec272797203fac5.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://oraclevipassana.wordpress.com/"><img id="grav-38632a3d39e5c7579b9ac7d6aec3e86c-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/38632a3d39e5c7579b9ac7d6aec3e86c.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://archenroot.wordpress.com/"><img id="grav-f6c955859830b460986d49a3850ca39f-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/f6c955859830b460986d49a3850ca39f.jpg" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://rakeshchemikaladba.wordpress.com/"><img id="grav-b2919606d5a16f08baf302a413ec0c35-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/b2919606d5a16f08baf302a413ec0c35.png" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li><li><a href="http://borysneselovskyi.wordpress.com/"><img id="grav-9024eef709d5a85399f868d89a1145ff-0" alt="" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/9024eef709d5a85399f868d89a1145ff.jpg" class="avatar avatar-48 grav-hashed" height="48" width="48"></a></li></ul></div></div></li><li><div id="internet_defense_league_widget-2" class="widget widget_internet_defense_league_widget"><p><a href="http://internetdefenseleague.org/"><img src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/shield_badge.png" alt="Member of The Internet Defense League" style="max-width:100%;height:auto;"></a></p></div></li>		</ul>
+
+	</div>
+	<!-- /sidebar 2nd container -->
+
+	</div>
+	<!-- /sidebar 1st container -->
+
+</div>
+<!-- /sidebar -->
+
+		
+	</div>
+	<!-- /side wrap -->
+
+	</div>
+	<!-- /mid column wrap -->
+
+</div>
+<!-- /main wrapper -->
+
+<div class="clearcontent"></div>
+
+
+		<ul id="footer-widgets" class="widgetcount-6">
+			<li id="text-330055441" class="widget widget_text"><div class="the-content"><h4 class="title">Disclaimer</h4>			<div class="textwidget">The views expressed here are my own and do not necessarily reflect the views of Oracle Corporation.
+The views expressed by visitors on this blog are theirs solely and may not reflect mine.</div>
+		</div></li><li id="blog-stats-2" class="widget widget_blog-stats"><div class="the-content"><h4 class="title">Blog Stats</h4>		<ul>
+			<li>999,883 hits</li>
+		</ul>
+		</div></li><li id="text-330055445" class="widget widget_text"><div class="the-content">			<div class="textwidget"><a href="https://plus.google.com/u/0/106672584224509200298?rel=author">Google</a> by Uwe Hesse</div>
+		</div></li><li id="text-330055450" class="widget widget_text"><div class="the-content">			<div class="textwidget"><a href="http://kred.com/UweHesse" target="_blank">
+    <img src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/a.png" style="width:100px;border:0;">
+</a></div>
+		</div></li><li id="text-330055451" class="widget widget_text"><div class="the-content">			<div class="textwidget"><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0;" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/88x31.png"></a><br>The content on this site is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.</div>
+		</div></li><li id="text-330055448" class="widget widget_text"><div class="the-content"><h4 class="title">Did you like what you’ve found here?</h4>			<div class="textwidget"><a href="http://clicktotweet.com/Jb6Ux">Recommend uhesse.com to your Twitter followers</a></div>
+		</div></li>		</ul>
+
+		<div class="clear"></div>
+
+
+<div id="footer">
+
+	<p>
+		<a href="https://wordpress.com/?ref=footer_blog">Blog at WordPress.com</a>.
+		<a href="https://wordpress.com/themes/fusion/" title="Learn more about this theme">The Fusion Theme</a>.	</p>
+</div>
+<!-- /footer -->
+
+</div>
+<!-- /page -->
+
+</div>
+
+</div>
+<!-- /page wrappers -->
+
+<!-- wpcom_wp_footer -->
+<script type="text/javascript" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/wpgroho.js"></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+
+			if (typeof Gravatar === "undefined"){
+				return;
+			}
+
+			if ( typeof Gravatar.init !== "function" ) {
+				return;
+			}			
+
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	<div class="grofile-hash-map-677410c8ba45e048fb339f02080369ff">
+	</div>
+	<div class="grofile-hash-map-1740e027647cb8ca1644bc3edc904f41">
+	</div>
+	<div class="grofile-hash-map-73cdb20b4d2a2fa1f3c7b63f8d32b6b0">
+	</div>
+	<div class="grofile-hash-map-c43a594c78bf4eda6b1aed3cb2537f53">
+	</div>
+	<div class="grofile-hash-map-577d61dbda1e4de82c737dadb52fb6ae">
+	</div>
+	<div class="grofile-hash-map-51ccda1ab4b82a101a881703129317ea">
+	</div>
+	<div class="grofile-hash-map-896349331f8a46c61a20c02041153e14">
+	</div>
+	<div class="grofile-hash-map-7ef44663ad1c6897735c422b0bc6c8f1">
+	</div>
+	<div class="grofile-hash-map-11e7e6ccd1db2fe1f478384d1f1a2308">
+	</div>
+	<div class="grofile-hash-map-14dce1f32158fc6498435e1cd5b83945">
+	</div>
+	<div class="grofile-hash-map-07d43dee65362737a615b09d79f41879">
+	</div>
+	</div>
+<script type="text/javascript">
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"https:\/\/uhesse.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"https:\/\/uhesse.wordpress.com\/wp-login.php?action=logout&_wpnonce=ecc2e1dd55","homeURL":"http:\/\/uhesse.com\/","postID":"1122","gravDefault":"mystery","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"","userIsLoggedIn":"","isJetpack":"0","text_direction":"ltr"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/a_002.js"></script>
+
+	<div style="bottom: -280px;" id="bit" class="loggedout-follow-normal">
+		<a class="bsub" href="javascript:void(0)"><span id="bsub-text">Follow</span></a>
+		<div id="bitsubscribe">
+
+					<h3><label for="loggedout-follow-field">Follow “The Oracle Instructor”</label></h3>
+
+			<form action="https://subscribe.wordpress.com" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+			<p id="loggedout-follow-error" style="display: none;"></p>
+
+						<p class="bit-follow-count">Join 3,281 other followers</p>
+			<p><input name="email" value="Enter your email address" onfocus='this.value=(this.value=="Enter your email address") ? "" : this.value;' onblur='this.value=(this.value=="") ? "Enter your email address" : this.value;' id="loggedout-follow-field" type="email"></p>
+
+			<input name="action" value="subscribe" type="hidden">
+			<input name="blog_id" value="6195767" type="hidden">
+			<input name="source" value="http://uhesse.com/2012/10/01/exadata-x3-key-points/" type="hidden">
+			<input name="sub-type" value="loggedout-follow" type="hidden">
+
+			<input id="_wpnonce" name="_wpnonce" value="530b5dbdd8" type="hidden"><input name="_wp_http_referer" value="/2012/10/01/exadata-x3-key-points/" type="hidden">
+			<p id="bsub-subscribe-button"><input value="Sign me up" type="submit"></p>
+			</form>
+					<div id="bsub-credit"><a href="https://wordpress.com/?ref=lof">Build a website with WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"http:\/\/uhesse.com\/2012\/10\/01\/exadata-x3-key-points\/":1122};
+		window.WPCOM_jetpack = false;
+				window.WPCOM_site_ID = 6195767;
+			</script>
+		<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+					<script type="text/javascript">
+			  (function() {
+			    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+			    po.src = 'https://apis.google.com/js/plusone.js';
+			    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+			  })();
+			</script>
+					<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+		<div class=" fb_reset" id="fb-root"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/KTWTb9MY5lw.htm" style="border: medium none;" tabindex="-1" title="Facebook Cross Domain Communication Frame" aria-hidden="true" id="fb_xdm_frame_http" scrolling="no" allowfullscreen="true" allowtransparency="true" name="fb_xdm_frame_http" frameborder="0"></iframe><iframe src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/KTWTb9MY5lw_002.htm" style="border: medium none;" tabindex="-1" title="Facebook Cross Domain Communication Frame" aria-hidden="true" id="fb_xdm_frame_https" scrolling="no" allowfullscreen="true" allowtransparency="true" name="fb_xdm_frame_https" frameborder="0"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div><script>(function(d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = '//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=249643311490&version=v2.3'; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk'));</script><script type="text/javascript">
+			jQuery( document ).ready( function() {
+			    jQuery.getScript( '//platform.linkedin.com/in.js?async=true', function success() {
+			        IN.init();
+			    });
+			});
+			jQuery( document.body ).on( 'post-load', function() {
+				if ( typeof IN != 'undefined' )
+					IN.parse();
+			});
+			</script>	
+<script type="text/javascript" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/share.js"></script>					<script type="text/javascript">
+				// Pinterest shared resources
+				var s = document.createElement("script");
+				s.type = "text/javascript";
+				s.async = true;
+				s.setAttribute('data-pin-hover', true);
+				s.src = window.location.protocol + "//assets.pinterest.com/js/pinit.js";
+				var x = document.getElementsByTagName("script")[0];
+				x.parentNode.insertBefore(s, x);
+				// if 'Pin it' button has 'counts' make container wider
+				jQuery(window).load( function(){ jQuery( 'li.share-pinterest a span:visible' ).closest( '.share-pinterest' ).width( '80px' ); } );
+			</script>
+				<script>
+		// Don't use Pocket's default JS as it we need to force init new Pocket share buttons loaded via JS.
+		function jetpack_sharing_pocket_init() {
+			jQuery.getScript( 'https://widgets.getpocket.com/v1/j/btn.js?v=1' );
+		}
+		jQuery( document ).on( 'ready', jetpack_sharing_pocket_init );
+		jQuery( document.body ).on( 'post-load', jetpack_sharing_pocket_init );
+		</script>
+				<iframe src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/master.htm" scrolling="no" id="likes-master" name="likes-master" style="display:none;"></iframe>
+		<div id="likes-other-gravatars"><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script type="text/javascript">
+		//<![CDATA[
+			var jetpackLikesWidgetQueue = [];
+			var jetpackLikesWidgetBatch = [];
+			var jetpackLikesMasterReady = false;
+
+			function JetpackLikespostMessage( message, target ) {
+				if ( "string" === typeof message ){
+					try{
+						message = JSON.parse( message );
+					}
+					catch(e) {
+						return;
+					}
+				}
+
+				pm( {
+					target: target,
+					type: 'likesMessage',
+					data: message,
+					origin: '*'
+				} );
+			}
+
+			function JetpackLikesBatchHandler() {
+				var requests = [];
+				jQuery( 'div.jetpack-likes-widget-unloaded' ).each( function( i ) {
+					if ( jetpackLikesWidgetBatch.indexOf( this.id ) > -1 )
+						return;
+					jetpackLikesWidgetBatch.push( this.id );
+					var regex = /like-(post|comment)-wrapper-(\d+)-(\d+)-(\w+)/;
+					var match = regex.exec( this.id );
+					if ( ! match || match.length != 5 )
+						return;
+
+					var info = {
+						blog_id: match[2],
+						width:   this.width
+					};
+
+					if ( 'post' == match[1] ) {
+						info.post_id = match[3];
+					} else if ( 'comment' == match[1] ) {
+						info.comment_id = match[3];
+					}
+
+					info.obj_id = match[4];
+
+					requests.push( info );
+				});
+
+				if ( requests.length > 0 ) {
+					JetpackLikespostMessage( { event: 'initialBatch', requests: requests }, window.frames['likes-master'] );
+				}
+			}
+
+			function JetpackLikesMessageListener( event ) {
+				if ( "undefined" == typeof event.event )
+					return;
+
+				if ( 'masterReady' == event.event ) {
+					jQuery( document ).ready( function() {
+						jetpackLikesMasterReady = true;
+
+						var stylesData = {
+								event: 'injectStyles'
+						};
+
+						if ( jQuery( 'iframe.admin-bar-likes-widget' ).length > 0 ) {
+							JetpackLikespostMessage( { event: 'adminBarEnabled' }, window.frames[ 'likes-master' ] );
+
+							stylesData.adminBarStyles = {
+								background: jQuery( '#wpadminbar .quicklinks li#wp-admin-bar-wpl-like > a' ).css( 'background' ),
+								isRtl: ( 'rtl' == jQuery( '#wpadminbar' ).css( 'direction' ) )
+							};
+						}
+
+						if ( !window.addEventListener )
+							jQuery( '#wp-admin-bar-admin-bar-likes-widget' ).hide();
+
+						stylesData.textStyles = {
+							color: jQuery( '.sd-text-color').css( 'color' ),
+							fontFamily: jQuery( '.sd-text-color' ).css( 'font-family' ),
+							fontSize: jQuery( '.sd-text-color' ).css( 'font-size' ),
+							direction: jQuery( '.sd-text-color' ).css( 'direction' ),
+							fontWeight: jQuery( '.sd-text-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-text-color' ).css( 'font-style' ),
+							textDecoration: jQuery( '.sd-text-color' ).css('text-decoration')
+						};
+
+						stylesData.linkStyles = {
+							color: jQuery( '.sd-link-color' ).css('color'),
+							fontFamily: jQuery( '.sd-link-color' ).css('font-family'),
+							fontSize: jQuery( '.sd-link-color' ).css('font-size'),
+							textDecoration: jQuery( '.sd-link-color' ).css('text-decoration'),
+							fontWeight: jQuery( '.sd-link-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-link-color' ).css( 'font-style' )
+						};
+
+						JetpackLikespostMessage( stylesData, window.frames[ 'likes-master' ] );
+
+						JetpackLikesBatchHandler();
+
+						jQuery( document ).on( 'inview', 'div.jetpack-likes-widget-unloaded', function() {
+							jetpackLikesWidgetQueue.push( this.id );
+						});
+					});
+				}
+
+				if ( 'showLikeWidget' == event.event ) {
+					jQuery( '#' + event.id + ' .post-likes-widget-placeholder'  ).fadeOut( 'fast', function() {
+						jQuery( '#' + event.id + ' .post-likes-widget' ).fadeIn( 'fast', function() {
+							JetpackLikespostMessage( { event: 'likeWidgetDisplayed', blog_id: event.blog_id, post_id: event.post_id, obj_id: event.obj_id }, window.frames['likes-master'] );
+						});
+					});
+				}
+
+				if ( 'clickReblogFlair' == event.event ) {
+					wpcom_reblog.toggle_reblog_box_flair( event.obj_id );
+				}
+
+				if ( 'showOtherGravatars' == event.event ) {
+					var $container = jQuery( '#likes-other-gravatars' );
+					var $list = $container.find( 'ul' );
+
+					$container.hide();
+					$list.html( '' );
+
+					$container.find( '.likes-text span' ).text( event.total );
+
+					jQuery.each( event.likers, function( i, liker ) {
+						$list.append( '<li class="' + liker.css_class + '"><a href="' + liker.profile_URL + '" class="wpl-liker" rel="nofollow" target="_parent"><img src="' + liker.avatar_URL + '" alt="' + liker.name + '" width="30" height="30" style="padding-right: 3px;" /></a></li>');
+					} );
+
+					var offset = jQuery( "[name='" + event.parent + "']" ).offset();
+
+					$container.css( 'left', offset.left + event.position.left - 10 + 'px' );
+					$container.css( 'top', offset.top + event.position.top - 33 + 'px' );
+
+					var rowLength = Math.floor( event.width / 37 );
+					var height = ( Math.ceil( event.likers.length / rowLength ) * 37 ) + 13;
+					if ( height > 204 ) {
+						height = 204;
+					}
+
+					$container.css( 'height', height + 'px' );
+					$container.css( 'width', rowLength * 37 - 7 + 'px' );
+
+					$list.css( 'width', rowLength * 37 + 'px' );
+
+					$container.fadeIn( 'slow' );
+
+					var scrollbarWidth = $list[0].offsetWidth - $list[0].clientWidth;
+					if ( scrollbarWidth > 0 ) {
+						$container.width( $container.width() + scrollbarWidth );
+						$list.width( $list.width() + scrollbarWidth );
+					}
+				}
+			}
+
+			pm.bind( 'likesMessage', function(e) { JetpackLikesMessageListener(e); } );
+
+			jQuery( document ).click( function( e ) {
+				var $container = jQuery( '#likes-other-gravatars' );
+
+				if ( $container.has( e.target ).length === 0 ) {
+					$container.fadeOut( 'slow' );
+				}
+			});
+
+			function JetpackLikesWidgetQueueHandler() {
+				var wrapperID;
+				if ( ! jetpackLikesMasterReady ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				if ( jetpackLikesWidgetQueue.length > 0 ) {
+					// We may have a widget that needs creating now
+					var found = false;
+					while( jetpackLikesWidgetQueue.length > 0 ) {
+						// Grab the first member of the queue that isn't already loading.
+						wrapperID = jetpackLikesWidgetQueue.splice( 0, 1 )[0];
+						if ( jQuery( '#' + wrapperID ).hasClass( 'jetpack-likes-widget-unloaded' ) ) {
+							found = true;
+							break;
+						}
+					}
+					if ( ! found ) {
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				} else if ( jQuery( 'div.jetpack-likes-widget-unloaded' ).length > 0 ) {
+					// Grab any unloaded widgets for a batch request
+					JetpackLikesBatchHandler();
+
+					// Get the next unloaded widget
+					wrapperID = jQuery( 'div.jetpack-likes-widget-unloaded' ).first()[0].id;
+					if ( ! wrapperID ) {
+						// Everything is currently loaded
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				}
+
+				if ( 'undefined' === typeof wrapperID ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				var $wrapper = jQuery( '#' + wrapperID );
+				$wrapper.find( 'iframe' ).remove();
+
+				if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='22px' width='68px' frameBorder='0' scrolling='no' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				} else {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='55px' width='100%' frameBorder='0' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				}
+
+				$wrapper.removeClass( 'jetpack-likes-widget-unloaded' ).addClass( 'jetpack-likes-widget-loading' );
+
+				$wrapper.find( 'iframe' ).load( function( e ) {
+					var $iframe = jQuery( e.target );
+					$wrapper.removeClass( 'jetpack-likes-widget-loading' ).addClass( 'jetpack-likes-widget-loaded' );
+
+					JetpackLikespostMessage( { event: 'loadLikeWidget', name: $iframe.attr( 'name' ), width: $iframe.width() }, window.frames[ 'likes-master' ] );
+
+					if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+						$wrapper.find( 'iframe' ).Jetpack( 'resizeable' );
+					}
+				});
+				setTimeout( JetpackLikesWidgetQueueHandler, 250 );
+			}
+			JetpackLikesWidgetQueueHandler();
+		//]]>
+		</script>
+<script type="text/javascript" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/form.js"></script>
+<script type="text/javascript" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/widgets.js"></script>
+<script type="text/javascript">
+	window._idl = {};
+	_idl.campaign = "";
+	_idl.variant = "banner";
+	(function() {
+		var idl = document.createElement('script');
+		idl.type = 'text/javascript';
+		idl.async = true;
+		idl.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'members.internetdefenseleague.org/include/?url=' + (_idl.url || '') + '&campaign=' + (_idl.campaign || '') + '&variant=' + (_idl.variant || 'banner');
+		document.getElementsByTagName('body')[0].appendChild(idl);
+	})();
+</script><script src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/a" async="" type="text/javascript"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var JetpackEmojiSettings = {"base_url":"http:\/\/s0.wp.com\/wp-content\/mu-plugins\/emoji\/twemoji\/"};
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/a_003.js"></script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script><script src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/w.js" type="text/javascript" async="" defer="defer"></script>
+<script type="text/javascript">
+_tkq = window._tkq || [];
+_stq = window._stq || [];
+_tkq.push(['storeContext', {'blog_id':'6195767','blog_tz':'2','user_lang':'en','blog_lang':'en','user_id':'0'}]);
+_stq.push(['view', {'blog':'6195767','v':'wpcom','tz':'2','user_id':'0','post':'1122','subd':'uhesse'}]);
+_stq.push(['extra', {'crypt':'UE5tW3cvZGRlOGRrSXpCaitHPWpdNk5JTFpGaXgzdVlxUEN2OC9KWj1Vd0FVaFU1WHx2UnkxdkViSVEvVURxbmxCS2ptY1traH5Kc1VZRDNHeXdHdVRXeH5uP0hpOFhKLCxCP0REW1s/WVt2MldLOURvd2xOUiwvTC1BP3gmUlgxYm1vPXwseUh4WU15S1ArW3VCMVlPXXg3Zjd8U3xCMUtidDExdkJBdjR0aSVQZ3FlP10wVVtZeVh5R1NHP11vQS9ZJS5kLj9UUUxXJjJ8cG5UfEdYXVNwY3Y4QSxFTVFOZGp8QT9DY0xjbnBzWzZ6Y0dic29bSVBmOTB2ODJaUll4djMuWEViaTdfdGpOZm9VW0o2LmhoOTFoWjk5N0dpPWxTMC40cEpUPUJ3bU1rX01HUUg='}]);
+_stq.push([ 'clickTrackerInit', '6195767', '1122' ]);
+	</script>
+<noscript><img src="http://pixel.wp.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /></noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//pixel.wp.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script>
+<img id="wpstats" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/g.gif"><div id="link64_vdp_tabid" style="display:none;">1048</div><div id="sharing_email" style="display: none;">
+		<form action="/2012/10/01/exadata-x3-key-points/" method="post">
+			<label for="target_email">Send to Email Address</label>
+			<input name="target_email" id="target_email" type="email">
+
+			
+				<label for="source_name">Your Name</label>
+				<input name="source_name" id="source_name" type="text">
+
+				<label for="source_email">Your Email Address</label>
+				<input name="source_email" id="source_email" type="email">
+
+			
+			<div class="recaptcha" id="sharing_recaptcha"></div><input name="recaptcha_public_key" id="recaptcha_public_key" value="6LcYW8MSAAAAADBAuEH9yaPcF7lWh11Iq62ZKtoo" type="hidden">
+			<img style="float: right; display: none" class="loading" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/loading.gif" alt="loading" height="16" width="16">
+			<input value="Send Email" class="sharing_send" type="submit">
+			<a href="#cancel" class="sharing_cancel">Cancel</a>
+
+			<div class="errors errors-1" style="display: none;">
+				Post was not sent - check your email addresses!			</div>
+
+			<div class="errors errors-2" style="display: none;">
+				Email check failed, please try again			</div>
+
+			<div class="errors errors-3" style="display: none;">
+				Sorry, your blog cannot share posts by email.			</div>
+		</form>
+	</div><iframe tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;" src="Exadata%20X3%20Key%20Points%20_%20The%20Oracle%20Instructor_files/postmessageRelay.htm" id="oauth2relay243555807" name="oauth2relay243555807"></iframe></body></html>

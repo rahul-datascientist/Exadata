@@ -1,0 +1,1 @@
+if (typeof(jQuery) != 'undefined') jQueryFB = jQuery.noConflict();

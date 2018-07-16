@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6 lt-ie9 lt-ie8 lt-ie7" lang="en-US"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 lt-ie9 lt-ie8" lang="en-US"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 lt-ie9" lang="en-US"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class=" js no-flexbox canvas canvastext no-webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" lang="en-US"><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width">
+		<title>Exadata Smart Scan predicate offloading and sequence.NEXTVAL | Tanel Poder's Performance &amp; Troubleshooting blog</title>
+		<link rel="profile" href="http://gmpg.org/xfn/11">
+		<link rel="pingback" href="http://blog.tanelpoder.com/xmlrpc.php">
+		<style type="text/css">#wrapper{max-width:800px!important}</style>
+		
+<!-- All in One SEO Pack 2.2.6.2 by Michael Torbert of Semper Fi Web Design[495,628] -->
+<meta name="description" content="There was a question in the twitter-sphere about whether using sequences (sequence.NEXTVAL) in your select query's projection list would somehow disable smart">
+
+<meta name="keywords" content="exadata,oracle">
+
+<link rel="canonical" href="http://blog.tanelpoder.com/2012/04/13/exadata-smart-scan-predicate-offloading-and-sequence-nextval/">
+<!-- /all in one seo pack -->
+<link rel="alternate" type="application/rss+xml" title="Tanel Poder's Performance &amp; Troubleshooting blog » Feed" href="http://blog.tanelpoder.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Tanel Poder's Performance &amp; Troubleshooting blog » Comments Feed" href="http://blog.tanelpoder.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Tanel Poder's Performance &amp; Troubleshooting blog » Exadata Smart Scan predicate offloading and sequence.NEXTVAL Comments Feed" href="http://blog.tanelpoder.com/2012/04/13/exadata-smart-scan-predicate-offloading-and-sequence-nextval/feed/">
+		<script type="text/javascript">window._wpemojiSettings={"baseUrl":"http:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"http:\/\/blog.tanelpoder.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.2.1"}};!function(a,b,c){function d(a){var c=b.createElement("canvas"),d=c.getContext&&c.getContext("2d");return d&&d.fillText?(d.textBaseline="top",d.font="600 32px Arial","flag"===a?(d.fillText(String.fromCharCode(55356,56812,55356,56807),0,0),c.toDataURL().length>3e3):(d.fillText(String.fromCharCode(55357,56835),0,0),0!==d.getImageData(16,16,1,1).data[0])):!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f;c.supports={simple:d("simple"),flag:d("flag")},c.supports.simple&&c.supports.flag||(f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);</script><script type="text/javascript" src="Exadata%20Smart%20Scan%20predicate%20offloading%20and%20sequence.NEXTVAL%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/wp-emoji-release.js"></script>
+		<style type="text/css">img.wp-smiley,img.emoji{display:inline!important;border:none!important;box-shadow:none!important;height:1em!important;width:1em!important;margin:0 .07em!important;vertical-align:-.1em!important;background:none!important;padding:0!important}</style>
+<style id="brunelleschi_left-heading-css" media="all">#branding{text-align:left!important}</style>
+<style id="brunelleschi_small-site-title-css" media="all">#site-title{font-size:20px}</style>
+<link rel="stylesheet" id="style.css-css" href="Exadata%20Smart%20Scan%20predicate%20offloading%20and%20sequence.NEXTVAL%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/A_003.css" type="text/css" media="all">
+<link rel="stylesheet" id="dwqa-style-css" href="Exadata%20Smart%20Scan%20predicate%20offloading%20and%20sequence.NEXTVAL%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/A_004.css" type="text/css" media="all">
+<style id="mailchimp-for-wp-checkbox-css" media="all">#mc4wp-checkbox{clear:both;display:block;position:static;width:auto}#mc4wp-checkbox input{float:none;width:auto;position:static;margin:0 6px 0 0;padding:0;vertical-align:middle;display:inline-block!important;max-width:21px;-webkit-appearance:checkbox}#mc4wp-checkbox label{float:none;display:block;cursor:pointer;width:auto;position:static}#_mc4wp_subscribe_woocommerce_checkout_field input,#_mc4wp_subscribe_woocommerce_checkout_field label{float:none!important;width:auto!important;display:inline-block!important}#registerform #mc4wp-checkbox{margin-bottom:10px}</style>
+<link rel="stylesheet" id="tablepress-default-css" href="Exadata%20Smart%20Scan%20predicate%20offloading%20and%20sequence.NEXTVAL%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/default.css" type="text/css" media="all">
+<style id="mailchimp-for-wp-form-css" media="all">.mc4wp-form{margin:1em 0}.mc4wp-form form{width:auto}.mc4wp-form label{display:block;font-weight:700;margin-bottom:5px}.mc4wp-form input{vertical-align:baseline}.mc4wp-form input.placeholdersjs{color:#aaa!important}.mc4wp-form input[type=date],.mc4wp-form input[type=email],.mc4wp-form input[type=tel],.mc4wp-form input[type=text],.mc4wp-form input[type=url],.mc4wp-form select,.mc4wp-form textarea{cursor:auto;display:block;width:100%;height:auto;box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box}.mc4wp-form input[type=checkbox],.mc4wp-form input[type=radio]{position:relative;margin:0 6px 0 0;padding:0;height:13px;width:13px;display:inline-block;border:0}.mc4wp-form input[type=checkbox]{-webkit-appearance:checkbox}.mc4wp-form input[type=radio]{-webkit-appearance:radio}.mc4wp-form input[name="_mc4wp_required_but_not_really"]{display:none!important}.mc4wp-form button,.mc4wp-form input[type=button],.mc4wp-form input[type=submit]{cursor:pointer;display:inline-block}.mc4wp-form li,.mc4wp-form ul{list-style:none;margin:0;padding:0}.mc4wp-form label>span,.mc4wp-form li>label{font-weight:400}.mc4wp-alert{margin:1em 0;padding:10px 15px;color:#c09853;background-color:#fcf8e3;border:1px solid #fbeed5;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;display:block;position:relative}.mc4wp-success{color:#468847;background-color:#dff0d8;border-color:#d6e9c6}.mc4wp-notice{color:#3a87ad;background-color:#d9edf7;border-color:#bce8f1}.mc4wp-error{color:#b94a48;background-color:#f2dede;border-color:#eed3d7}</style>
+<link rel="stylesheet" id="genericons-css" href="Exadata%20Smart%20Scan%20predicate%20offloading%20and%20sequence.NEXTVAL%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/A_002.css" type="text/css" media="all">
+<link rel="stylesheet" id="jetpack_css-css" href="Exadata%20Smart%20Scan%20predicate%20offloading%20and%20sequence.NEXTVAL%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/A.css" type="text/css" media="all">
+<script src="Exadata%20Smart%20Scan%20predicate%20offloading%20and%20sequence.NEXTVAL%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/modernizr-2.js"></script><script>eval(mod_pagespeed_d9Tsm3u5FU);</script>
+<script>eval(mod_pagespeed_Xjuv4cPKr5);</script>
+<script type="text/javascript" src="Exadata%20Smart%20Scan%20predicate%20offloading%20and%20sequence.NEXTVAL%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/jquery.js"></script>
+<script src="Exadata%20Smart%20Scan%20predicate%20offloading%20and%20sequence.NEXTVAL%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/wp-includes_js_jquery_jquery-migrate.js"></script><script>eval(mod_pagespeed_Hf0$z$LmEX);</script>
+<script>eval(mod_pagespeed_3g6VhoPJyg);</script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://blog.tanelpoder.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://blog.tanelpoder.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Create a database link with the new host:port/service syntax" href="http://blog.tanelpoder.com/2012/03/05/create-a-database-link-with-the-new-hostportservice-syntax/">
+<link rel="next" title="Where is LOB data stored?" href="http://blog.tanelpoder.com/2012/04/22/where-is-lob-data-stored/">
+<meta name="generator" content="WordPress 4.2.1">
+<link rel="shortlink" href="http://wp.me/pp6nk-pG">
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-4749913-1','auto');ga('send','pageview');</script>
+<link rel="dns-prefetch" href="http://i0.wp.com/">
+<link rel="dns-prefetch" href="http://i1.wp.com/">
+<link rel="dns-prefetch" href="http://i2.wp.com/">
+<style type="text/css">.broken_link,a.broken_link{text-decoration:line-through}</style>	<style type="text/css">.site-title,.site-description{position:absolute!important;clip:rect(1px 1px 1px 1px);clip:rect(1px,1px,1px,1px)}</style>
+	<link href="Exadata%20Smart%20Scan%20predicate%20offloading%20and%20sequence.NEXTVAL%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/shCore.css" type="text/css" rel="stylesheet"><link href="Exadata%20Smart%20Scan%20predicate%20offloading%20and%20sequence.NEXTVAL%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/shThemeDefault.css" type="text/css" rel="stylesheet"><style type="text/css" id="syntaxhighlighteranchor"></style>
+<style type="text/css">.mc4wp-form input[name="_mc4wp_required_but_not_really"]{display:none!important}</style>		<style>div.entry-content p code{background-color:#fff;padding:.2em}div.entry-content pre{white-space:pre;overflow:scroll;-webkit-overflow-scrolling:touch;font-family:Consolas,\"Andale\ Mono\",\"DejaVu\ Sans\ Mono\",monospace;background-color:#f6f6f6;font-size:14px}div.entry-content{color:#222;font-size:15px;font-family:Georgia,Times,sans-serif}div.entry-utility{display:none}#comments-title{display:none}#comments{color:#222;font-size:15px;font-family:Georgia,Times,sans-serif}#reply-title{display:none}#nav-above div{display:none}#nav-above{display:none}.paged #nav-above{display:none}.single #nav-above{display:none}::-moz-selection{background:#ff6;color:#000;text-shadow:none}::selection{background:#ff6;color:#000;text-shadow:none}#access{border-top:none;border-bottom:none}.hentry{border-top:none}</style>
+	</head>
+	<body class="single single-post postid-1592 single-format-standard">
+	<div id="wrapper" class="hfeed container">
+		<header id="header" class="row clearfix">
+							<hgroup id="branding" class="threecol">
+					<h1 class="site-title"><a href="http://blog.tanelpoder.com/" title="Tanel Poder's Performance &amp; Troubleshooting blog" rel="home">Tanel Poder's Performance &amp; Troubleshooting blog</a></h1>
+					<h2 class="site-description">Linux, Oracle, Hadoop.</h2>
+				</hgroup>
+																						<div id="access" role="navigation" class="twelvecol last clearfix">
+					<div class="skip-link screen-reader-text"><a href="#content" title="Skip to content">Skip to content</a></div>
+					<div class="menu-header"><ul id="menu-menu-1" class="menu"><li id="menu-item-2401" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-2401"><a href="http://blog.tanelpoder.com/">Home</a></li>
+<li id="menu-item-2402" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2402"><a href="http://blog.tanelpoder.com/about-2/">About</a></li>
+<li id="menu-item-2446" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2446"><a href="http://blog.tanelpoder.com/downloads/">Downloads</a></li>
+<li id="menu-item-2443" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2443"><a href="http://blog.tanelpoder.com/archives/">Archives</a></li>
+<li id="menu-item-2410" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2410"><a href="http://blog.tanelpoder.com/seminar/">Training</a></li>
+</ul></div>				</div><!-- #access -->
+					</header><!-- #header -->
+		<div id="container" class="row clearfix">		
+		<div id="main" role="main" class="twelvecol last ">
+
+			
+				<nav id="nav-above" class="navigation">
+					<div class="nav-previous"><a href="http://blog.tanelpoder.com/2012/03/05/create-a-database-link-with-the-new-hostportservice-syntax/" rel="prev"><span class="meta-nav">←</span> Create a database link with the new host:port/service syntax</a></div>
+					<div class="nav-next"><a href="http://blog.tanelpoder.com/2012/04/22/where-is-lob-data-stored/" rel="next">Where is LOB data stored? <span class="meta-nav">→</span></a></div>
+				</nav><!-- #nav-above -->
+
+				<article id="post-1592" class="post-1592 post type-post status-publish format-standard hentry category-exadata category-oracle">
+					<header>
+						<h1 class="entry-title">Exadata Smart Scan predicate offloading and sequence.NEXTVAL</h1>
+												<div class="entry-meta">
+							<span class="meta-sep">by</span> <span class="author vcard"><a class="url fn n" href="http://blog.tanelpoder.com/author/tanelp/" title="View all posts by Tanel Poder">Tanel Poder</a></span> <span class="meta-prep meta-prep-author">Posted on</span> <a href="http://blog.tanelpoder.com/2012/04/13/exadata-smart-scan-predicate-offloading-and-sequence-nextval/" title="10:49 am" rel="bookmark"><span class="entry-date">April 13, 2012</span></a>						</div><!-- .entry-meta -->
+											</header>
+					<div class="entry-content">
+						<p>There was <a href="https://twitter.com/#%21/coskan/status/190709295153815552" target="_blank">a question</a>
+ in the twitter-sphere about whether using sequences (sequence.NEXTVAL) 
+in your select query’s projection list would somehow disable smart scans
+ happening?</p>
+<p>The answer is no, sequence use with smart scans works just 
+fine.&nbsp;The smart scan offloading applies to data retrieval row 
+sources (and filtering) only and nothing else.&nbsp;So, what you have in
+ the query’s projection list (the sequence use for example), does not 
+directly affect the smart scan decision. Just like any other operations 
+like sorting, grouping etc, do not have anything to do with smart scans 
+and don’t disable their use. Smart scans are only related to data 
+retrieval and any other operations do not affect them.</p>
+<p>In other words, sequence.NEXTVAL can be used in a query and you can still get smart scans. Here’s simple proof:</p>
+<p>&nbsp;</p>
+<div><div id="highlighter_318927" class="syntaxhighlighter nogutter  sql"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="sql plain">SQL Monitoring Report</code></div><div class="line number2 index1 alt1">&nbsp;</div><div class="line number3 index2 alt2"><code class="sql plain">SQL Text</code></div><div class="line number4 index3 alt1"><code class="sql comments">------------------------------</code></div><div class="line number5 index4 alt2 highlighted"><code class="sql keyword">SELECT</code> <code class="sql comments">/*+ MONITOR */</code> <code class="sql plain">t.object_name, s.NEXTVAL n </code><code class="sql keyword">FROM</code> <code class="sql plain">t </code><code class="sql keyword">WHERE</code> <code class="sql plain">owner </code><code class="sql color1">LIKE</code> <code class="sql string">'TANEL%'</code></div><div class="line number6 index5 alt1">&nbsp;</div><div class="line number7 index6 alt2"><code class="sql keyword">Global</code> <code class="sql plain">Information</code></div><div class="line number8 index7 alt1"><code class="sql comments">------------------------------</code></div><div class="line number9 index8 alt2"><code class="sql spaces">&nbsp;</code><code class="sql plain">Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp; DONE (</code><code class="sql color1">ALL</code> <code class="sql keyword">ROWS</code><code class="sql plain">)</code></div><div class="line number10 index9 alt1"><code class="sql spaces">&nbsp;</code><code class="sql plain">Instance ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp; 1</code></div><div class="line number11 index10 alt2"><code class="sql spaces">&nbsp;</code><code class="sql plain">Session&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp; TANEL (204:2707)</code></div><div class="line number12 index11 alt1"><code class="sql spaces">&nbsp;</code><code class="sql plain">SQL ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp; 5kzs2ucxwf4wk</code></div><div class="line number13 index12 alt2"><code class="sql spaces">&nbsp;</code><code class="sql plain">SQL Execution ID&nbsp;&nbsp;&nbsp; :&nbsp; 16777216</code></div><div class="line number14 index13 alt1"><code class="sql spaces">&nbsp;</code><code class="sql plain">Execution Started&nbsp;&nbsp; :&nbsp; 04/13/2012 09:06:46</code></div><div class="line number15 index14 alt2"><code class="sql spaces">&nbsp;</code><code class="sql keyword">First</code> <code class="sql plain">Refresh </code><code class="sql keyword">Time</code>&nbsp; <code class="sql plain">:&nbsp; 04/13/2012 09:06:46</code></div><div class="line number16 index15 alt1"><code class="sql spaces">&nbsp;</code><code class="sql keyword">Last</code> <code class="sql plain">Refresh </code><code class="sql keyword">Time</code>&nbsp;&nbsp; <code class="sql plain">:&nbsp; 04/13/2012 09:06:48</code></div><div class="line number17 index16 alt2"><code class="sql spaces">&nbsp;</code><code class="sql plain">Duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp; 2s</code></div><div class="line number18 index17 alt1"><code class="sql spaces">&nbsp;</code><code class="sql plain">Module/</code><code class="sql keyword">Action</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code class="sql plain">:&nbsp; SQL*Plus/-</code></div><div class="line number19 index18 alt2"><code class="sql spaces">&nbsp;</code><code class="sql plain">Service&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp; dbm</code></div><div class="line number20 index19 alt1"><code class="sql spaces">&nbsp;</code><code class="sql plain">Program&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp; sqlplus@mac02.</code><code class="sql keyword">local</code> <code class="sql plain">(TNS V1-V3)</code></div><div class="line number21 index20 alt2"><code class="sql spaces">&nbsp;</code><code class="sql keyword">Fetch</code> <code class="sql plain">Calls&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp; 4</code></div><div class="line number22 index21 alt1">&nbsp;</div><div class="line number23 index22 alt2"><code class="sql keyword">Global</code> <code class="sql plain">Stats</code></div><div class="line number24 index23 alt1"><code class="sql plain">========================================================================================</code></div><div class="line number25 index24 alt2"><code class="sql plain">| Elapsed |&nbsp;&nbsp; Cpu&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp; IO&nbsp;&nbsp;&nbsp; | Concurrency | </code><code class="sql keyword">Fetch</code> <code class="sql plain">| Buffer | </code><code class="sql keyword">Read</code> <code class="sql plain">| </code><code class="sql keyword">Read</code>&nbsp; <code class="sql plain">|&nbsp; Cell&nbsp;&nbsp; |</code></div><div class="line number26 index25 alt1"><code class="sql plain">| </code><code class="sql keyword">Time</code><code class="sql plain">(s) | </code><code class="sql keyword">Time</code><code class="sql plain">(s) | Waits(s) |&nbsp; Waits(s)&nbsp;&nbsp; | Calls |&nbsp; Gets&nbsp; | Reqs | Bytes | Offload |</code></div><div class="line number27 index26 alt2"><code class="sql plain">========================================================================================</code></div><div class="line number28 index27 alt1"><code class="sql plain">|&nbsp;&nbsp;&nbsp; 1.50 |&nbsp;&nbsp;&nbsp; 0.36 |&nbsp;&nbsp;&nbsp;&nbsp; 1.06 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.08 |&nbsp;&nbsp;&nbsp;&nbsp; 4 |&nbsp;&nbsp; 323K | 2503 |&nbsp;&nbsp; 2GB |&nbsp; 99.97% |</code></div><div class="line number29 index28 alt2"><code class="sql plain">========================================================================================</code></div><div class="line number30 index29 alt1">&nbsp;</div><div class="line number31 index30 alt2"><code class="sql plain">SQL Plan Monitoring Details (Plan Hash Value=1589210007)</code></div><div class="line number32 index31 alt1"><code class="sql plain">======================================================================================================================================================================</code></div><div class="line number33 index32 alt2"><code class="sql plain">| Id |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Operation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | </code><code class="sql keyword">Name</code> <code class="sql plain">|&nbsp; </code><code class="sql keyword">Rows</code>&nbsp;&nbsp; <code class="sql plain">| Cost&nbsp; |&nbsp;&nbsp; </code><code class="sql keyword">Time</code>&nbsp;&nbsp;&nbsp; <code class="sql plain">| Start&nbsp; | Execs |&nbsp;&nbsp; </code><code class="sql keyword">Rows</code>&nbsp;&nbsp; <code class="sql plain">| </code><code class="sql keyword">Read</code> <code class="sql plain">| </code><code class="sql keyword">Read</code>&nbsp; <code class="sql plain">|&nbsp; Cell&nbsp;&nbsp; | Activity |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Activity Detail&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |</code></div><div class="line number34 index33 alt1"><code class="sql plain">|&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | (Estim) |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Active(s) | Active |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | (Actual) | Reqs | Bytes | Offload |&nbsp;&nbsp; (%)&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (# samples)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |</code></div><div class="line number35 index34 alt2"><code class="sql plain">======================================================================================================================================================================</code></div><div class="line number36 index35 alt1"><code class="sql plain">|&nbsp; 0 | </code><code class="sql keyword">SELECT</code> <code class="sql plain">STATEMENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 |&nbsp;&nbsp;&nbsp;&nbsp; +0 |&nbsp;&nbsp;&nbsp;&nbsp; 1 |&nbsp;&nbsp;&nbsp;&nbsp; 1408 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |</code></div><div class="line number37 index36 alt2"><code class="sql plain">|&nbsp; 1 |&nbsp;&nbsp; </code><code class="sql keyword">SEQUENCE</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code class="sql plain">| S&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 |&nbsp;&nbsp;&nbsp;&nbsp; +0 |&nbsp;&nbsp;&nbsp;&nbsp; 1 |&nbsp;&nbsp;&nbsp;&nbsp; 1408 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |</code></div><div class="line number38 index37 alt1 highlighted"><code class="sql plain">|&nbsp; 2 |&nbsp;&nbsp;&nbsp; </code><code class="sql keyword">TABLE</code> <code class="sql plain">ACCESS STORAGE </code><code class="sql keyword">FULL</code> <code class="sql plain">| T&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp; 439K | 20738 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 |&nbsp;&nbsp;&nbsp;&nbsp; +0 |&nbsp;&nbsp;&nbsp;&nbsp; 1 |&nbsp;&nbsp;&nbsp;&nbsp; 1408 | 2496 |&nbsp;&nbsp; 2GB |&nbsp; 99.97% |&nbsp;&nbsp; 100.00 | cell smart </code><code class="sql keyword">table</code> <code class="sql plain">scan (1) |</code></div><div class="line number39 index38 alt2"><code class="sql plain">======================================================================================================================================================================</code></div></div></td></tr></tbody></table></div></div>
+<p>I have highlighted the query text (which includes sequence.NEXTVAL) 
+and the TABLE ACCESS STORAGE FULL row source, if you scroll right, 
+you’ll see the “cell smart table scan” wait event and also the Offload %
+ column populated, which both indicate that smart scan did happen for 
+that monitored query execution.</p>
+<p>Note that often I hear a saying, something like “xyz disables smart 
+scan”, or “using a non-offloadable function disables the smart scan”. 
+This can be misleading and give the impression that if you use a 
+non-Exadata supported function/feature in one part of your query, then 
+smart scanning is disabled for the whole query. This is incorrect.</p>
+<p>First of all, the smart scanning is not a query level thing, it’s an 
+access path level thing. So, you can easily run a two table join on one 
+table which is on NFS storage (no smart scanning) and another table, 
+which is on Exadata storage (which allows smart scanning). So, even 
+though smart scanning is “disabled” for the first table, the other table
+ still can be accessed using it! By the way, it’s even possible to have 
+some partitions of your table on NFS and other partitions of the same 
+table on Exadata storage cells and the same table scan can use smart 
+scanning for the partitions stored on the cells and regular buffered or 
+direct path read access for the partitions on NFS. So, smart scanning is
+ not some “all or nothing” query level thing, this decision is made 
+separately for every single segment full scanned in the query. More 
+details in the book.</p>
+<p>Secondly, using a non-offloadable function in a filter predicate when
+ retrieving rows does not prevent Oracle to push other, offloadable, 
+predicate functions to be pushed to the storage cells. So again, it’s 
+not an all-or-nothing decision. If a predicate function is not 
+offloadable, it will just not be offloaded (and will show up as just a 
+filter() predicate as opposed to both storage() and filter() predicate),
+ but all the other supported predicates can still be offloaded without a
+ problem. Here’s an example:</p>
+<div><div id="highlighter_595224" class="syntaxhighlighter nogutter  sql"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="sql keyword">SELECT</code> <code class="sql plain">* </code><code class="sql keyword">FROM</code> <code class="sql plain">t </code></div><div class="line number2 index1 alt1"><code class="sql keyword">WHERE</code></div><div class="line number3 index2 alt2"><code class="sql spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="sql plain">line = 9999</code></div><div class="line number4 index3 alt1"><code class="sql color1">AND</code>&nbsp; <code class="sql plain">mod(line,10) = 0 </code></div><div class="line number5 index4 alt2"><code class="sql color1">AND</code>&nbsp; <code class="sql plain">f1(line) =9999</code></div><div class="line number6 index5 alt1">&nbsp;</div><div class="line number7 index6 alt2"><code class="sql plain">Plan hash value: 1601196873</code></div><div class="line number8 index7 alt1">&nbsp;</div><div class="line number9 index8 alt2"><code class="sql comments">----------------------------------------------------------------</code></div><div class="line number10 index9 alt1"><code class="sql plain">| Id&nbsp; | Operation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | </code><code class="sql keyword">Name</code> <code class="sql plain">| E-</code><code class="sql keyword">Rows</code> <code class="sql plain">| Cost (%CPU)|</code></div><div class="line number11 index10 alt2"><code class="sql comments">----------------------------------------------------------------</code></div><div class="line number12 index11 alt1"><code class="sql plain">|&nbsp;&nbsp; 0 | </code><code class="sql keyword">SELECT</code> <code class="sql plain">STATEMENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 2887 (100)|</code></div><div class="line number13 index12 alt2"><code class="sql plain">|*&nbsp; 1 |&nbsp; </code><code class="sql keyword">TABLE</code> <code class="sql plain">ACCESS STORAGE </code><code class="sql keyword">FULL</code><code class="sql plain">| T&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 |&nbsp; 2887&nbsp;&nbsp; (1)|</code></div><div class="line number14 index13 alt1"><code class="sql comments">----------------------------------------------------------------</code></div><div class="line number15 index14 alt2">&nbsp;</div><div class="line number16 index15 alt1"><code class="sql plain">Predicate Information (identified </code><code class="sql keyword">by</code> <code class="sql plain">operation id):</code></div><div class="line number17 index16 alt2"><code class="sql comments">---------------------------------------------------</code></div><div class="line number18 index17 alt1">&nbsp;</div><div class="line number19 index18 alt2"><code class="sql spaces">&nbsp;&nbsp;&nbsp;</code><code class="sql plain">1 - storage((</code><code class="sql string">"LINE"</code><code class="sql plain">=9999 </code><code class="sql color1">AND</code> <code class="sql plain">MOD(</code><code class="sql string">"LINE"</code><code class="sql plain">,10)=0))</code></div><div class="line number20 index19 alt1"><code class="sql spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="sql plain">filter((</code><code class="sql string">"LINE"</code><code class="sql plain">=9999 </code><code class="sql color1">AND</code> <code class="sql plain">MOD(</code><code class="sql string">"LINE"</code><code class="sql plain">,10)=0 </code><code class="sql color1">AND</code> <code class="sql string">"F1"</code><code class="sql plain">(</code><code class="sql string">"LINE"</code><code class="sql plain">)=9999))</code></div></div></td></tr></tbody></table></div></div>
+<p>Note that the F1() function is a PL/SQL function and filtering based 
+on PL/SQL functions can not be offloaded (as Exadata cells don’t run 
+PL/SQL). This is visible in the predicate section where two predicates 
+are shown in the storage() predicate list but the third one (F1) only 
+shows up in the filter() predicate list.</p>
+<p>So, as I explained in the beginning, the smart scan is not an 
+all-or-nothing thing, this decision is made for every segment 
+(partition) separately during query execution phase, again for every 
+execution, of course assuming that we are doing a full table scan (of 
+fast full index scan) on them – that part is fixed in the execution 
+plan.</p>
+<p>And as shown above, predicate offload is not an all-or-nothing thing 
+either. If one predicate can’t be offloaded, then other predicates still
+ can.</p>
+<p>However, there’s a catch. If you combine such predicates with ANDs, 
+Oracle can push the offloadable (storage()) predicates to the storage 
+cells, where they will do the early filtering – and the last, 
+non-offloadable (filter()) predicate is applied then on the retrieved 
+dataset in the database layer. </p>
+<p>But when you combine such predicates with an OR clause, then there’s a
+ logical problem here. OR has to return rows which match ANY of the 
+predicates (not ALL the predicates), therefore you can’t only return a 
+subset of rows from the storage cells which match the predicate A and 
+hope that this set contains all the rows which would match the 
+(non-offloadable) predicate B as well. To evaluate B, you would still 
+need to go through all the rows, but as B is non-offloadable, this has 
+to be done in the database layer. All rows have to be fetched into the 
+database layer for this.</p>
+<p>This explains why the storage() predicate disappears when I chain my query predicates together with an OR instead of the AND:</p>
+<div><div id="highlighter_740730" class="syntaxhighlighter nogutter  sql"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="sql keyword">SELECT</code> <code class="sql plain">* </code><code class="sql keyword">FROM</code> <code class="sql plain">t </code></div><div class="line number2 index1 alt1"><code class="sql keyword">WHERE</code></div><div class="line number3 index2 alt2"><code class="sql spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="sql plain">line = 9999</code></div><div class="line number4 index3 alt1"><code class="sql color1">AND</code>&nbsp; <code class="sql plain">mod(line,10) = 0 </code></div><div class="line number5 index4 alt2"><code class="sql color1">OR</code>&nbsp;&nbsp; <code class="sql plain">f1(line) =9999</code></div><div class="line number6 index5 alt1">&nbsp;</div><div class="line number7 index6 alt2"><code class="sql plain">Plan hash value: 1601196873</code></div><div class="line number8 index7 alt1">&nbsp;</div><div class="line number9 index8 alt2"><code class="sql comments">----------------------------------------------------------------</code></div><div class="line number10 index9 alt1"><code class="sql plain">| Id&nbsp; | Operation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | </code><code class="sql keyword">Name</code> <code class="sql plain">| E-</code><code class="sql keyword">Rows</code> <code class="sql plain">| Cost (%CPU)|</code></div><div class="line number11 index10 alt2"><code class="sql comments">----------------------------------------------------------------</code></div><div class="line number12 index11 alt1"><code class="sql plain">|&nbsp;&nbsp; 0 | </code><code class="sql keyword">SELECT</code> <code class="sql plain">STATEMENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 2963 (100)|</code></div><div class="line number13 index12 alt2"><code class="sql plain">|*&nbsp; 1 |&nbsp; </code><code class="sql keyword">TABLE</code> <code class="sql plain">ACCESS STORAGE </code><code class="sql keyword">FULL</code><code class="sql plain">| T&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 6353 |&nbsp; 2963&nbsp;&nbsp; (3)|</code></div><div class="line number14 index13 alt1"><code class="sql comments">----------------------------------------------------------------</code></div><div class="line number15 index14 alt2">&nbsp;</div><div class="line number16 index15 alt1"><code class="sql plain">Predicate Information (identified </code><code class="sql keyword">by</code> <code class="sql plain">operation id):</code></div><div class="line number17 index16 alt2"><code class="sql comments">---------------------------------------------------</code></div><div class="line number18 index17 alt1">&nbsp;</div><div class="line number19 index18 alt2"><code class="sql spaces">&nbsp;&nbsp;&nbsp;</code><code class="sql plain">1 - filter((</code><code class="sql string">"F1"</code><code class="sql plain">(</code><code class="sql string">"LINE"</code><code class="sql plain">)=9999 </code><code class="sql color1">OR</code> <code class="sql plain">(</code><code class="sql string">"LINE"</code><code class="sql plain">=9999 </code><code class="sql color1">AND</code> <code class="sql plain">MOD(</code><code class="sql string">"LINE"</code><code class="sql plain">,10)=0)))</code></div></div></td></tr></tbody></table></div></div>
+<p>The storage() predicate section above is gone – as Oracle has to 
+retrieve all the rows to the database layer anyway (due to the 
+non-offloadable F1 function used in an OR predicate), it doesn’t make 
+sense to offload the other filters to the storage (and then return the 
+row anyway as it’s needed in the db layer). Makes sense? ;-)</p>
+<p>Note that even though the storage() predicates disappeared from the 
+plan, this doesn’t mean that the entire smart scanning has been 
+disabled, the smart scanning can still happen, it’s only the predicate 
+offloading sub-component of the smart scan what is not used. The storage
+ cells can still do the asynchronous prefetching, decompression 
+offloading and projection offloading in these cases.</p>
+<p>By the way, it’s all explained in <a href="http://www.amazon.com/Expert-Oracle-Exadata-Kerry-Osborne/dp/1430233923" target="_blank">the book!</a></p>
+<div id="crp_related" class="crp_related"><h4>Related Posts</h4><ul><li><a href="http://blog.tanelpoder.com/2014/03/05/where-does-the-exadata-storage-predicate-come-from/" class="crp_title">Where does the Exadata storage() predicate come from?</a></li><li><a href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/" class="crp_title">Combining Bloom Filter Offloading and Storage Indexes on Exadata</a></li><li><a href="http://blog.tanelpoder.com/2013/05/29/forcing-smart-scans-on-exadata-is-_serial_direct_read-parameter-safe-to-use-in-production/" class="crp_title">Forcing Smart Scans on Exadata – is the _serial_direct_read parameter safe to use in…</a></li><li><a href="http://blog.tanelpoder.com/2013/01/16/what-the-heck-is-the-internal_function-in-execution-plan-predicate-section/" class="crp_title">What the heck is the INTERNAL_FUNCTION in execution plan predicate section?</a></li><li><a href="http://blog.tanelpoder.com/2012/05/02/advanced-oracle-troubleshooting-guide-part-10-index-unique-scan-doing-multiblock-reads/" class="crp_title">Advanced Oracle Troubleshooting Guide – Part 10: Index unique scan doing multiblock reads?!</a></li></ul><div style="clear:both"></div></div><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon sd-sharing"><h3 class="sd-title">Share this post:</h3><div class="sd-content"><ul><li class="share-twitter"><a rel="nofollow" data-shared="sharing-twitter-1592" class="share-twitter sd-button share-icon no-text" href="http://blog.tanelpoder.com/2012/04/13/exadata-smart-scan-predicate-offloading-and-sequence-nextval/?share=twitter&amp;nb=1" target="_blank" title="Click to share on Twitter"><span><span class="share-count">10</span></span><span class="sharing-screen-reader-text">Click to share on Twitter (Opens in new window)<span class="share-count">10</span></span></a></li><li class="share-facebook"><a rel="nofollow" data-shared="sharing-facebook-1592" class="share-facebook sd-button share-icon no-text" href="http://blog.tanelpoder.com/2012/04/13/exadata-smart-scan-predicate-offloading-and-sequence-nextval/?share=facebook&amp;nb=1" target="_blank" title="Share on Facebook"><span></span><span class="sharing-screen-reader-text">Share on Facebook (Opens in new window)</span></a></li><li class="share-linkedin"><a rel="nofollow" data-shared="sharing-linkedin-1592" class="share-linkedin sd-button share-icon no-text" href="http://blog.tanelpoder.com/2012/04/13/exadata-smart-scan-predicate-offloading-and-sequence-nextval/?share=linkedin&amp;nb=1" target="_blank" title="Click to share on LinkedIn"><span><span class="share-count">4</span></span><span class="sharing-screen-reader-text">Click to share on LinkedIn (Opens in new window)<span class="share-count">4</span></span></a></li><li class="share-google-plus-1"><a rel="nofollow" data-shared="sharing-google-1592" class="share-google-plus-1 sd-button share-icon no-text" href="http://blog.tanelpoder.com/2012/04/13/exadata-smart-scan-predicate-offloading-and-sequence-nextval/?share=google-plus-1&amp;nb=1" target="_blank" title="Click to share on Google+"><span></span><span class="sharing-screen-reader-text">Click to share on Google+ (Opens in new window)</span></a></li><li><a href="#" class="sharing-anchor sd-button share-more"><span>More</span></a></li><li class="share-end"></li></ul><div class="sharing-hidden"><div class="inner" style="display: none;"><ul><li class="share-print"><a rel="nofollow" data-shared="" class="share-print sd-button share-icon no-text" href="http://blog.tanelpoder.com/2012/04/13/exadata-smart-scan-predicate-offloading-and-sequence-nextval/#print" target="_blank" title="Click to print"><span></span><span class="sharing-screen-reader-text">Click to print (Opens in new window)</span></a></li><li class="share-reddit"><a rel="nofollow" data-shared="" class="share-reddit sd-button share-icon no-text" href="http://blog.tanelpoder.com/2012/04/13/exadata-smart-scan-predicate-offloading-and-sequence-nextval/?share=reddit&amp;nb=1" target="_blank" title="Click to share on Reddit"><span></span><span class="sharing-screen-reader-text">Click to share on Reddit (Opens in new window)</span></a></li><li class="share-end"></li><li class="share-stumbleupon"><a rel="nofollow" data-shared="" class="share-stumbleupon sd-button share-icon no-text" href="http://blog.tanelpoder.com/2012/04/13/exadata-smart-scan-predicate-offloading-and-sequence-nextval/?share=stumbleupon&amp;nb=1" target="_blank" title="Click to share on StumbleUpon"><span></span><span class="sharing-screen-reader-text">Click to share on StumbleUpon (Opens in new window)</span></a></li><li class="share-pocket"><a rel="nofollow" data-shared="" class="share-pocket sd-button share-icon no-text" href="http://blog.tanelpoder.com/2012/04/13/exadata-smart-scan-predicate-offloading-and-sequence-nextval/?share=pocket&amp;nb=1" target="_blank" title="Click to share on Pocket"><span></span><span class="sharing-screen-reader-text">Click to share on Pocket (Opens in new window)</span></a></li><li class="share-end"></li><li class="share-pinterest"><a rel="nofollow" data-shared="sharing-pinterest-1592" class="share-pinterest sd-button share-icon no-text" href="http://blog.tanelpoder.com/2012/04/13/exadata-smart-scan-predicate-offloading-and-sequence-nextval/?share=pinterest&amp;nb=1" target="_blank" title="Click to share on Pinterest"><span></span><span class="sharing-screen-reader-text">Click to share on Pinterest (Opens in new window)</span></a></li><li class="share-tumblr"><a rel="nofollow" data-shared="" class="share-tumblr sd-button share-icon no-text" href="http://blog.tanelpoder.com/2012/04/13/exadata-smart-scan-predicate-offloading-and-sequence-nextval/?share=tumblr&amp;nb=1" target="_blank" title="Click to share on Tumblr"><span></span><span class="sharing-screen-reader-text">Click to share on Tumblr (Opens in new window)</span></a></li><li class="share-end"></li><li class="share-email share-service-visible"><a rel="nofollow" data-shared="" class="share-email sd-button share-icon no-text" href="http://blog.tanelpoder.com/2012/04/13/exadata-smart-scan-predicate-offloading-and-sequence-nextval/?share=email&amp;nb=1" target="_blank" title="Click to email this to a friend"><span></span><span class="sharing-screen-reader-text">Click to email this to a friend (Opens in new window)</span></a></li><li class="share-end"></li></ul></div></div></div></div></div>											</div><!-- .entry-content -->
+
+
+					<div class="entry-utility">
+												This entry was posted in <a href="http://blog.tanelpoder.com/category/exadata/" rel="category tag">Exadata</a>, <a href="http://blog.tanelpoder.com/category/oracle/" rel="category tag">Oracle</a>. Bookmark the <a href="http://blog.tanelpoder.com/2012/04/13/exadata-smart-scan-predicate-offloading-and-sequence-nextval/" title="Permalink to Exadata Smart Scan predicate offloading and sequence.NEXTVAL" rel="bookmark">permalink</a>.											</div><!-- .entry-utility -->
+				</article><!-- #post-## -->
+
+				<nav id="nav-below" class="navigation">
+					<div class="nav-previous"><a href="http://blog.tanelpoder.com/2012/03/05/create-a-database-link-with-the-new-hostportservice-syntax/" rel="prev"><span class="meta-nav">←</span> Create a database link with the new host:port/service syntax</a></div>
+					<div class="nav-next"><a href="http://blog.tanelpoder.com/2012/04/22/where-is-lob-data-stored/" rel="next">Where is LOB data stored? <span class="meta-nav">→</span></a></div>
+				</nav><!-- #nav-below -->
+
+							<div id="comments">
+
+			<h3 id="comments-title">5 Responses to <em>Exadata Smart Scan predicate offloading and sequence.NEXTVAL</em></h3>
+
+	
+			<ol class="commentlist">
+						<li class="comment even thread-even depth-1" id="li-comment-11589">
+			<div id="comment-11589">
+			<div class="comment-author vcard">
+								<cite class="fn"><a href="http://kevinclosson.wordpress.com/" rel="external nofollow" class="url">Kevin Closson</a></cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+				
+			<div class="comment-meta commentmetadata"><a href="http://blog.tanelpoder.com/2012/04/13/exadata-smart-scan-predicate-offloading-and-sequence-nextval/comment-page-1/#comment-11589">
+				April 13, 2012 at 1:19 pm</a>			</div><!-- .comment-meta .commentmetadata -->
+	
+			<div class="comment-body"><p>A very intelligent, skilled individual with access to an Exadata system. That could be dangerous for the StoryTellers(tm)  :-)</p>
+</div>
+	
+			<div class="reply">
+				<a class="comment-reply-link" href="http://blog.tanelpoder.com/2012/04/13/exadata-smart-scan-predicate-offloading-and-sequence-nextval/?replytocom=11589#respond" onclick='return addComment.moveForm( "comment-11589", "11589", "respond", "1592" )' aria-label="Reply to Kevin Closson">Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+	
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-11594">
+			<div id="comment-11594">
+			<div class="comment-author vcard">
+								<cite class="fn"><a href="http://viveklsharma.wordpress.com/" rel="external nofollow" class="url">Vivek</a></cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+				
+			<div class="comment-meta commentmetadata"><a href="http://blog.tanelpoder.com/2012/04/13/exadata-smart-scan-predicate-offloading-and-sequence-nextval/comment-page-1/#comment-11594">
+				April 16, 2012 at 7:58 am</a>			</div><!-- .comment-meta .commentmetadata -->
+	
+			<div class="comment-body"><p>Excellent explanation Tanel. I could 
+also reproduce the smart scan using Oracle Sequences and am therefore 
+wondering, where my analysis went wrong. The original ctas had to be 
+killed in 2 hours v/s 3 minutes. The original trace shows that the waits
+ were on cell physical multiblock read. It means, there is something 
+else that is impacting and requires investigation. </p>
+<p>Will post an apology blog for my readers, as the analysis was incorrect.</p>
+<p>Regards<br>
+Vivek</p>
+</div>
+	
+			<div class="reply">
+				<a class="comment-reply-link" href="http://blog.tanelpoder.com/2012/04/13/exadata-smart-scan-predicate-offloading-and-sequence-nextval/?replytocom=11594#respond" onclick='return addComment.moveForm( "comment-11594", "11594", "respond", "1592" )' aria-label="Reply to Vivek">Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+	
+		<ul class="children">
+		<li class="comment byuser comment-author-tanelp bypostauthor even depth-2" id="li-comment-11597">
+			<div id="comment-11597">
+			<div class="comment-author vcard">
+								<cite class="fn"><a href="http://blog.tanelpoder.com/" rel="external nofollow" class="url">Tanel Poder</a></cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+				
+			<div class="comment-meta commentmetadata"><a href="http://blog.tanelpoder.com/2012/04/13/exadata-smart-scan-predicate-offloading-and-sequence-nextval/comment-page-1/#comment-11597">
+				April 16, 2012 at 2:35 pm</a>			</div><!-- .comment-meta .commentmetadata -->
+	
+			<div class="comment-body"><p>No problems man, I’ve gotten to wrong 
+conclusions plenty of times myself. And I think even blogged “junk” a 
+few times too … just can’t remember the exact articles anymore :)</p>
+<p>When we started researching Exadata more seriously then the direct 
+path read decision was the most troublesome to figure out. It is based 
+on the segment size/HWM, _small_table_threshold (which is derived from 
+the current buffer cache size) AND the number of buffers of the scanned 
+segments currently in cache (X$KCBOQH.NUM_BUF). So, if your buffer cache
+ dynamically changes, this decision may change, if your table/partition 
+size grows, this decision may change. If some other workload loads 
+enough buffers of that segment into cache, then again the direct path 
+read decision may change and the smart scan is dependent on that.</p>
+<p>So, it took a while to figure this out well enough. Nowadays, if I 
+want to *force* a serial smart scan for testing, I’ll just use 
+_serial_direct_read = ALWAYS (and compile a new child cursor and ensure 
+that the exec plan still has the full table scan in it). If you force 
+the smart scan and it works when forced, then you’ll at least know it 
+works in principle and it’s matter of finding out what dynamic decision 
+causes it to not be used in specific circumstances.</p>
+</div>
+	
+			<div class="reply">
+				<a class="comment-reply-link" href="http://blog.tanelpoder.com/2012/04/13/exadata-smart-scan-predicate-offloading-and-sequence-nextval/?replytocom=11597#respond" onclick='return addComment.moveForm( "comment-11597", "11597", "respond", "1592" )' aria-label="Reply to Tanel Poder">Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+	
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment odd alt thread-even depth-1" id="li-comment-23925">
+			<div id="comment-23925">
+			<div class="comment-author vcard">
+								<cite class="fn">yousuf</cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+				
+			<div class="comment-meta commentmetadata"><a href="http://blog.tanelpoder.com/2012/04/13/exadata-smart-scan-predicate-offloading-and-sequence-nextval/comment-page-1/#comment-23925">
+				September 12, 2013 at 5:22 am</a>			</div><!-- .comment-meta .commentmetadata -->
+	
+			<div class="comment-body"><p>Hi Tanel, </p>
+<p>Just one request.. Need some more information about sequence has to be “NOORDER” specially in RAC env</p>
+<p>Sequence with order clause will create contention &amp; hence need to
+ use “NOORDER” clause for sequences in RAC. (Does SEQ$ table will create
+ any problem or contention?)</p>
+<p>Please request to shed some light on this..</p>
+<p>Thanks,<br>
+Yousuf</p>
+</div>
+	
+			<div class="reply">
+				<a class="comment-reply-link" href="http://blog.tanelpoder.com/2012/04/13/exadata-smart-scan-predicate-offloading-and-sequence-nextval/?replytocom=23925#respond" onclick='return addComment.moveForm( "comment-23925", "23925", "respond", "1592" )' aria-label="Reply to yousuf">Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+	
+		<ul class="children">
+		<li class="comment byuser comment-author-tanelp bypostauthor even depth-2" id="li-comment-23944">
+			<div id="comment-23944">
+			<div class="comment-author vcard">
+								<cite class="fn"><a href="http://blog.tanelpoder.com/" rel="external nofollow" class="url">Tanel Poder</a></cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+				
+			<div class="comment-meta commentmetadata"><a href="http://blog.tanelpoder.com/2012/04/13/exadata-smart-scan-predicate-offloading-and-sequence-nextval/comment-page-1/#comment-23944">
+				September 12, 2013 at 8:45 am</a>			</div><!-- .comment-meta .commentmetadata -->
+	
+			<div class="comment-body"><p>Hi, I posted a comment <a href="http://blog.tanelpoder.com/2011/10/24/what-the-heck-is-the-sql-execution-id-sql_exec_id/comment-page-1/#comment-11933" rel="nofollow">here</a></p>
+</div>
+	
+			<div class="reply">
+				<a class="comment-reply-link" href="http://blog.tanelpoder.com/2012/04/13/exadata-smart-scan-predicate-offloading-and-sequence-nextval/?replytocom=23944#respond" onclick='return addComment.moveForm( "comment-23944", "23944", "respond", "1592" )' aria-label="Reply to Tanel Poder">Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+	
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+			</ol>
+
+	
+
+
+						<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://blog.tanelpoder.com/2012/04/13/exadata-smart-scan-predicate-offloading-and-sequence-nextval/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://blog.tanelpoder.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																			<p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span></p>							<p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" size="30" aria-required="true" required="required" type="text"></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" size="30" aria-describedby="email-notes" aria-required="true" required="required" type="text"></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" size="30" type="text"></p>
+												<p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" aria-describedby="form-allowed-tags" aria-required="true" required="required"></textarea></p>						<p class="form-allowed-tags" id="form-allowed-tags">You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes:  <code>&lt;a
+ href="" title=""&gt; &lt;abbr title=""&gt; &lt;acronym title=""&gt; 
+&lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;code&gt; &lt;del 
+datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;s&gt; 
+&lt;strike&gt; &lt;strong&gt; </code></p>
+						<p class="form-submit"><input name="submit" id="submit" class="submit" value="Post Comment" type="submit"> <input name="comment_post_ID" value="1592" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+</p><p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="2dbc99a912" type="hidden"></p><p class="comment-subscription-form"><input name="subscribe_comments" id="subscribe_comments" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" type="checkbox"> <label class="subscribe-label" id="subscribe-label" for="subscribe_comments">Notify me of follow-up comments by email.</label></p><p class="comment-subscription-form"><input name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" type="checkbox"> <label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog">Notify me of new posts by email.</label></p><p style="display: none;"></p>					<input id="ak_js" name="ak_js" value="1431156300329" type="hidden"></form>
+							</div><!-- #respond -->
+			
+</div><!-- #comments -->
+
+
+		</div><!-- #main -->
+				</div><!-- #container -->
+			<footer id="footer" role="contentinfo" class="row">
+				<div id="footerbar" class="twelvecol last">
+					
+			<div id="footer-widget-area" role="complementary">
+
+				<div id="first" class="widget-area">
+					<ul class="xoxo">
+						<li id="blog_subscription-6" class="widget-container threecol jetpack_subscription_widget"><h3 class="widget-title">Subscribe via Email</h3>
+			<form action="#" method="post" accept-charset="utf-8" id="subscribe-blog-blog_subscription-6">
+				<div id="subscribe-text"></div>					<p id="subscribe-email">
+						<label style="clip: rect(1px, 1px, 1px, 1px); position: absolute; height: 1px; width: 1px; overflow: hidden;" id="jetpack-subscribe-label" for="subscribe-field">
+							Email Address						</label>
+						<input name="email" required="required" class="required" id="subscribe-field" placeholder="Email Address" type="email">
+					</p>
+
+					<p id="subscribe-submit">
+						<input name="action" value="subscribe" type="hidden">
+						<input name="source" value="http://blog.tanelpoder.com/2012/04/13/exadata-smart-scan-predicate-offloading-and-sequence-nextval/" type="hidden">
+						<input name="sub-type" value="widget" type="hidden">
+						<input name="redirect_fragment" value="blog_subscription-6" type="hidden">
+												<input value="Subscribe" name="jetpack_subscriptions_widget" type="submit">
+					</p>
+							</form>
+
+			<script>(function(d){if(('placeholder'in d.createElement('input'))){var label=d.getElementById('jetpack-subscribe-label');label.style.clip='rect(1px, 1px, 1px, 1px)';label.style.position='absolute';label.style.height='1px';label.style.width='1px';label.style.overflow='hidden';}})(document);jQuery('#subscribe-blog-blog_subscription-6').submit(function(event){if(jQuery('.required').val()==''){event.preventDefault();jQuery('.required').focus();}});</script>
+		 
+		
+</li>					</ul>
+				</div><!-- #first .widget-area -->
+
+				<div id="second" class="widget-area">
+					<ul class="xoxo">
+						<li id="rss_links-7" class="widget-container threecol widget_rss_links"><h3 class="widget-title">RSS feed</h3><p><a target="_self" href="http://blog.tanelpoder.com/feed/" title="Subscribe to Posts"><script pagespeed_no_defer="">//<![CDATA[
+(function(){var g=this,h=function(b,d){var a=b.split("."),c=g;a[0]in c||!c.execScript||c.execScript("var "+a[0]);for(var e;a.length&&(e=a.shift());)a.length||void 0===d?c[e]?c=c[e]:c=c[e]={}:c[e]=d};var l=function(b){var d=b.length;if(0<d){for(var a=Array(d),c=0;c<d;c++)a[c]=b[c];return a}return[]};var m=function(b){var d=window;if(d.addEventListener)d.addEventListener("load",b,!1);else if(d.attachEvent)d.attachEvent("onload",b);else{var a=d.onload;d.onload=function(){b.call(this);a&&a.call(this)}}};var n,p=function(b,d,a,c,e){this.f=b;this.h=d;this.i=a;this.c=e;this.e={height:window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight,width:window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth};this.g=c;this.b={};this.a=[];this.d={}},q=function(b,d){var a,c,e=d.getAttribute("pagespeed_url_hash");if(a=e&&!(e in b.d))if(0>=d.offsetWidth&&0>=d.offsetHeight)a=!1;else{c=d.getBoundingClientRect();var f=document.body;a=c.top+("pageYOffset"in window?window.pageYOffset:(document.documentElement||f.parentNode||f).scrollTop);c=c.left+("pageXOffset"in window?window.pageXOffset:(document.documentElement||f.parentNode||f).scrollLeft);f=a.toString()+","+c;b.b.hasOwnProperty(f)?a=!1:(b.b[f]=!0,a=a<=b.e.height&&c<=b.e.width)}a&&(b.a.push(e),b.d[e]=!0)};p.prototype.checkImageForCriticality=function(b){b.getBoundingClientRect&&q(this,b)};h("pagespeed.CriticalImages.checkImageForCriticality",function(b){n.checkImageForCriticality(b)});h("pagespeed.CriticalImages.checkCriticalImages",function(){r(n)});var r=function(b){b.b={};for(var d=["IMG","INPUT"],a=[],c=0;c<d.length;++c)a=a.concat(l(document.getElementsByTagName(d[c])));if(0!=a.length&&a[0].getBoundingClientRect){for(c=0;d=a[c];++c)q(b,d);a="oh="+b.i;b.c&&(a+="&n="+b.c);if(d=0!=b.a.length)for(a+="&ci="+encodeURIComponent(b.a[0]),c=1;c<b.a.length;++c){var e=","+encodeURIComponent(b.a[c]);131072>=a.length+e.length&&(a+=e)}b.g&&(e="&rd="+encodeURIComponent(JSON.stringify(s())),131072>=a.length+e.length&&(a+=e),d=!0);t=a;if(d){c=b.f;b=b.h;var f;if(window.XMLHttpRequest)f=new XMLHttpRequest;else if(window.ActiveXObject)try{f=new ActiveXObject("Msxml2.XMLHTTP")}catch(k){try{f=new ActiveXObject("Microsoft.XMLHTTP")}catch(u){}}f&&(f.open("POST",c+(-1==c.indexOf("?")?"?":"&")+"url="+encodeURIComponent(b)),f.setRequestHeader("Content-Type","application/x-www-form-urlencoded"),f.send(a))}}},s=function(){var b={},d=document.getElementsByTagName("IMG");if(0==d.length)return{};var a=d[0];if(!("naturalWidth"in a&&"naturalHeight"in a))return{};for(var c=0;a=d[c];++c){var e=a.getAttribute("pagespeed_url_hash");e&&(!(e in b)&&0<a.width&&0<a.height&&0<a.naturalWidth&&0<a.naturalHeight||e in b&&a.width>=b[e].k&&a.height>=b[e].j)&&(b[e]={rw:a.width,rh:a.height,ow:a.naturalWidth,oh:a.naturalHeight})}return b},t="";h("pagespeed.CriticalImages.getBeaconData",function(){return t});h("pagespeed.CriticalImages.Run",function(b,d,a,c,e,f){var k=new p(b,d,a,e,f);n=k;c&&m(function(){window.setTimeout(function(){r(k)},0)})});})();pagespeed.CriticalImages.Run('/mod_pagespeed_beacon','http://blog.tanelpoder.com/2012/04/13/exadata-smart-scan-predicate-offloading-and-sequence-nextval/','SLoDkQnME-',true,false,'U2f2B4EY7xI');
+//]]></script><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAACZ0lEQVQozzWQTWhUVxhAz/fdO+85TsQ6iclI/I2CVAP9WZhahIK6keJCkAQRREEolQpKN+KidOVOECldtVBqF6ZQXKgUl1IIKgF/QDEKYhTixInSmIZ5777700X0rM7mbI4APDyxsZVn+QVRGQspAYIISwiIgFUlhjA+9+btqR2/ddoycaR3cP26jdcayqfOddFMMHkNk2eYmqJWUCOIFbKapdPu3nsy8exrc2b3+l9WZnZPWLWBnr3fYAc2I5qQYg4Vh1qzFCqkFOmp11oupHVWRUYrX5H39lPfeZgPhJd3CJO/ktqTiMkQEXwZKV3CGh01333R+2NjRQO6Hfyjq8QXtxBJ2E27MB/vR2IF7ft4l6iKRHCwsFCgIKiJ2L615J8cQKzF3zxHdeUYaf4FZuQkadshqsUCX0Z8GYGECmBMxHw0QDZylGX7z5OPXkKy5fhr35L+fY4dOQH9n+EXC4JLpASKgtZz6DzAXT5EuP0T0ujH7rtIqg/Svf4Dokr+5XFCpfgykCIogLGKxi64eeLjvwg3TpNihf3qLO7lFO7xTWpDI0hzM6HrIIGKgEjA9A2RHbxE7cDvVK+mqCb/QPuGkDWf0737N2IsdnCYUFYAqFVBrSDWgqmRxOIrSzn1D6SEDmynnHm25CvXEFzCqiBPv986vmW4NepDQVi+Ab9Y4maniamO9G3Dzc1Qzb3GDg5Tzr4i687yX1b8acZWy0S9uWJPo563yrcd/Lt3RG8JRYVrT+MXFohVxM1Mk6cC32Puzbv2EQG4c3R1q9lsXjCqY1VY2k1KkHjvYBRQxp0rT23/+Xn7fyy5EEGJI0N2AAAAAElFTkSuQmCC" alt="RSS Feed" pagespeed_url_hash="3485948561" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></a>&nbsp;<a target="_self" href="http://blog.tanelpoder.com/feed/" title="Subscribe to Posts">RSS - Posts</a></p><p><a target="_self" href="http://blog.tanelpoder.com/comments/feed/" title="Subscribe to Comments"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAACZ0lEQVQozzWQTWhUVxhAz/fdO+85TsQ6iclI/I2CVAP9WZhahIK6keJCkAQRREEolQpKN+KidOVOECldtVBqF6ZQXKgUl1IIKgF/QDEKYhTixInSmIZ5777700X0rM7mbI4APDyxsZVn+QVRGQspAYIISwiIgFUlhjA+9+btqR2/ddoycaR3cP26jdcayqfOddFMMHkNk2eYmqJWUCOIFbKapdPu3nsy8exrc2b3+l9WZnZPWLWBnr3fYAc2I5qQYg4Vh1qzFCqkFOmp11oupHVWRUYrX5H39lPfeZgPhJd3CJO/ktqTiMkQEXwZKV3CGh01333R+2NjRQO6Hfyjq8QXtxBJ2E27MB/vR2IF7ft4l6iKRHCwsFCgIKiJ2L615J8cQKzF3zxHdeUYaf4FZuQkadshqsUCX0Z8GYGECmBMxHw0QDZylGX7z5OPXkKy5fhr35L+fY4dOQH9n+EXC4JLpASKgtZz6DzAXT5EuP0T0ujH7rtIqg/Svf4Dokr+5XFCpfgykCIogLGKxi64eeLjvwg3TpNihf3qLO7lFO7xTWpDI0hzM6HrIIGKgEjA9A2RHbxE7cDvVK+mqCb/QPuGkDWf0737N2IsdnCYUFYAqFVBrSDWgqmRxOIrSzn1D6SEDmynnHm25CvXEFzCqiBPv986vmW4NepDQVi+Ab9Y4maniamO9G3Dzc1Qzb3GDg5Tzr4i687yX1b8acZWy0S9uWJPo563yrcd/Lt3RG8JRYVrT+MXFohVxM1Mk6cC32Puzbv2EQG4c3R1q9lsXjCqY1VY2k1KkHjvYBRQxp0rT23/+Xn7fyy5EEGJI0N2AAAAAElFTkSuQmCC" alt="RSS Feed" pagespeed_url_hash="3485948561" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></a>&nbsp;<a target="_self" href="http://blog.tanelpoder.com/comments/feed/" title="Subscribe to Comments">RSS - Comments</a></p>
+</li>					</ul>
+				</div><!-- #second .widget-area -->
+
+				<div id="third" class="widget-area">
+					<ul class="xoxo">
+						<li id="text-449045842" class="widget-container threecol widget_text"><h3 class="widget-title">Training in 2015</h3>			<div class="textwidget"><a href="http://blog.tanelpoder.com/seminar/"><font color="red">New training by Tanel in 2015!</font></a><br>
+<a href="http://blog.tanelpoder.com/seminar/">Advanced Oracle Troubleshooting</a> - Launching March 2015! 
+
+</div>
+		</li>					</ul>
+				</div><!-- #third .widget-area -->
+
+				<div id="fourth" class="widget-area">
+					<ul class="xoxo">
+						<li id="search-5" class="widget-container threecol last widget_search"><h3 class="widget-title">Search</h3><form role="search" method="get" id="searchform" class="searchform" action="http://blog.tanelpoder.com/">
+				<div>
+					<label class="screen-reader-text" for="s">Search for:</label>
+					<input name="s" id="s" type="text">
+					<input id="searchsubmit" value="Search" type="submit">
+				</div>
+			</form></li>					</ul>
+				</div><!-- #fourth .widget-area -->
+
+			</div><!-- #footer-widget-area -->
+				</div><!-- #footerbar -->
+				<div id="colophon" class="twelvecol last">
+					<div id="site-info" class="sixcol">
+						<a href="http://blog.tanelpoder.com/" title="Tanel Poder's Performance &amp; Troubleshooting blog" rel="home">
+							Tanel Poder's Performance &amp; Troubleshooting blog						</a>
+					</div><!-- #site-info -->
+					<div id="site-generator" class="sixcol last">
+												<a href="http://wordpress.org/" title="Semantic Personal Publishing Platform">Proudly powered by WordPress.</a>
+					</div><!-- #site-generator -->
+				</div><!-- #colophon -->
+			</footer><!-- #footer -->
+		</div><!-- #wrapper -->
+			<div style="display:none">
+	</div>
+
+	<script type="text/javascript">window.WPCOM_sharing_counts={"http:\/\/blog.tanelpoder.com\/2012\/04\/13\/exadata-smart-scan-predicate-offloading-and-sequence-nextval\/":1592};window.WPCOM_site_ID=5982710;</script>
+		<script type="text/javascript">var windowOpen;jQuery(document).on('ready post-load',function(){jQuery('a.share-twitter').on('click',function(){if('undefined'!==typeof windowOpen){windowOpen.close();}
+windowOpen=window.open(jQuery(this).attr('href'),'wpcomtwitter','menubar=1,resizable=1,width=600,height=350');return false;});});</script>
+				<script type="text/javascript">var windowOpen;jQuery(document).on('ready post-load',function(){jQuery('a.share-facebook').on('click',function(){if('undefined'!==typeof windowOpen){windowOpen.close();}
+windowOpen=window.open(jQuery(this).attr('href'),'wpcomfacebook','menubar=1,resizable=1,width=600,height=400');return false;});});</script>
+				<script type="text/javascript">var windowOpen;jQuery(document).on('ready post-load',function(){jQuery('a.share-linkedin').on('click',function(){if('undefined'!==typeof windowOpen){windowOpen.close();}
+windowOpen=window.open(jQuery(this).attr('href'),'wpcomlinkedin','menubar=1,resizable=1,width=580,height=450');return false;});});</script>
+				<script type="text/javascript">var windowOpen;jQuery(document).on('ready post-load',function(){jQuery('a.share-google-plus-1').on('click',function(){if('undefined'!==typeof windowOpen){windowOpen.close();}
+windowOpen=window.open(jQuery(this).attr('href'),'wpcomgoogle-plus-1','menubar=1,resizable=1,width=480,height=550');return false;});});</script>
+				<script type="text/javascript">var windowOpen;jQuery(document).on('ready post-load',function(){jQuery('a.share-pocket').on('click',function(){if('undefined'!==typeof windowOpen){windowOpen.close();}
+windowOpen=window.open(jQuery(this).attr('href'),'wpcompocket','menubar=1,resizable=1,width=450,height=450');return false;});});</script>
+							<script type="text/javascript">jQuery(document).on('ready',function(){jQuery('body').on('click','a.share-pinterest',function(e){e.preventDefault();var s=document.createElement("script");s.type="text/javascript";s.src=window.location.protocol+"//assets.pinterest.com/js/pinmarklet.js?r="+(Math.random()*99999999);var x=document.getElementsByTagName("script")[0];x.parentNode.insertBefore(s,x);var s=document.createElement("script");s.type="text/javascript";s.src=this+(this.toString().indexOf('?')?'&':'?')+'js_only=1';var x=document.getElementsByTagName("script")[0];x.parentNode.insertBefore(s,x);});});</script>
+				<script type="text/javascript">var windowOpen;jQuery(document).on('ready post-load',function(){jQuery('a.share-tumblr').on('click',function(){if('undefined'!==typeof windowOpen){windowOpen.close();}
+windowOpen=window.open(jQuery(this).attr('href'),'wpcomtumblr','menubar=1,resizable=1,width=450,height=450');return false;});});</script>
+			
+<script type="text/javascript">//<![CDATA[
+var ak_js=document.getElementById("ak_js");if(!ak_js){ak_js=document.createElement('input');ak_js.setAttribute('id','ak_js');ak_js.setAttribute('name','ak_js');ak_js.setAttribute('type','hidden');}
+else{ak_js.parentNode.removeChild(ak_js);}
+ak_js.setAttribute('value',(new Date()).getTime());var commentForm=document.getElementById('commentform');if(commentForm){commentForm.appendChild(ak_js);}
+else{var replyRowContainer=document.getElementById('replyrow');if(replyRowContainer){var children=replyRowContainer.getElementsByTagName('td');if(children.length>0){children[0].appendChild(ak_js);}}}
+//]]></script>
+<script type="text/javascript" src="Exadata%20Smart%20Scan%20predicate%20offloading%20and%20sequence.NEXTVAL%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/shCore.js"></script>
+<script type="text/javascript" src="Exadata%20Smart%20Scan%20predicate%20offloading%20and%20sequence.NEXTVAL%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/shBrushSql.js"></script>
+<script type="text/javascript">(function(){var corecss=document.createElement('link');var themecss=document.createElement('link');var corecssurl="http://blog.tanelpoder.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.9b";if(corecss.setAttribute){corecss.setAttribute("rel","stylesheet");corecss.setAttribute("type","text/css");corecss.setAttribute("href",corecssurl);}else{corecss.rel="stylesheet";corecss.href=corecssurl;}
+document.getElementsByTagName("head")[0].insertBefore(corecss,document.getElementById("syntaxhighlighteranchor"));var themecssurl="http://blog.tanelpoder.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?ver=3.0.9b";if(themecss.setAttribute){themecss.setAttribute("rel","stylesheet");themecss.setAttribute("type","text/css");themecss.setAttribute("href",themecssurl);}else{themecss.rel="stylesheet";themecss.href=themecssurl;}
+document.getElementsByTagName("head")[0].insertBefore(themecss,document.getElementById("syntaxhighlighteranchor"));})();SyntaxHighlighter.config.strings.expandSource='+ expand source';SyntaxHighlighter.config.strings.help='?';SyntaxHighlighter.config.strings.alert='SyntaxHighlighter\n\n';SyntaxHighlighter.config.strings.noBrush='Can\'t find brush for: ';SyntaxHighlighter.config.strings.brushNotHtmlScript='Brush wasn\'t configured for html-script option: ';SyntaxHighlighter.defaults['gutter']=false;SyntaxHighlighter.defaults['pad-line-numbers']=true;SyntaxHighlighter.defaults['wrap-lines']=false;SyntaxHighlighter.all();</script>
+<script src="Exadata%20Smart%20Scan%20predicate%20offloading%20and%20sequence.NEXTVAL%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/wp-includes_js_comment-reply.js"></script><script>eval(mod_pagespeed_IJG4ayv3Q$);</script>
+<script>eval(mod_pagespeed_CI_ve26wXe);</script>
+<script type="text/javascript" src="Exadata%20Smart%20Scan%20predicate%20offloading%20and%20sequence.NEXTVAL%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/devicepx-jetpack.js"></script>
+<script type="text/javascript">//<![CDATA[
+var sharing_js_options={"lang":"en","counts":"1"};
+//]]></script>
+<script type="text/javascript" src="Exadata%20Smart%20Scan%20predicate%20offloading%20and%20sequence.NEXTVAL%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/sharing.js"></script>
+	
+
+
+
+
+
+<div id="link64_vdp_tabid" style="display:none;">1053</div><div id="sharing_email" style="display: none;">
+		<form action="/2012/04/13/exadata-smart-scan-predicate-offloading-and-sequence-nextval/" method="post">
+			<label for="target_email">Send to Email Address</label>
+			<input name="target_email" id="target_email" type="email">
+
+			
+				<label for="source_name">Your Name</label>
+				<input name="source_name" id="source_name" type="text">
+
+				<label for="source_email">Your Email Address</label>
+				<input name="source_email" id="source_email" type="email">
+
+						<input id="jetpack-source_f_name" name="source_f_name" class="input" size="25" autocomplete="off" type="text">
+			<script>document.getElementById('jetpack-source_f_name').value='';</script>
+			
+			<img style="float: right; display: none" class="loading" src="data:image/gif;base64,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" alt="loading" pagespeed_url_hash="1637830375" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+			<input value="Send Email" class="sharing_send" type="submit">
+			<a rel="nofollow" href="#cancel" class="sharing_cancel">Cancel</a>
+
+			<div class="errors errors-1" style="display: none;">
+				Post was not sent - check your email addresses!			</div>
+
+			<div class="errors errors-2" style="display: none;">
+				Email check failed, please try again			</div>
+
+			<div class="errors errors-3" style="display: none;">
+				Sorry, your blog cannot share posts by email.			</div>
+		</form>
+	</div></body></html>
+<!-- Dynamic page generated in 0.608 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2015-05-09 01:25:02 -->
+<!-- super cache -->

@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6 lt-ie9 lt-ie8 lt-ie7" lang="en-US"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 lt-ie9 lt-ie8" lang="en-US"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 lt-ie9" lang="en-US"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class=" js no-flexbox canvas canvastext no-webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" lang="en-US"><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width">
+		<title>Combining Bloom Filter Offloading and Storage Indexes on Exadata | Tanel Poder's Performance &amp; Troubleshooting blog</title>
+		<link rel="profile" href="http://gmpg.org/xfn/11">
+		<link rel="pingback" href="http://blog.tanelpoder.com/xmlrpc.php">
+		<style type="text/css">#wrapper{max-width:800px!important}</style>
+		
+<!-- All in One SEO Pack 2.2.6.2 by Michael Torbert of Semper Fi Web Design[495,632] -->
+<meta name="description" content="Here's a little known feature of Exadata - you can use a Bloom filter computed from a join column of a table to skip&nbsp;disk I/Os against another&nbsp;table it is j">
+
+<meta name="keywords" content="exadata,oracle">
+
+<link rel="canonical" href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/">
+<!-- /all in one seo pack -->
+<link rel="alternate" type="application/rss+xml" title="Tanel Poder's Performance &amp; Troubleshooting blog » Feed" href="http://blog.tanelpoder.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Tanel Poder's Performance &amp; Troubleshooting blog » Comments Feed" href="http://blog.tanelpoder.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Tanel Poder's Performance &amp; Troubleshooting blog » Combining Bloom Filter Offloading and Storage Indexes on Exadata Comments Feed" href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/feed/">
+		<script type="text/javascript">window._wpemojiSettings={"baseUrl":"http:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"http:\/\/blog.tanelpoder.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.2.1"}};!function(a,b,c){function d(a){var c=b.createElement("canvas"),d=c.getContext&&c.getContext("2d");return d&&d.fillText?(d.textBaseline="top",d.font="600 32px Arial","flag"===a?(d.fillText(String.fromCharCode(55356,56812,55356,56807),0,0),c.toDataURL().length>3e3):(d.fillText(String.fromCharCode(55357,56835),0,0),0!==d.getImageData(16,16,1,1).data[0])):!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f;c.supports={simple:d("simple"),flag:d("flag")},c.supports.simple&&c.supports.flag||(f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);</script><script type="text/javascript" src="Combining%20Bloom%20Filter%20Offloading%20and%20Storage%20Indexes%20on%20Exadata%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/wp-emoji-release.js"></script>
+		<style type="text/css">img.wp-smiley,img.emoji{display:inline!important;border:none!important;box-shadow:none!important;height:1em!important;width:1em!important;margin:0 .07em!important;vertical-align:-.1em!important;background:none!important;padding:0!important}</style>
+<style id="brunelleschi_left-heading-css" media="all">#branding{text-align:left!important}</style>
+<style id="brunelleschi_small-site-title-css" media="all">#site-title{font-size:20px}</style>
+<link rel="stylesheet" id="style.css-css" href="Combining%20Bloom%20Filter%20Offloading%20and%20Storage%20Indexes%20on%20Exadata%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/A_003.css" type="text/css" media="all">
+<link rel="stylesheet" id="dwqa-style-css" href="Combining%20Bloom%20Filter%20Offloading%20and%20Storage%20Indexes%20on%20Exadata%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/A_004.css" type="text/css" media="all">
+<style id="mailchimp-for-wp-checkbox-css" media="all">#mc4wp-checkbox{clear:both;display:block;position:static;width:auto}#mc4wp-checkbox input{float:none;width:auto;position:static;margin:0 6px 0 0;padding:0;vertical-align:middle;display:inline-block!important;max-width:21px;-webkit-appearance:checkbox}#mc4wp-checkbox label{float:none;display:block;cursor:pointer;width:auto;position:static}#_mc4wp_subscribe_woocommerce_checkout_field input,#_mc4wp_subscribe_woocommerce_checkout_field label{float:none!important;width:auto!important;display:inline-block!important}#registerform #mc4wp-checkbox{margin-bottom:10px}</style>
+<link rel="stylesheet" id="tablepress-default-css" href="Combining%20Bloom%20Filter%20Offloading%20and%20Storage%20Indexes%20on%20Exadata%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/default.css" type="text/css" media="all">
+<style id="mailchimp-for-wp-form-css" media="all">.mc4wp-form{margin:1em 0}.mc4wp-form form{width:auto}.mc4wp-form label{display:block;font-weight:700;margin-bottom:5px}.mc4wp-form input{vertical-align:baseline}.mc4wp-form input.placeholdersjs{color:#aaa!important}.mc4wp-form input[type=date],.mc4wp-form input[type=email],.mc4wp-form input[type=tel],.mc4wp-form input[type=text],.mc4wp-form input[type=url],.mc4wp-form select,.mc4wp-form textarea{cursor:auto;display:block;width:100%;height:auto;box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box}.mc4wp-form input[type=checkbox],.mc4wp-form input[type=radio]{position:relative;margin:0 6px 0 0;padding:0;height:13px;width:13px;display:inline-block;border:0}.mc4wp-form input[type=checkbox]{-webkit-appearance:checkbox}.mc4wp-form input[type=radio]{-webkit-appearance:radio}.mc4wp-form input[name="_mc4wp_required_but_not_really"]{display:none!important}.mc4wp-form button,.mc4wp-form input[type=button],.mc4wp-form input[type=submit]{cursor:pointer;display:inline-block}.mc4wp-form li,.mc4wp-form ul{list-style:none;margin:0;padding:0}.mc4wp-form label>span,.mc4wp-form li>label{font-weight:400}.mc4wp-alert{margin:1em 0;padding:10px 15px;color:#c09853;background-color:#fcf8e3;border:1px solid #fbeed5;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;display:block;position:relative}.mc4wp-success{color:#468847;background-color:#dff0d8;border-color:#d6e9c6}.mc4wp-notice{color:#3a87ad;background-color:#d9edf7;border-color:#bce8f1}.mc4wp-error{color:#b94a48;background-color:#f2dede;border-color:#eed3d7}</style>
+<link rel="stylesheet" id="genericons-css" href="Combining%20Bloom%20Filter%20Offloading%20and%20Storage%20Indexes%20on%20Exadata%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/A_002.css" type="text/css" media="all">
+<link rel="stylesheet" id="jetpack_css-css" href="Combining%20Bloom%20Filter%20Offloading%20and%20Storage%20Indexes%20on%20Exadata%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/A.css" type="text/css" media="all">
+<script src="Combining%20Bloom%20Filter%20Offloading%20and%20Storage%20Indexes%20on%20Exadata%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/modernizr-2.js"></script><script>eval(mod_pagespeed_d9Tsm3u5FU);</script>
+<script>eval(mod_pagespeed_Xjuv4cPKr5);</script>
+<script type="text/javascript" src="Combining%20Bloom%20Filter%20Offloading%20and%20Storage%20Indexes%20on%20Exadata%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/jquery.js"></script>
+<script src="Combining%20Bloom%20Filter%20Offloading%20and%20Storage%20Indexes%20on%20Exadata%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/wp-includes_js_jquery_jquery-migrate.js"></script><script>eval(mod_pagespeed_Hf0$z$LmEX);</script>
+<script>eval(mod_pagespeed_3g6VhoPJyg);</script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://blog.tanelpoder.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://blog.tanelpoder.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Enkitec + Accenture = Even More Awesomeness!" href="http://blog.tanelpoder.com/2014/05/15/enkitec-accenture-even-more-awesomeness/">
+<link rel="next" title="Our take on the Oracle Database 12c In-Memory Option" href="http://blog.tanelpoder.com/2014/06/10/our-take-on-the-oracle-database-12c-in-memory-option/">
+<meta name="generator" content="WordPress 4.2.1">
+<link rel="shortlink" href="http://wp.me/pp6nk-C9">
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-4749913-1','auto');ga('send','pageview');</script>
+<link rel="dns-prefetch" href="http://i0.wp.com/">
+<link rel="dns-prefetch" href="http://i1.wp.com/">
+<link rel="dns-prefetch" href="http://i2.wp.com/">
+<style type="text/css">.broken_link,a.broken_link{text-decoration:line-through}</style>	<style type="text/css">.site-title,.site-description{position:absolute!important;clip:rect(1px 1px 1px 1px);clip:rect(1px,1px,1px,1px)}</style>
+	<style type="text/css" id="syntaxhighlighteranchor"></style>
+<style type="text/css">.mc4wp-form input[name="_mc4wp_required_but_not_really"]{display:none!important}</style>		<style>div.entry-content p code{background-color:#fff;padding:.2em}div.entry-content pre{white-space:pre;overflow:scroll;-webkit-overflow-scrolling:touch;font-family:Consolas,\"Andale\ Mono\",\"DejaVu\ Sans\ Mono\",monospace;background-color:#f6f6f6;font-size:14px}div.entry-content{color:#222;font-size:15px;font-family:Georgia,Times,sans-serif}div.entry-utility{display:none}#comments-title{display:none}#comments{color:#222;font-size:15px;font-family:Georgia,Times,sans-serif}#reply-title{display:none}#nav-above div{display:none}#nav-above{display:none}.paged #nav-above{display:none}.single #nav-above{display:none}::-moz-selection{background:#ff6;color:#000;text-shadow:none}::selection{background:#ff6;color:#000;text-shadow:none}#access{border-top:none;border-bottom:none}.hentry{border-top:none}</style>
+	</head>
+	<body class="single single-post postid-2365 single-format-standard">
+	<div id="wrapper" class="hfeed container">
+		<header id="header" class="row clearfix">
+							<hgroup id="branding" class="threecol">
+					<h1 class="site-title"><a href="http://blog.tanelpoder.com/" title="Tanel Poder's Performance &amp; Troubleshooting blog" rel="home">Tanel Poder's Performance &amp; Troubleshooting blog</a></h1>
+					<h2 class="site-description">Linux, Oracle, Hadoop.</h2>
+				</hgroup>
+																						<div id="access" role="navigation" class="twelvecol last clearfix">
+					<div class="skip-link screen-reader-text"><a href="#content" title="Skip to content">Skip to content</a></div>
+					<div class="menu-header"><ul id="menu-menu-1" class="menu"><li id="menu-item-2401" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-2401"><a href="http://blog.tanelpoder.com/">Home</a></li>
+<li id="menu-item-2402" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2402"><a href="http://blog.tanelpoder.com/about-2/">About</a></li>
+<li id="menu-item-2446" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2446"><a href="http://blog.tanelpoder.com/downloads/">Downloads</a></li>
+<li id="menu-item-2443" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2443"><a href="http://blog.tanelpoder.com/archives/">Archives</a></li>
+<li id="menu-item-2410" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2410"><a href="http://blog.tanelpoder.com/seminar/">Training</a></li>
+</ul></div>				</div><!-- #access -->
+					</header><!-- #header -->
+		<div id="container" class="row clearfix">		
+		<div id="main" role="main" class="twelvecol last ">
+
+			
+				<nav id="nav-above" class="navigation">
+					<div class="nav-previous"><a href="http://blog.tanelpoder.com/2014/05/15/enkitec-accenture-even-more-awesomeness/" rel="prev"><span class="meta-nav">←</span> Enkitec + Accenture = Even More Awesomeness!</a></div>
+					<div class="nav-next"><a href="http://blog.tanelpoder.com/2014/06/10/our-take-on-the-oracle-database-12c-in-memory-option/" rel="next">Our take on the Oracle Database 12c In-Memory Option <span class="meta-nav">→</span></a></div>
+				</nav><!-- #nav-above -->
+
+				<article id="post-2365" class="post-2365 post type-post status-publish format-standard hentry category-exadata category-oracle">
+					<header>
+						<h1 class="entry-title">Combining Bloom Filter Offloading and Storage Indexes on Exadata</h1>
+												<div class="entry-meta">
+							<span class="meta-sep">by</span> <span class="author vcard"><a class="url fn n" href="http://blog.tanelpoder.com/author/tanelp/" title="View all posts by Tanel Poder">Tanel Poder</a></span> <span class="meta-prep meta-prep-author">Posted on</span> <a href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/" title="10:15 pm" rel="bookmark"><span class="entry-date">May 17, 2014</span></a>						</div><!-- .entry-meta -->
+											</header>
+					<div class="entry-content">
+						<p>Here’s a little known feature of Exadata – you can use a <a href="http://antognini.ch/papers/BloomFilters20080620.pdf" target="_blank">Bloom filter</a> computed from a join column of a table to <em>skip</em>&nbsp;disk I/Os against <strong><em>another</em></strong>&nbsp;table
+ it is joined to. This&nbsp;not the same as the Bloom filtering of the 
+datablock contents in Exadata storage cells, but rather 
+avoiding&nbsp;reading in some storage&nbsp;regions from the disks 
+completely.</p>
+<p>So, you can use storage indexes to skip I/Os against your large fact 
+table, based on a bloom filter calculated from a small dimension table!</p>
+<p>This is useful especially&nbsp;for dimensional star schemas, as your 
+SQL statements&nbsp;might not&nbsp;have direct predicates on your large 
+fact tables at all, all results will be determined by looking up 
+relevant dimension records and then performing a hash join to the fact 
+table (whether you <em>should</em> have some direct predicates against the fact tables, for performance reasons, is a separate topic for some other day :-)</p>
+<p>Let me show an example using the <a href="http://dominicgiles.com/swingbench.html" target="_blank">SwingBench</a> Order Entry schema. The first output is from Oracle 11.2.0.3 BP21 on Cellsrv 12.1.1.1.0:</p>
+<p><span id="more-2365"></span></p>
+<pre>SQL&gt; ALTER SESSION SET "_serial_direct_read"=ALWAYS;
+
+Session altered.
+
+SQL&gt; SELECT
+  2      /*+ LEADING(c)
+  3          NO_SWAP_JOIN_INPUTS(o)
+  4          INDEX_RS_ASC(c(cust_email))
+  5          FULL(o)
+  6          MONITOR
+  7      */
+  8      *
+  9  FROM
+ 10      soe.customers c
+ 11    , soe.orders o
+ 12  WHERE
+ 13      o.customer_id = c.customer_id
+ 14  AND c.cust_email = 'florencio@ivtboge.com'
+ 15  /
+
+CUSTOMER_ID CUST_FIRST_NAME                CUST_LAST_NAME  ...
+----------- ------------------------------ --------------
+  399999199 brooks                         laxton        
+
+Elapsed: 00:00:<strong><span style="color: #ff0000;">55.81
+</span></strong></pre>
+<p>You can ignore the hints in the query, I just used these for get the 
+plan I wanted for my demo. I also forced the serial full segment scans 
+to use direct path reads (and thus attempt Smart Scans on Exadata) using
+ the <a title="Forcing Smart Scans on Exadata – is the _serial_direct_read parameter safe to use in production?" href="http://blog.tanelpoder.com/2013/05/29/forcing-smart-scans-on-exadata-is-_serial_direct_read-parameter-safe-to-use-in-production/" target="_blank"><em>_serial_direct_read</em></a> parameter.</p>
+<p>Note that while I do have a direct filter predicate on the “small” 
+CUSTOMERS table, I don’t have any predicates on the “large” ORDERS 
+table, so there’s no filter predicate to offload to storage layer on the
+ ORDERS table (but the column projection and HCC decompression can still
+ be offloaded on that table too). Anyway, the query ran in over 55 
+seconds.</p>
+<p>Let’s run this now with PARALLEL degree 2 and compare the results:</p>
+<pre>SQL&gt; ALTER SESSION FORCE PARALLEL QUERY PARALLEL 2;
+
+Session altered.
+
+SQL&gt; SELECT
+  2      /*+ LEADING(c)
+  3          NO_SWAP_JOIN_INPUTS(o)
+  4          INDEX_RS_ASC(c(cust_email))
+  5          FULL(o)
+  6          MONITOR
+  7      */
+  8      *
+  9  FROM
+ 10      soe.customers c
+ 11    , soe.orders o
+ 12  WHERE
+ 13      o.customer_id = c.customer_id
+ 14  AND c.cust_email = 'florencio@ivtboge.com'
+ 15  /
+
+CUSTOMER_ID CUST_FIRST_NAME                CUST_LAST_NAME       
+----------- ------------------------------ ---------------------
+  399999199 brooks                         laxton               
+
+Elapsed: 00:00:<strong><span style="color: #ff0000;">03.80
+</span></strong></pre>
+<p>Now the query ran in less than 4 seconds. How come did the same query run close to <em>15 times</em>
+ faster than in serial? The parallel degree 2 for this simple query 
+should give me max 4 slaves doing the work… 15x speedup indicates that 
+something else has changed as well.</p>
+<p>The first thing I would normally suspect is that perhaps the direct 
+path reads were not attempted for the serial query (and Smart Scans did 
+not kick in). That would sure explain the big performance difference… 
+but I did explicitly force the serial direct path reads in my session. 
+Anyway, let’s stop guessing and instead know for sure by measuring these
+ experiments!</p>
+<p>SQL Monitoring reports are a good starting point (I have added the 
+MONITOR hint to the query so that the SQL monitoring would kick in 
+immediately also for serial queries).</p>
+<p>Here’s the slow serial query:</p>
+<pre>Global Stats
+====================================================================================================
+| Elapsed |   Cpu   |    IO    | Application |  Other   | Fetch | Buffer | Read  | Read  |  Cell   |
+| Time(s) | Time(s) | Waits(s) |  Waits(s)   | Waits(s) | Calls |  Gets  | Reqs  | Bytes | <strong>Offload</strong> |
+====================================================================================================
+|      56 |      49 |     6.64 |        0.01 |     0.01 |     2 |     4M | 53927 |  29GB |  <strong><span style="color: #000000;">14.53%</span></strong> |
+====================================================================================================
+
+SQL Plan Monitoring Details (Plan Hash Value=2205859845)
+==========================================================================================================================================
+| Id |               Operation               |     Name      | Execs |   <strong>Rows</strong>   | Read  |  Cell   | Activity |      Activity Detail      |
+|    |                                       |               |       | <strong>(Actual)</strong> | Bytes | Offload |   (%)    |        (# samples)        |
+==========================================================================================================================================
+|  0 | SELECT STATEMENT                      |               |     1 |        1 |       |         |          |                           |
+|  1 |   HASH JOIN                           |               |     1 |        <strong><span style="color: #ff0000;">1</span></strong> |       |         |    42.86 | Cpu (24)                  |
+|  2 |    TABLE ACCESS BY GLOBAL INDEX ROWID | CUSTOMERS     |     1 |        1 |       |         |          |                           |
+|  3 |     INDEX RANGE SCAN                  | CUST_EMAIL_IX |     1 |        1 |       |         |          |                           |
+|  4 |    PARTITION HASH ALL                 |               |     1 |     <strong>458M</strong> |       |         |          |                           |
+|  5 |     TABLE ACCESS STORAGE FULL         | ORDERS        |    64 |     <strong><span style="color: #ff0000;">458M</span></strong> |  <strong><span style="color: #ff0000;">29GB</span></strong> |  <strong><span style="color: #ff0000;">14.53%</span></strong> |    57.14 | Cpu (29)                  |
+|    |                                       |               |       |          |       |         |          | cell smart table scan (3) |
+==========================================================================================================================================
+</pre>
+<p>So, the serial query&nbsp;issued 29 GB worth of IO to the Exadata storage cells, but only 14.53% <em>less</em>
+ data was sent back… not that great reduction in the storage 
+interconnect traffic. Also, looks like all 458 Million ORDERS 
+table&nbsp;rows were sent back from the storage cells (as the ORDERS 
+table didn’t have any direct SQL predicates against it). Those rows were
+ then fed to the HASH JOIN parent row source (DB CPU usage!) and 
+it&nbsp;just threw all of the rows away but one. Talk about 
+inefficiency!</p>
+<p>Ok, this is the fast parallel query:</p>
+<pre>Global Stats
+==============================================================================================================
+| Elapsed | Queuing |   Cpu   |    IO    | Application |  Other   | Fetch | Buffer | Read  | Read  |  Cell   |
+| Time(s) | Time(s) | Time(s) | Waits(s) |  Waits(s)   | Waits(s) | Calls |  Gets  | Reqs  | Bytes | Offload |
+==============================================================================================================
+|    4.88 |    0.00 |    0.84 |     4.03 |        0.00 |     0.01 |     2 |     4M | 30056 |  29GB |  <strong>99.99%</strong> |
+==============================================================================================================
+
+SQL Plan Monitoring Details (Plan Hash Value=2121763430)
+===============================================================================================================================================
+| Id |                 Operation                  |     Name      | Execs |   Rows   | Read  |  Cell   | Activity |      Activity Detail      |
+|    |                                            |               |       | (Actual) | Bytes | <strong>Offload</strong> |   (%)    |        (# samples)        |       
+===============================================================================================================================================
+|  0 | SELECT STATEMENT                           |               |     3 |        1 |       |         |          |                           |       
+|  1 |   PX COORDINATOR                           |               |     3 |        1 |       |         |          |                           |       
+|  2 |    PX SEND QC (RANDOM)                     | :TQ10001      |     2 |        1 |       |         |          |                           |       
+|  3 |     HASH JOIN                              |               |     2 |        <strong><span style="color: #ff0000;">1</span></strong> |       |         |          |                           |       
+|  4 |      BUFFER SORT                           |               |     2 |        2 |       |         |          |                           |       
+|  5 |       PX RECEIVE                           |               |     2 |        2 |       |         |          |                           |       
+|  6 |        PX SEND BROADCAST                   | :TQ10000      |     1 |        2 |       |         |          |                           |       
+|  7 |         TABLE ACCESS BY GLOBAL INDEX ROWID | CUSTOMERS     |     1 |        1 |       |         |          |                           |       
+|  8 |          INDEX RANGE SCAN                  | CUST_EMAIL_IX |     1 |        1 |       |         |          |                           |       
+|  9 |      PX PARTITION HASH ALL                 |               |     2 |     <span style="color: #000000;"><strong>4488</strong></span> |       |         |          |                           |       
+| 10 |       TABLE ACCESS STORAGE FULL            | ORDERS        |    64 |     <strong><span style="color: #ff0000;">4488</span></strong> |  <strong><span style="color: #ff0000;">29GB</span></strong> |  <strong><span style="color: #ff0000;">99.99%</span></strong> |   100.00 | cell smart table scan (4) |
+===============================================================================================================================================
+</pre>
+<p>The fast parallel query still issued 29 GB of IO, but only 0.01% of 
+data (compared to the amount of IOs issued) was sent back from the 
+storage cells, so the offload efficiency for that table scan is 99.99%. 
+Also, only a few thousand rows were returned back from the full table 
+scan (so the throw-away by the hash join later in the plan 
+is&nbsp;smaller).</p>
+<p>So, where does the big difference in runtime and offload efficiency 
+metrics come from?&nbsp;It’s the same data, same query (looking for the 
+same values) so how come do we have so different Offload Efficiency %?</p>
+<p>The problem with looking into a single metric showing some percentage
+ (of what?!) is that it hides a lot of detail. So, lets get systematic 
+and look into some detailed&nbsp;metrics :-)</p>
+<p>I’ll use the Exadata Snapper for this purpose, although I could just 
+list the V$SESSTAT metrics it uses as its source. The 
+ExaSnapper&nbsp;lists various Exadata I/O metrics of the monitored 
+session all in one “chart”, in the same unit (MB) &amp; scale – so it 
+will be easy to compare these different cases. If you do not know what 
+the Exadata Snapper is, then check out this <a href="http://blog.tanelpoder.com/2013/02/22/exasnapper-0-7-beta-download-and-the-hacking-session-videos/" target="_blank">article and video</a>.</p>
+<p>Here’s the slow serial query (you may need to scroll the output right to see the MB numbers):</p>
+<pre>SQL&gt; SELECT * FROM TABLE(<strong>exasnap.display_snap</strong>(:t1,:t2));
+
+NAME
+-------------------------------------------------------------------------------------------------------------------------------------------
+-- ExaSnapper v0.81 BETA by Tanel Poder @ Enkitec - The Exadata Experts ( http://www.enkitec.com )
+-------------------------------------------------------------------------------------------------------------------------------------------
+DB_LAYER_IO                    DB_PHYSIO_BYTES               |##################################################|    29291 MB    365 MB/sec
+<strong>DB_LAYER_IO                    DB_PHYSRD_BYTES               |##################################################|    29291 MB    365 MB/sec
+</strong>DB_LAYER_IO                    DB_PHYSWR_BYTES               |                                                  |        0 MB      0 MB/sec
+AVOID_DISK_IO                  PHYRD_FLASH_RD_BYTES          |################################################# |    29134 MB    363 MB/sec
+<strong>AVOID_DISK_IO                  PHYRD_STORIDX_SAVED_BYTES     |                                                  |        0 MB      0 MB/sec
+</strong>REAL_DISK_IO                   SPIN_DISK_IO_BYTES            |                                                  |      157 MB      2 MB/sec
+REAL_DISK_IO                   SPIN_DISK_RD_BYTES            |                                                  |      157 MB      2 MB/sec
+REAL_DISK_IO                   SPIN_DISK_WR_BYTES            |                                                  |        0 MB      0 MB/sec
+<strong>REDUCE_INTERCONNECT            PRED_OFFLOADABLE_BYTES        |##################################################|    29291 MB    365 MB/sec
+</strong>REDUCE_INTERCONNECT            TOTAL_IC_BYTES                |##########################################        |    24993 MB    312 MB/sec
+<strong>REDUCE_INTERCONNECT            SMART_SCAN_RET_BYTES          |##########################################        |    24993 MB    312 MB/sec
+</strong>REDUCE_INTERCONNECT            NON_SMART_SCAN_BYTES          |                                                  |        0 MB      0 MB/sec
+CELL_PROC_DEPTH                CELL_PROC_DATA_BYTES          |##################################################|    29478 MB    368 MB/sec
+CELL_PROC_DEPTH                CELL_PROC_INDEX_BYTES         |                                                  |        0 MB      0 MB/sec
+CLIENT_COMMUNICATION           NET_TO_CLIENT_BYTES           |                                                  |        0 MB      0 MB/sec
+CLIENT_COMMUNICATION           NET_FROM_CLIENT_BYTES         |                                                  |        0 MB      0 MB/sec
+</pre>
+<p>The DB_PHYSDR_BYTES says this session submitted 29291 MB of I/O as 
+far as the&nbsp;DB layer sees it. The PRED_OFFLOADABLE_BYTES says that 
+all of this 29291 MB of I/O was attempted to be done in a smart way 
+(smart scan). The SMART_SCAN_RET_BYTES tells us that 24993 MB worth of 
+data was sent back from the storage cells as a result of the smart scan 
+(about 14.5% less than the amount of IO issued).</p>
+<p>However, the PHYRD_STORIDX_SAVED_BYTES shows zero, we couldn’t avoid 
+doing (skip) any I/Os when scanning the ORDERS table. We couldn’t use 
+the storage index as we&nbsp;did not have any <em>direct</em>&nbsp;filter predicates on the ORDERS table.</p>
+<p>Anyway, the story is different for the fast parallel query:</p>
+<pre>SQL&gt; SELECT * FROM TABLE(<strong>exasnap.display_snap</strong>(:t1,:t2));     
+
+NAME
+-------------------------------------------------------------------------------------------------------------------------------------------
+-- ExaSnapper v0.81 BETA by Tanel Poder @ Enkitec - The Exadata Experts ( http://www.enkitec.com )              
+-------------------------------------------------------------------------------------------------------------------------------------------
+DB_LAYER_IO                    DB_PHYSIO_BYTES               |##################################################|    29291 MB   2212 MB/sec
+DB_LAYER_IO                    DB_PHYSRD_BYTES               |##################################################|    29291 MB   2212 MB/sec
+DB_LAYER_IO                    DB_PHYSWR_BYTES               |                                                  |        0 MB      0 MB/sec
+AVOID_DISK_IO                  PHYRD_FLASH_RD_BYTES          |#######################                           |    13321 MB   1006 MB/sec
+<strong>AVOID_DISK_IO                  PHYRD_STORIDX_SAVED_BYTES     |###########################                       |    15700 MB   1186 MB/sec
+</strong>REAL_DISK_IO                   SPIN_DISK_IO_BYTES            |                                                  |      270 MB     20 MB/sec
+REAL_DISK_IO                   SPIN_DISK_RD_BYTES            |                                                  |      270 MB     20 MB/sec
+REAL_DISK_IO                   SPIN_DISK_WR_BYTES            |                                                  |        0 MB      0 MB/sec
+REDUCE_INTERCONNECT            PRED_OFFLOADABLE_BYTES        |##################################################|    29291 MB   2212 MB/sec
+REDUCE_INTERCONNECT            TOTAL_IC_BYTES                |                                                  |        4 MB      0 MB/sec
+<strong>REDUCE_INTERCONNECT            SMART_SCAN_RET_BYTES          |                                                  |        4 MB      0 MB/sec
+</strong>REDUCE_INTERCONNECT            NON_SMART_SCAN_BYTES          |                                                  |        0 MB      0 MB/sec
+CELL_PROC_DEPTH                CELL_PROC_DATA_BYTES          |#######################                           |    13591 MB   1027 MB/sec
+CELL_PROC_DEPTH                CELL_PROC_INDEX_BYTES         |                                                  |        0 MB      0 MB/sec
+CLIENT_COMMUNICATION           NET_TO_CLIENT_BYTES           |                                                  |        0 MB      0 MB/sec
+CLIENT_COMMUNICATION           NET_FROM_CLIENT_BYTES         |                                                  |        0 MB      0 MB/sec
+</pre>
+<p>The DB_PHYSIO_BYTES is still the same (29GB) as in the previous case –
+ as this database layer metric knows only about the amount of I/Os it 
+has requested, not what actually gets (or doesn’t get) done inside the 
+storage cells. SMART_SCAN_RET_BYTES is only 4MB (compared to almost 25GB
+ previously) so evidently there must be some&nbsp;early filtering going 
+on somewhere in the lower layers.</p>
+<p>And now to the main topic of this article – the&nbsp;PHYRD_STORIDX_SAVED_BYTES metric (that comes from the&nbsp;<em>cell physical IO bytes saved by storage index</em>
+ metric in V$SESSTAT) shows that we have managed to avoid 
+doing&nbsp;15700 MB worth of IO completely thanks to the storage 
+indexes. And this is without having any direct SQL filter predicates on 
+the large ORDERS table! How is this possible? Keep reading :-)</p>
+<p>Before going deeper, let’s look into the predicate section of these cursors.</p>
+<p>The slow serial query:</p>
+<pre>--------------------------------------------------------------------------------------
+| Id  | Operation                           | Name          | E-Rows | Pstart| Pstop |
+--------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT                    |               |        |       |       |
+|*  1 |  HASH JOIN                          |               |      1 |       |       |
+|   2 |   TABLE ACCESS BY GLOBAL INDEX ROWID| CUSTOMERS     |      1 | ROWID | ROWID |
+|*  3 |    INDEX RANGE SCAN                 | CUST_EMAIL_IX |      1 |       |       |
+|   4 |   PARTITION HASH ALL                |               |    506M|     1 |    64 |
+|   5 |    TABLE ACCESS STORAGE FULL        | ORDERS        |    506M|     1 |    64 |
+--------------------------------------------------------------------------------------
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+<strong>   1 - access("O"."CUSTOMER_ID"="C"."CUSTOMER_ID")
+   3 - access("C"."CUST_EMAIL"='florencio@ivtboge.com')
+</strong></pre>
+<p>The fast parallel query:</p>
+<pre>-------------------------------------------------------------------------------------------
+| Id  | Operation                                | Name          | E-Rows | Pstart| Pstop |
+-------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT                         |               |        |       |       |
+|   1 |  PX COORDINATOR                          |               |        |       |       |
+|   2 |   PX SEND QC (RANDOM)                    | :TQ10001      |      1 |       |       |
+|*  3 |    HASH JOIN                             |               |      1 |       |       |
+|   4 |     BUFFER SORT                          |               |        |       |       |
+|   5 |      PX RECEIVE                          |               |      1 |       |       |
+|   6 |       PX SEND BROADCAST                  | :TQ10000      |      1 |       |       |
+|   7 |        TABLE ACCESS BY GLOBAL INDEX ROWID| CUSTOMERS     |      1 | ROWID | ROWID |
+|*  8 |         INDEX RANGE SCAN                 | CUST_EMAIL_IX |      1 |       |       |
+|   9 |     PX PARTITION HASH ALL                |               |    506M|     1 |    64 |
+|* 10 |      TABLE ACCESS STORAGE FULL           | ORDERS        |    506M|     1 |    64 |
+-------------------------------------------------------------------------------------------
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   3 - access("O"."CUSTOMER_ID"="C"."CUSTOMER_ID")
+   8 - access("C"."CUST_EMAIL"='florencio@ivtboge.com')
+<strong>  10 - <span style="color: #ff0000;">storage</span>(SYS_OP_BLOOM_FILTER(:BF0000,<span style="color: #ff0000;">"O"."CUSTOMER_ID"</span>))
+       filter(SYS_OP_BLOOM_FILTER(:BF0000,"O"."CUSTOMER_ID"))
+</strong></pre>
+<p>See how the parallel plan has the storage() predicate with <strong>SYS_OP_BLOOM_FILTER</strong>
+ in it and the bloom filter :BF0000 will be compared to&nbsp;the hashed 
+CUSTOMER_ID column values&nbsp;when scanning&nbsp;the ORDERS table in 
+storage cells. So, this shows that your session attempts to push the 
+Bloom filter down to the storage layer.</p>
+<p>However, merely seeing the Bloom filter storage predicate in the plan
+ doesn’t tell you whether any IOs were avoided thanks to the storage 
+indexes and Bloom filters.&nbsp;The only way to know would be to run the
+ query and look into the&nbsp;<em>cell physical IO bytes saved by storage index</em>
+ metric (or&nbsp;PHYRD_STORIDX_SAVED_BYTES in Exadata Snapper). 
+Unfortunately it will not be easy to measure this at rowsource level 
+when you have multiple smart scans happening in different locations of 
+your execution plan (more about this in the next blog entry :-)</p>
+<p>Anyway, how is Oracle able to avoid reading in blocks of one table based on the output of another table involved in the join?</p>
+<p>The answer lies in the parameter <strong><em>_bloom_minmax_enabled</em></strong>. It’s description says <em>“enable or disable bloom min max filtering”</em>.
+ This parameter is true by default and on Exadata it means that in 
+addition to computing the Bloom filter bitmap (based on hashed values in
+ the join column) we also keep track of the smallest and biggest value 
+retrieved from the&nbsp;driving table of the join.</p>
+<p>In our example, both the Bloom filter bitmap of all matching 
+CUSTOMER_IDs retrieved&nbsp;from the CUSTOMERS&nbsp;table (after any 
+direct predicate filtering)&nbsp;would be sent to the storage cells and 
+also the biggest and smallest&nbsp;CUSTOMER_ID retrieved from the 
+driving table of the join.</p>
+<p>In our hand-crafted example where only a single customer was taken 
+from the driving table, only one bit in the bloom filter would be set 
+and both the MIN and MAX CUSTOMER_ID&nbsp;of interest (in&nbsp;the 
+joined ORDERS table) was set to&nbsp;399999199 (I had about 400 Million 
+customers generated in my benchmark dataset).</p>
+<p>So, knowing that we were looking for only CUSTOMER_IDs in the single 
+value “range” of&nbsp;399999199, the smart scan could start skipping IOs
+ thanks to the storage indexes in memory! You can think of this as 
+runtime BETWEEN predicate generation from a driving table in a join that
+ then gets offloaded to the storage cell and applied when scanning the 
+other table in the join. IOs can be avoided thanks to knowing the range 
+of values we are looking for and then further row-level filtering can be
+ done using the usual Bloom filter bitmap comparison.</p>
+<p>&nbsp;</p>
+<p>Note that the above examples are from Oracle 11.2.0.3 – in this 
+version the Bloom filtering features should kick in only for parallel 
+queries (although Jonathan Lewis has blogged about a case when <a href="http://jonathanlewis.wordpress.com/2013/08/05/bloom-filter/" target="_blank">this happens also on 11.2.0.3</a>).</p>
+<p>And this is the ultimate reason why the serial execution was so much 
+slower and less efficient than the parallel run – in my demos, on 
+11.2.0.3 the Bloom filter usage kicked in only when running the query in
+ parallel.</p>
+<p>However, this has changed on Oracle 11.2.0.4 – now&nbsp;also serial 
+queries frequently&nbsp;compute bloom filters and push these to the 
+storage, for the usual bloom filtering reasons&nbsp;and for IO skipping 
+by comparing the bloom filter min/max values to the Exadata storage 
+index memory&nbsp;structures.</p>
+<p>This is an example from Oracle 11.2.0.4, the plan is slightly 
+different because in this database my test tables are not partitioned 
+(and I didn’t have any indexes on the tables):</p>
+<pre>------------------------------------------------------------------
+| Id  | Operation                   | Name      | E-Rows |E-Bytes|
+------------------------------------------------------------------
+|   0 | SELECT STATEMENT            |           |        |       |
+|*  1 |  HASH JOIN                  |           |      1 |   114 |
+|   2 |   <strong>JOIN FILTER CREATE</strong>        | <strong>:BF0000</strong>   |      1 |    64 |
+|*  3 |    TABLE ACCESS STORAGE FULL| CUSTOMERS |      1 |    64 |
+|   4 |   <strong>JOIN FILTER USE</strong>           | <strong>:BF0000</strong>   |   4581K|   218M|
+|*  5 |    TABLE ACCESS STORAGE FULL| ORDERS    |   4581K|   218M|
+------------------------------------------------------------------
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   1 - access("O"."CUSTOMER_ID"="C"."CUSTOMER_ID")
+   3 - storage("C"."CUST_EMAIL"='florencio@ivtboge.com')
+       filter("C"."CUST_EMAIL"='florencio@ivtboge.com')
+   5 - <strong>storage(SYS_OP_BLOOM_FILTER(:BF0000,"O"."CUSTOMER_ID"))</strong>
+       filter(SYS_OP_BLOOM_FILTER(:BF0000,"O"."CUSTOMER_ID"))
+</pre>
+<p>The Bloom bitmap (and MIN/MAX value) would be computed in the step #2
+ and would then be used by the full table scan in the step #5 – having 
+the filtering info pushed all the way to the storage layer (assuming 
+that the smart scan did kick in).</p>
+<p>If you look into the Outline hints section of this plan, you’ll see the <strong>PX_JOIN_FILTER</strong>
+ hint that has showed up there, this instructs the optimizer to set up 
+and use the bloom filters (and despite the name, it now can be used for 
+serial queries):</p>
+<pre>Outline Data
+-------------
+
+  /*+
+      BEGIN_OUTLINE_DATA
+      IGNORE_OPTIM_EMBEDDED_HINTS
+      OPTIMIZER_FEATURES_ENABLE('11.2.0.4')
+      DB_VERSION('11.2.0.4')
+      ALL_ROWS
+      OUTLINE_LEAF(@"SEL$1")
+      FULL(@"SEL$1" "C"@"SEL$1")
+      FULL(@"SEL$1" "O"@"SEL$1")
+      LEADING(@"SEL$1" "C"@"SEL$1" "O"@"SEL$1")
+      USE_HASH(@"SEL$1" "O"@"SEL$1")
+      <strong>PX_JOIN_FILTER(@"SEL$1" "O"@"SEL$1")</strong>
+      END_OUTLINE_DATA
+  */
+</pre>
+<p>So if the CBO doesn’t choose it automatically, you can use this hint 
+for testing whether your queries could potentially benefit from this 
+feature (note that it controls the whole join filter propagation logic, 
+not only the Exadata stuff). You can also use the&nbsp;<em><strong>_bloom_serial_filter</strong></em> parameter&nbsp;to disable this behavior on Exadata (not that you should).</p>
+<p>Note that I usually treat the storage index IO savings as just an 
+added performance benefit at the system level, something that allows to 
+keep the disk devices a little less busy, therefore yielding higher 
+overall throughput. I do&nbsp;not design my applications’ performance <em>overly dependent</em>
+ on the storage indexes as it’s not possible to easily control which 
+columns end up in the storage index hashtables and that may give you 
+unpredictable results.</p>
+<p>That’s all – hopefully this shed some light on&nbsp;this cool 
+combination of multiple different features (Smart Scans + Hash Joins + 
+Bloom Filters + Storage Indexes).</p>
+<p>&nbsp;</p>
+<div id="crp_related" class="crp_related"><h4>Related Posts</h4><ul><li><a href="http://blog.tanelpoder.com/2012/04/13/exadata-smart-scan-predicate-offloading-and-sequence-nextval/" class="crp_title">Exadata Smart Scan predicate offloading and sequence.NEXTVAL</a></li><li><a href="http://blog.tanelpoder.com/2014/03/05/where-does-the-exadata-storage-predicate-come-from/" class="crp_title">Where does the Exadata storage() predicate come from?</a></li><li><a href="http://blog.tanelpoder.com/2013/05/23/vcell_thread_history-ash-for-exadata-storage-cells/" class="crp_title">V$CELL_THREAD_HISTORY – “ASH” for Exadata Storage Cells</a></li><li><a href="http://blog.tanelpoder.com/2013/03/21/listing-exadata-storage-cells-and-their-configuration-info-from-vcell_config/" class="crp_title">Listing Exadata storage cells and their configuration info from V$CELL_CONFIG</a></li><li><a href="http://blog.tanelpoder.com/2013/05/24/list-exadata-storage-cell-disk-summary-with-cellpd-sql-and-cellpdx-sql-scripts/" class="crp_title">List Exadata Storage Cell disk summary with cellpd.sql and cellpdx.sql scripts</a></li></ul><div style="clear:both"></div></div><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon sd-sharing"><h3 class="sd-title">Share this post:</h3><div class="sd-content"><ul><li class="share-twitter"><a rel="nofollow" data-shared="sharing-twitter-2365" class="share-twitter sd-button share-icon no-text" href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/?share=twitter&amp;nb=1" target="_blank" title="Click to share on Twitter"><span><span class="share-count">19</span></span><span class="sharing-screen-reader-text">Click to share on Twitter (Opens in new window)<span class="share-count">19</span></span></a></li><li class="share-facebook"><a rel="nofollow" data-shared="sharing-facebook-2365" class="share-facebook sd-button share-icon no-text" href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/?share=facebook&amp;nb=1" target="_blank" title="Share on Facebook"><span></span><span class="sharing-screen-reader-text">Share on Facebook (Opens in new window)</span></a></li><li class="share-linkedin"><a rel="nofollow" data-shared="sharing-linkedin-2365" class="share-linkedin sd-button share-icon no-text" href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/?share=linkedin&amp;nb=1" target="_blank" title="Click to share on LinkedIn"><span><span class="share-count">41</span></span><span class="sharing-screen-reader-text">Click to share on LinkedIn (Opens in new window)<span class="share-count">41</span></span></a></li><li class="share-google-plus-1"><a rel="nofollow" data-shared="sharing-google-2365" class="share-google-plus-1 sd-button share-icon no-text" href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/?share=google-plus-1&amp;nb=1" target="_blank" title="Click to share on Google+"><span></span><span class="sharing-screen-reader-text">Click to share on Google+ (Opens in new window)</span></a></li><li><a href="#" class="sharing-anchor sd-button share-more"><span>More</span></a></li><li class="share-end"></li></ul><div class="sharing-hidden"><div class="inner" style="display: none;"><ul><li class="share-print"><a rel="nofollow" data-shared="" class="share-print sd-button share-icon no-text" href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/#print" target="_blank" title="Click to print"><span></span><span class="sharing-screen-reader-text">Click to print (Opens in new window)</span></a></li><li class="share-reddit"><a rel="nofollow" data-shared="" class="share-reddit sd-button share-icon no-text" href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/?share=reddit&amp;nb=1" target="_blank" title="Click to share on Reddit"><span></span><span class="sharing-screen-reader-text">Click to share on Reddit (Opens in new window)</span></a></li><li class="share-end"></li><li class="share-stumbleupon"><a rel="nofollow" data-shared="" class="share-stumbleupon sd-button share-icon no-text" href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/?share=stumbleupon&amp;nb=1" target="_blank" title="Click to share on StumbleUpon"><span></span><span class="sharing-screen-reader-text">Click to share on StumbleUpon (Opens in new window)</span></a></li><li class="share-pocket"><a rel="nofollow" data-shared="" class="share-pocket sd-button share-icon no-text" href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/?share=pocket&amp;nb=1" target="_blank" title="Click to share on Pocket"><span></span><span class="sharing-screen-reader-text">Click to share on Pocket (Opens in new window)</span></a></li><li class="share-end"></li><li class="share-pinterest"><a rel="nofollow" data-shared="sharing-pinterest-2365" class="share-pinterest sd-button share-icon no-text" href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/?share=pinterest&amp;nb=1" target="_blank" title="Click to share on Pinterest"><span></span><span class="sharing-screen-reader-text">Click to share on Pinterest (Opens in new window)</span></a></li><li class="share-tumblr"><a rel="nofollow" data-shared="" class="share-tumblr sd-button share-icon no-text" href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/?share=tumblr&amp;nb=1" target="_blank" title="Click to share on Tumblr"><span></span><span class="sharing-screen-reader-text">Click to share on Tumblr (Opens in new window)</span></a></li><li class="share-end"></li><li class="share-email share-service-visible"><a rel="nofollow" data-shared="" class="share-email sd-button share-icon no-text" href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/?share=email&amp;nb=1" target="_blank" title="Click to email this to a friend"><span></span><span class="sharing-screen-reader-text">Click to email this to a friend (Opens in new window)</span></a></li><li class="share-end"></li></ul></div></div></div></div></div>											</div><!-- .entry-content -->
+
+
+					<div class="entry-utility">
+												This entry was posted in <a href="http://blog.tanelpoder.com/category/exadata/" rel="category tag">Exadata</a>, <a href="http://blog.tanelpoder.com/category/oracle/" rel="category tag">Oracle</a>. Bookmark the <a href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/" title="Permalink to Combining Bloom Filter Offloading and Storage Indexes on Exadata" rel="bookmark">permalink</a>.											</div><!-- .entry-utility -->
+				</article><!-- #post-## -->
+
+				<nav id="nav-below" class="navigation">
+					<div class="nav-previous"><a href="http://blog.tanelpoder.com/2014/05/15/enkitec-accenture-even-more-awesomeness/" rel="prev"><span class="meta-nav">←</span> Enkitec + Accenture = Even More Awesomeness!</a></div>
+					<div class="nav-next"><a href="http://blog.tanelpoder.com/2014/06/10/our-take-on-the-oracle-database-12c-in-memory-option/" rel="next">Our take on the Oracle Database 12c In-Memory Option <span class="meta-nav">→</span></a></div>
+				</nav><!-- #nav-below -->
+
+							<div id="comments">
+
+			<h3 id="comments-title">10 Responses to <em>Combining Bloom Filter Offloading and Storage Indexes on Exadata</em></h3>
+
+	
+			<ol class="commentlist">
+						<li class="comment even thread-even depth-1" id="li-comment-100712">
+			<div id="comment-100712">
+			<div class="comment-author vcard">
+								<cite class="fn"><a href="http://arup.blogspot.com/" rel="external nofollow" class="url">Arup Nanda</a></cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+				
+			<div class="comment-meta commentmetadata"><a href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/comment-page-1/#comment-100712">
+				May 18, 2014 at 9:19 am</a>			</div><!-- .comment-meta .commentmetadata -->
+	
+			<div class="comment-body"><p>Excellent, just superb.  Thank you, 
+Tanel, for this detailed treatise on these unique features that make 
+Exadata exactly that-Exadata.</p>
+</div>
+	
+			<div class="reply">
+				<a class="comment-reply-link" href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/?replytocom=100712#respond" onclick='return addComment.moveForm( "comment-100712", "100712", "respond", "2365" )' aria-label="Reply to Arup Nanda">Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+	
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-tanelp bypostauthor odd alt thread-odd thread-alt depth-1" id="li-comment-101101">
+			<div id="comment-101101">
+			<div class="comment-author vcard">
+								<cite class="fn"><a href="http://blog.tanelpoder.com/" rel="external nofollow" class="url">Tanel Poder</a></cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+				
+			<div class="comment-meta commentmetadata"><a href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/comment-page-1/#comment-101101">
+				May 18, 2014 at 3:07 pm</a>			</div><!-- .comment-meta .commentmetadata -->
+	
+			<div class="comment-body"><p>I forgot to mention that starting from 11.2.0.4 this <i>serial</i> bloom filter offloading can be controlled using the <b><i>_bloom_serial_filter</i></b> parameter.</p>
+</div>
+	
+			<div class="reply">
+				<a class="comment-reply-link" href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/?replytocom=101101#respond" onclick='return addComment.moveForm( "comment-101101", "101101", "respond", "2365" )' aria-label="Reply to Tanel Poder">Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+	
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="li-comment-101932">
+			<div id="comment-101932">
+			<div class="comment-author vcard">
+								<cite class="fn"><a href="http://www.hourim.wordpress.com/" rel="external nofollow" class="url">Houri Mohamed</a></cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+				
+			<div class="comment-meta commentmetadata"><a href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/comment-page-1/#comment-101932">
+				May 19, 2014 at 4:19 am</a>			</div><!-- .comment-meta .commentmetadata -->
+	
+			<div class="comment-body"><p>Tanel,<br>
+Thanks a lot for this superb post.<br>
+Let me just ask one question.<br>
+Looking both at the serial and the parallel plan I can point out that 
+for the serial plan E-Rows = 506M and A-Rows = 408M. While for the 
+parallel plan E-Rows is still equal to 506M and A-Rows, this time, 
+equals 4488. This big difference between E-Rows (*Starts) and A-Rows for
+ the parallel run cannot be due to a statistic problem because the 
+serial plan shows that the CBO is almost doing good estimations. At this
+ point, I would have suspected that something happened when full 
+scanning the ORDERS table in the parallel plan. How the A-Rows in the 
+parallel run can differ so much from the E-Rows? And of course I would 
+have looked to the predicate part where I would have pointed out the 
+bloom filter applied exactly at this operation.<br>
+The parallel plan has been honoured via a BROADCAST distribution method 
+this is why the Bloom Filter is invisible in the plan (may be it is 
+possible now in 12c I have to check). If the distribution between the 
+parallel slave processes has been done via a HASH-HASH method we would 
+have observed an indication like JOIN FILTER CREATE: BF000 and JOIN 
+FILTER USE: BF000 which would have immediately show us that the bloom 
+filter has been used.<br>
+So my question: do this E-Rows and A-Rows reasoning look appropriate for
+ you in this particular case at least to explain the bloom filter 
+effect?</p>
+<p>Best Regards</p>
+</div>
+	
+			<div class="reply">
+				<a class="comment-reply-link" href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/?replytocom=101932#respond" onclick='return addComment.moveForm( "comment-101932", "101932", "respond", "2365" )' aria-label="Reply to Houri Mohamed">Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+	
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-102400">
+			<div id="comment-102400">
+			<div class="comment-author vcard">
+								<cite class="fn">Pavol Babel</cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+				
+			<div class="comment-meta commentmetadata"><a href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/comment-page-1/#comment-102400">
+				May 19, 2014 at 11:06 am</a>			</div><!-- .comment-meta .commentmetadata -->
+	
+			<div class="comment-body"><p>Tanel it would be interesting to keep 
+data from both tables in Flash Cache (by using cell_flash_cache_keep of 
+course ) and compare time with disabled  serial bloom filtering against 
+enablef BF on hard disk.<br>
+Well, now checking you are running 12.1.1.0 on cells, were already all 
+IO from flash (as 12.1.1.0 and 11.3.3.0 storage SW populates flash cache
+ also by smart scans)</p>
+</div>
+	
+			<div class="reply">
+				<a class="comment-reply-link" href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/?replytocom=102400#respond" onclick='return addComment.moveForm( "comment-102400", "102400", "respond", "2365" )' aria-label="Reply to Pavol Babel">Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+	
+		<ul class="children">
+		<li class="comment byuser comment-author-tanelp bypostauthor even depth-2" id="li-comment-102645">
+			<div id="comment-102645">
+			<div class="comment-author vcard">
+								<cite class="fn"><a href="http://blog.tanelpoder.com/" rel="external nofollow" class="url">Tanel Poder</a></cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+				
+			<div class="comment-meta commentmetadata"><a href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/comment-page-1/#comment-102645">
+				May 19, 2014 at 3:01 pm</a>			</div><!-- .comment-meta .commentmetadata -->
+	
+			<div class="comment-body"><p>The flash cache IO decision operates at a
+ different level – at a later stage *after* the storage index check. If 
+the storage index avoids I/O, there’s no need to go to flash cache 
+either (nor even check it).</p>
+</div>
+	
+			<div class="reply">
+				<a class="comment-reply-link" href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/?replytocom=102645#respond" onclick='return addComment.moveForm( "comment-102645", "102645", "respond", "2365" )' aria-label="Reply to Tanel Poder">Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+	
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-tanelp bypostauthor odd alt depth-2" id="li-comment-102665">
+			<div id="comment-102665">
+			<div class="comment-author vcard">
+								<cite class="fn"><a href="http://blog.tanelpoder.com/" rel="external nofollow" class="url">Tanel Poder</a></cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+				
+			<div class="comment-meta commentmetadata"><a href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/comment-page-1/#comment-102665">
+				May 19, 2014 at 3:11 pm</a>			</div><!-- .comment-meta .commentmetadata -->
+	
+			<div class="comment-body"><p>Ok I guess you meant just the 
+performance difference – brute force scanning of flash disks vs skipping
+ IOs on hard disks… But why not have both? ;-)</p>
+</div>
+	
+			<div class="reply">
+				<a class="comment-reply-link" href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/?replytocom=102665#respond" onclick='return addComment.moveForm( "comment-102665", "102665", "respond", "2365" )' aria-label="Reply to Tanel Poder">Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+	
+		<ul class="children">
+		<li class="comment even depth-3" id="li-comment-103191">
+			<div id="comment-103191">
+			<div class="comment-author vcard">
+								<cite class="fn">Pavol Babel</cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+				
+			<div class="comment-meta commentmetadata"><a href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/comment-page-1/#comment-103191">
+				May 19, 2014 at 11:24 pm</a>			</div><!-- .comment-meta .commentmetadata -->
+	
+			<div class="comment-body"><p>Yes I ment just the differenfe.  storage
+ index is interesting feature, however the FC brute force is also huge 
+(for read IO) which means smart scans, SI etc. are not so cool on FC. 
+They are still good of course, but not making such a huge differenfe as 
+on hard disk based IO. That’s why I was interested in those numbers ;)</p>
+</div>
+	
+			<div class="reply">
+				<a class="comment-reply-link" href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/?replytocom=103191#respond" onclick='return addComment.moveForm( "comment-103191", "103191", "respond", "2365" )' aria-label="Reply to Pavol Babel">Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+	
+		<ul class="children">
+		<li class="comment odd alt depth-4" id="li-comment-115200">
+			<div id="comment-115200">
+			<div class="comment-author vcard">
+								<cite class="fn">Pavol Babel</cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+				
+			<div class="comment-meta commentmetadata"><a href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/comment-page-1/#comment-115200">
+				June 11, 2014 at 6:28 am</a>			</div><!-- .comment-meta .commentmetadata -->
+	
+			<div class="comment-body"><p>Which also means for comparable price 
+with  HW price + licences of Storage Servers, you can buy 2 Vilion 6600 
+or FlashSystem 840 and beat Exadata in lpenty of applications, since 
+Flash is at least twice slower on Exadata (F40 F80) when compared to 
+mentioned solutions.<br>
+And then many of exadata features isntantly disappear in many cases</p>
+</div>
+	
+			<div class="reply">
+				<a class="comment-reply-link" href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/?replytocom=115200#respond" onclick='return addComment.moveForm( "comment-115200", "115200", "respond", "2365" )' aria-label="Reply to Pavol Babel">Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+	
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="li-comment-111681">
+			<div id="comment-111681">
+			<div class="comment-author vcard">
+								<cite class="fn">Evgeny</cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+				
+			<div class="comment-meta commentmetadata"><a href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/comment-page-1/#comment-111681">
+				May 29, 2014 at 6:36 pm</a>			</div><!-- .comment-meta .commentmetadata -->
+	
+			<div class="comment-body"><p>Hi, Tanel. Thank you for great post! As always you do great job :)<br>
+Just to add to your research, I’ve done the same exercise on my test 
+system with 11.2.0.4 on board and can confirm behavior was exactly like 
+you described above, so I wasn’t able to force direct path unless set 
+parallel degree forced – 2 slaves give 8 times improvement. Perhaps not 
+much changed 11.2.0.3 -&gt; 11.2.0.4 in regards to this behavior.</p>
+</div>
+	
+			<div class="reply">
+				<a class="comment-reply-link" href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/?replytocom=111681#respond" onclick='return addComment.moveForm( "comment-111681", "111681", "respond", "2365" )' aria-label="Reply to Evgeny">Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+	
+		<ul class="children">
+		<li class="comment byuser comment-author-tanelp bypostauthor odd alt depth-2" id="li-comment-111865">
+			<div id="comment-111865">
+			<div class="comment-author vcard">
+								<cite class="fn"><a href="http://blog.tanelpoder.com/" rel="external nofollow" class="url">Tanel Poder</a></cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+				
+			<div class="comment-meta commentmetadata"><a href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/comment-page-1/#comment-111865">
+				May 30, 2014 at 1:34 pm</a>			</div><!-- .comment-meta .commentmetadata -->
+	
+			<div class="comment-body"><p>Thanks Evgeny. There’s 2 separate issues
+ here 1) whether the direct path read kicks in (that hasn’t changed in 
+11.2.0.3-&gt;11.2.0.4) and 2) whether the bloom filter usage kicks in 
+for serial queries (that has changed in 11.2.0.4)</p>
+</div>
+	
+			<div class="reply">
+				<a class="comment-reply-link" href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/?replytocom=111865#respond" onclick='return addComment.moveForm( "comment-111865", "111865", "respond", "2365" )' aria-label="Reply to Tanel Poder">Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+	
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+			</ol>
+
+	
+
+
+						<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://blog.tanelpoder.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																			<p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span></p>							<p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" size="30" aria-required="true" required="required" type="text"></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" size="30" aria-describedby="email-notes" aria-required="true" required="required" type="text"></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" size="30" type="text"></p>
+												<p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" aria-describedby="form-allowed-tags" aria-required="true" required="required"></textarea></p>						<p class="form-allowed-tags" id="form-allowed-tags">You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes:  <code>&lt;a
+ href="" title=""&gt; &lt;abbr title=""&gt; &lt;acronym title=""&gt; 
+&lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;code&gt; &lt;del 
+datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;s&gt; 
+&lt;strike&gt; &lt;strong&gt; </code></p>
+						<p class="form-submit"><input name="submit" id="submit" class="submit" value="Post Comment" type="submit"> <input name="comment_post_ID" value="2365" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+</p><p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="5caf0e6def" type="hidden"></p><p class="comment-subscription-form"><input name="subscribe_comments" id="subscribe_comments" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" type="checkbox"> <label class="subscribe-label" id="subscribe-label" for="subscribe_comments">Notify me of follow-up comments by email.</label></p><p class="comment-subscription-form"><input name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" type="checkbox"> <label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog">Notify me of new posts by email.</label></p><p style="display: none;"></p>					<input id="ak_js" name="ak_js" value="1431156332228" type="hidden"></form>
+							</div><!-- #respond -->
+			
+</div><!-- #comments -->
+
+
+		</div><!-- #main -->
+				</div><!-- #container -->
+			<footer id="footer" role="contentinfo" class="row">
+				<div id="footerbar" class="twelvecol last">
+					
+			<div id="footer-widget-area" role="complementary">
+
+				<div id="first" class="widget-area">
+					<ul class="xoxo">
+						<li id="blog_subscription-6" class="widget-container threecol jetpack_subscription_widget"><h3 class="widget-title">Subscribe via Email</h3>
+			<form action="#" method="post" accept-charset="utf-8" id="subscribe-blog-blog_subscription-6">
+				<div id="subscribe-text"></div>					<p id="subscribe-email">
+						<label style="clip: rect(1px, 1px, 1px, 1px); position: absolute; height: 1px; width: 1px; overflow: hidden;" id="jetpack-subscribe-label" for="subscribe-field">
+							Email Address						</label>
+						<input name="email" required="required" class="required" id="subscribe-field" placeholder="Email Address" type="email">
+					</p>
+
+					<p id="subscribe-submit">
+						<input name="action" value="subscribe" type="hidden">
+						<input name="source" value="http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/" type="hidden">
+						<input name="sub-type" value="widget" type="hidden">
+						<input name="redirect_fragment" value="blog_subscription-6" type="hidden">
+												<input value="Subscribe" name="jetpack_subscriptions_widget" type="submit">
+					</p>
+							</form>
+
+			<script>(function(d){if(('placeholder'in d.createElement('input'))){var label=d.getElementById('jetpack-subscribe-label');label.style.clip='rect(1px, 1px, 1px, 1px)';label.style.position='absolute';label.style.height='1px';label.style.width='1px';label.style.overflow='hidden';}})(document);jQuery('#subscribe-blog-blog_subscription-6').submit(function(event){if(jQuery('.required').val()==''){event.preventDefault();jQuery('.required').focus();}});</script>
+		 
+		
+</li>					</ul>
+				</div><!-- #first .widget-area -->
+
+				<div id="second" class="widget-area">
+					<ul class="xoxo">
+						<li id="rss_links-7" class="widget-container threecol widget_rss_links"><h3 class="widget-title">RSS feed</h3><p><a target="_self" href="http://blog.tanelpoder.com/feed/" title="Subscribe to Posts"><script pagespeed_no_defer="">//<![CDATA[
+(function(){var g=this,h=function(b,d){var a=b.split("."),c=g;a[0]in c||!c.execScript||c.execScript("var "+a[0]);for(var e;a.length&&(e=a.shift());)a.length||void 0===d?c[e]?c=c[e]:c=c[e]={}:c[e]=d};var l=function(b){var d=b.length;if(0<d){for(var a=Array(d),c=0;c<d;c++)a[c]=b[c];return a}return[]};var m=function(b){var d=window;if(d.addEventListener)d.addEventListener("load",b,!1);else if(d.attachEvent)d.attachEvent("onload",b);else{var a=d.onload;d.onload=function(){b.call(this);a&&a.call(this)}}};var n,p=function(b,d,a,c,e){this.f=b;this.h=d;this.i=a;this.c=e;this.e={height:window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight,width:window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth};this.g=c;this.b={};this.a=[];this.d={}},q=function(b,d){var a,c,e=d.getAttribute("pagespeed_url_hash");if(a=e&&!(e in b.d))if(0>=d.offsetWidth&&0>=d.offsetHeight)a=!1;else{c=d.getBoundingClientRect();var f=document.body;a=c.top+("pageYOffset"in window?window.pageYOffset:(document.documentElement||f.parentNode||f).scrollTop);c=c.left+("pageXOffset"in window?window.pageXOffset:(document.documentElement||f.parentNode||f).scrollLeft);f=a.toString()+","+c;b.b.hasOwnProperty(f)?a=!1:(b.b[f]=!0,a=a<=b.e.height&&c<=b.e.width)}a&&(b.a.push(e),b.d[e]=!0)};p.prototype.checkImageForCriticality=function(b){b.getBoundingClientRect&&q(this,b)};h("pagespeed.CriticalImages.checkImageForCriticality",function(b){n.checkImageForCriticality(b)});h("pagespeed.CriticalImages.checkCriticalImages",function(){r(n)});var r=function(b){b.b={};for(var d=["IMG","INPUT"],a=[],c=0;c<d.length;++c)a=a.concat(l(document.getElementsByTagName(d[c])));if(0!=a.length&&a[0].getBoundingClientRect){for(c=0;d=a[c];++c)q(b,d);a="oh="+b.i;b.c&&(a+="&n="+b.c);if(d=0!=b.a.length)for(a+="&ci="+encodeURIComponent(b.a[0]),c=1;c<b.a.length;++c){var e=","+encodeURIComponent(b.a[c]);131072>=a.length+e.length&&(a+=e)}b.g&&(e="&rd="+encodeURIComponent(JSON.stringify(s())),131072>=a.length+e.length&&(a+=e),d=!0);t=a;if(d){c=b.f;b=b.h;var f;if(window.XMLHttpRequest)f=new XMLHttpRequest;else if(window.ActiveXObject)try{f=new ActiveXObject("Msxml2.XMLHTTP")}catch(k){try{f=new ActiveXObject("Microsoft.XMLHTTP")}catch(u){}}f&&(f.open("POST",c+(-1==c.indexOf("?")?"?":"&")+"url="+encodeURIComponent(b)),f.setRequestHeader("Content-Type","application/x-www-form-urlencoded"),f.send(a))}}},s=function(){var b={},d=document.getElementsByTagName("IMG");if(0==d.length)return{};var a=d[0];if(!("naturalWidth"in a&&"naturalHeight"in a))return{};for(var c=0;a=d[c];++c){var e=a.getAttribute("pagespeed_url_hash");e&&(!(e in b)&&0<a.width&&0<a.height&&0<a.naturalWidth&&0<a.naturalHeight||e in b&&a.width>=b[e].k&&a.height>=b[e].j)&&(b[e]={rw:a.width,rh:a.height,ow:a.naturalWidth,oh:a.naturalHeight})}return b},t="";h("pagespeed.CriticalImages.getBeaconData",function(){return t});h("pagespeed.CriticalImages.Run",function(b,d,a,c,e,f){var k=new p(b,d,a,e,f);n=k;c&&m(function(){window.setTimeout(function(){r(k)},0)})});})();pagespeed.CriticalImages.Run('/mod_pagespeed_beacon','http://blog.tanelpoder.com/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/','SLoDkQnME-',true,false,'T1YEoxLozqU');
+//]]></script><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAACZ0lEQVQozzWQTWhUVxhAz/fdO+85TsQ6iclI/I2CVAP9WZhahIK6keJCkAQRREEolQpKN+KidOVOECldtVBqF6ZQXKgUl1IIKgF/QDEKYhTixInSmIZ5777700X0rM7mbI4APDyxsZVn+QVRGQspAYIISwiIgFUlhjA+9+btqR2/ddoycaR3cP26jdcayqfOddFMMHkNk2eYmqJWUCOIFbKapdPu3nsy8exrc2b3+l9WZnZPWLWBnr3fYAc2I5qQYg4Vh1qzFCqkFOmp11oupHVWRUYrX5H39lPfeZgPhJd3CJO/ktqTiMkQEXwZKV3CGh01333R+2NjRQO6Hfyjq8QXtxBJ2E27MB/vR2IF7ft4l6iKRHCwsFCgIKiJ2L615J8cQKzF3zxHdeUYaf4FZuQkadshqsUCX0Z8GYGECmBMxHw0QDZylGX7z5OPXkKy5fhr35L+fY4dOQH9n+EXC4JLpASKgtZz6DzAXT5EuP0T0ujH7rtIqg/Svf4Dokr+5XFCpfgykCIogLGKxi64eeLjvwg3TpNihf3qLO7lFO7xTWpDI0hzM6HrIIGKgEjA9A2RHbxE7cDvVK+mqCb/QPuGkDWf0737N2IsdnCYUFYAqFVBrSDWgqmRxOIrSzn1D6SEDmynnHm25CvXEFzCqiBPv986vmW4NepDQVi+Ab9Y4maniamO9G3Dzc1Qzb3GDg5Tzr4i687yX1b8acZWy0S9uWJPo563yrcd/Lt3RG8JRYVrT+MXFohVxM1Mk6cC32Puzbv2EQG4c3R1q9lsXjCqY1VY2k1KkHjvYBRQxp0rT23/+Xn7fyy5EEGJI0N2AAAAAElFTkSuQmCC" alt="RSS Feed" pagespeed_url_hash="3485948561" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></a>&nbsp;<a target="_self" href="http://blog.tanelpoder.com/feed/" title="Subscribe to Posts">RSS - Posts</a></p><p><a target="_self" href="http://blog.tanelpoder.com/comments/feed/" title="Subscribe to Comments"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAACZ0lEQVQozzWQTWhUVxhAz/fdO+85TsQ6iclI/I2CVAP9WZhahIK6keJCkAQRREEolQpKN+KidOVOECldtVBqF6ZQXKgUl1IIKgF/QDEKYhTixInSmIZ5777700X0rM7mbI4APDyxsZVn+QVRGQspAYIISwiIgFUlhjA+9+btqR2/ddoycaR3cP26jdcayqfOddFMMHkNk2eYmqJWUCOIFbKapdPu3nsy8exrc2b3+l9WZnZPWLWBnr3fYAc2I5qQYg4Vh1qzFCqkFOmp11oupHVWRUYrX5H39lPfeZgPhJd3CJO/ktqTiMkQEXwZKV3CGh01333R+2NjRQO6Hfyjq8QXtxBJ2E27MB/vR2IF7ft4l6iKRHCwsFCgIKiJ2L615J8cQKzF3zxHdeUYaf4FZuQkadshqsUCX0Z8GYGECmBMxHw0QDZylGX7z5OPXkKy5fhr35L+fY4dOQH9n+EXC4JLpASKgtZz6DzAXT5EuP0T0ujH7rtIqg/Svf4Dokr+5XFCpfgykCIogLGKxi64eeLjvwg3TpNihf3qLO7lFO7xTWpDI0hzM6HrIIGKgEjA9A2RHbxE7cDvVK+mqCb/QPuGkDWf0737N2IsdnCYUFYAqFVBrSDWgqmRxOIrSzn1D6SEDmynnHm25CvXEFzCqiBPv986vmW4NepDQVi+Ab9Y4maniamO9G3Dzc1Qzb3GDg5Tzr4i687yX1b8acZWy0S9uWJPo563yrcd/Lt3RG8JRYVrT+MXFohVxM1Mk6cC32Puzbv2EQG4c3R1q9lsXjCqY1VY2k1KkHjvYBRQxp0rT23/+Xn7fyy5EEGJI0N2AAAAAElFTkSuQmCC" alt="RSS Feed" pagespeed_url_hash="3485948561" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></a>&nbsp;<a target="_self" href="http://blog.tanelpoder.com/comments/feed/" title="Subscribe to Comments">RSS - Comments</a></p>
+</li>					</ul>
+				</div><!-- #second .widget-area -->
+
+				<div id="third" class="widget-area">
+					<ul class="xoxo">
+						<li id="text-449045842" class="widget-container threecol widget_text"><h3 class="widget-title">Training in 2015</h3>			<div class="textwidget"><a href="http://blog.tanelpoder.com/seminar/"><font color="red">New training by Tanel in 2015!</font></a><br>
+<a href="http://blog.tanelpoder.com/seminar/">Advanced Oracle Troubleshooting</a> - Launching March 2015! 
+
+</div>
+		</li>					</ul>
+				</div><!-- #third .widget-area -->
+
+				<div id="fourth" class="widget-area">
+					<ul class="xoxo">
+						<li id="search-5" class="widget-container threecol last widget_search"><h3 class="widget-title">Search</h3><form role="search" method="get" id="searchform" class="searchform" action="http://blog.tanelpoder.com/">
+				<div>
+					<label class="screen-reader-text" for="s">Search for:</label>
+					<input name="s" id="s" type="text">
+					<input id="searchsubmit" value="Search" type="submit">
+				</div>
+			</form></li>					</ul>
+				</div><!-- #fourth .widget-area -->
+
+			</div><!-- #footer-widget-area -->
+				</div><!-- #footerbar -->
+				<div id="colophon" class="twelvecol last">
+					<div id="site-info" class="sixcol">
+						<a href="http://blog.tanelpoder.com/" title="Tanel Poder's Performance &amp; Troubleshooting blog" rel="home">
+							Tanel Poder's Performance &amp; Troubleshooting blog						</a>
+					</div><!-- #site-info -->
+					<div id="site-generator" class="sixcol last">
+												<a href="http://wordpress.org/" title="Semantic Personal Publishing Platform">Proudly powered by WordPress.</a>
+					</div><!-- #site-generator -->
+				</div><!-- #colophon -->
+			</footer><!-- #footer -->
+		</div><!-- #wrapper -->
+			<div style="display:none">
+	</div>
+
+	<script type="text/javascript">window.WPCOM_sharing_counts={"http:\/\/blog.tanelpoder.com\/2014\/05\/17\/combining-bloom-filter-offloading-and-storage-indexes-on-exadata\/":2365};window.WPCOM_site_ID=5982710;</script>
+		<script type="text/javascript">var windowOpen;jQuery(document).on('ready post-load',function(){jQuery('a.share-twitter').on('click',function(){if('undefined'!==typeof windowOpen){windowOpen.close();}
+windowOpen=window.open(jQuery(this).attr('href'),'wpcomtwitter','menubar=1,resizable=1,width=600,height=350');return false;});});</script>
+				<script type="text/javascript">var windowOpen;jQuery(document).on('ready post-load',function(){jQuery('a.share-facebook').on('click',function(){if('undefined'!==typeof windowOpen){windowOpen.close();}
+windowOpen=window.open(jQuery(this).attr('href'),'wpcomfacebook','menubar=1,resizable=1,width=600,height=400');return false;});});</script>
+				<script type="text/javascript">var windowOpen;jQuery(document).on('ready post-load',function(){jQuery('a.share-linkedin').on('click',function(){if('undefined'!==typeof windowOpen){windowOpen.close();}
+windowOpen=window.open(jQuery(this).attr('href'),'wpcomlinkedin','menubar=1,resizable=1,width=580,height=450');return false;});});</script>
+				<script type="text/javascript">var windowOpen;jQuery(document).on('ready post-load',function(){jQuery('a.share-google-plus-1').on('click',function(){if('undefined'!==typeof windowOpen){windowOpen.close();}
+windowOpen=window.open(jQuery(this).attr('href'),'wpcomgoogle-plus-1','menubar=1,resizable=1,width=480,height=550');return false;});});</script>
+				<script type="text/javascript">var windowOpen;jQuery(document).on('ready post-load',function(){jQuery('a.share-pocket').on('click',function(){if('undefined'!==typeof windowOpen){windowOpen.close();}
+windowOpen=window.open(jQuery(this).attr('href'),'wpcompocket','menubar=1,resizable=1,width=450,height=450');return false;});});</script>
+							<script type="text/javascript">jQuery(document).on('ready',function(){jQuery('body').on('click','a.share-pinterest',function(e){e.preventDefault();var s=document.createElement("script");s.type="text/javascript";s.src=window.location.protocol+"//assets.pinterest.com/js/pinmarklet.js?r="+(Math.random()*99999999);var x=document.getElementsByTagName("script")[0];x.parentNode.insertBefore(s,x);var s=document.createElement("script");s.type="text/javascript";s.src=this+(this.toString().indexOf('?')?'&':'?')+'js_only=1';var x=document.getElementsByTagName("script")[0];x.parentNode.insertBefore(s,x);});});</script>
+				<script type="text/javascript">var windowOpen;jQuery(document).on('ready post-load',function(){jQuery('a.share-tumblr').on('click',function(){if('undefined'!==typeof windowOpen){windowOpen.close();}
+windowOpen=window.open(jQuery(this).attr('href'),'wpcomtumblr','menubar=1,resizable=1,width=450,height=450');return false;});});</script>
+			
+<script src="Combining%20Bloom%20Filter%20Offloading%20and%20Storage%20Indexes%20on%20Exadata%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/wp-content_plugins_akismet__inc_form.js"></script><script>eval(mod_pagespeed_w0j0wNNgNS);</script>
+<script>eval(mod_pagespeed_IJG4ayv3Q$);</script>
+<script>eval(mod_pagespeed_CI_ve26wXe);</script>
+<script type="text/javascript" src="Combining%20Bloom%20Filter%20Offloading%20and%20Storage%20Indexes%20on%20Exadata%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/devicepx-jetpack.js"></script>
+<script type="text/javascript">//<![CDATA[
+var sharing_js_options={"lang":"en","counts":"1"};
+//]]></script>
+<script type="text/javascript" src="Combining%20Bloom%20Filter%20Offloading%20and%20Storage%20Indexes%20on%20Exadata%20_%20Tanel%20Poder%27s%20Performance%20&amp;%20Troubleshooting%20blog_files/sharing.js"></script>
+	
+
+
+
+
+
+<div id="link64_vdp_tabid" style="display:none;">1054</div><div id="sharing_email" style="display: none;">
+		<form action="/2014/05/17/combining-bloom-filter-offloading-and-storage-indexes-on-exadata/" method="post">
+			<label for="target_email">Send to Email Address</label>
+			<input name="target_email" id="target_email" type="email">
+
+			
+				<label for="source_name">Your Name</label>
+				<input name="source_name" id="source_name" type="text">
+
+				<label for="source_email">Your Email Address</label>
+				<input name="source_email" id="source_email" type="email">
+
+						<input id="jetpack-source_f_name" name="source_f_name" class="input" size="25" autocomplete="off" type="text">
+			<script>document.getElementById('jetpack-source_f_name').value='';</script>
+			
+			<img style="float: right; display: none" class="loading" src="data:image/gif;base64,R0lGODlhEAAQAAAAACH/C05FVFNDQVBFMi4wAwH//wAh+QQLBgAPACwAAAAAEAAQAIMvLy92dnaUlJSlpaWtra21tbW9vb3GxsbOzs7W1tbe3t7n5+fv7+/39/f///////8EifDJ52QJdeq3QnoC4DSFsnFAAAIPMizaAheAEbrI0yyOEwSGRkCAKAwIO2PjoQikGktK4zAowCauzCTxkRgGYNNmajBQBWixhlEoEAyTBUIrUVwlUwFy8z0wKEYIUwkNDApBCUdLdhwDCUULjg8MCVokBQ4HBA9UfxsLBDCaIwRdGiMSCAYVDVoRACH5BAsGAA8ALAAAAAAQABAAgz09PXNzc4uLi6Wlpa2trbW1tb29vcbGxs7OztbW1t7e3ufn5+/v7/f39////////wSL8Mnn5Ah16reCegHgNICxPUwQgMAjAIe2MM8BhwmwNovjCAJEIzBAGAYAxqIwaHAugobz0WAwCwtNwpCZJBITYwF7ahwMhjOBQN5YCwSThKHoShTZSQMxIEwnRwc0DkxCBwlVCgYNCX1OeE8JCFgDYAwJXQ1jDgcENQM0GwsEWZ0jBGAbIxJGFQ1dEQAh+QQLBgAPACwAAAAAEAAQAIM5OTl/f3+UlJSlpaWtra21tbW9vb3GxsbOzs7W1tbe3t7n5+fv7+/39/f///////8Ei/DJ5yQRdeq3xHpB4DCBsT3k8AjBChzawjxIkLAJ0DaK4xSDRENgUCAIAEYuiTIMCo2GxNEIAACFDAehlQQEE4TBcJhtOuODgUAofDaMQoFgkjB6G8Vb0kAMCFIaTmUUQAgNB0J3Bg0Jf1J6HEEIbkEoCVoNcg4HBA8HA2YxBB+dVAQJJ1QSYhUNWhEAIfkECwYADwAsAAAAABAAEACDOjo6fX19mJiYpaWlra2ttbW1vb29xsbGzs7O1tbW3t7e5+fn7+/v9/f3////////BI3wyeekGXXqx8p6Q+A0AbI9DVGAAQiY08I8ypAQggIIqOI4hYGiYTgsEoYA4wAANDiXQiMzCjQNmccCkZUIBhOEoTjbLAICAcFAUH02uiZgwvBt1poGYkB4ai4HM0ADCA0HCQ11Bg0JfE8KHws2CB42HAlZDQUFDgcEDwcDZRoLBB+eIwQJJyMSYhVTExEAIfkECwYADwAsAAAAABAAEACDQUFBb29vi4uLpaWlra2ttbW1vb29xsbGzs7O1tbW3t7e5+fn7+/v9/f3////////BIvwyeckMnXqxwp7B+E0Q7I9DWGAw1MEirZ8yqAcwxIUqOI4BVvDgGAoEAIGIhBocAyDQiMzEgACiMxjkd0QeBaD4fDZLARMgYHwXZwUAcB1YtRKCgdNAzEgOCcOcgMfQAMIDQcJDQwJAWdyTgpuCyUIBZQrCQNaDQUFDiEsZTIEbiEjBCYbI2EVUxMRACH5BAsGAA8ALAAAAAAQABAAgzw8PH9/f5iYmKWlpa2trbW1tb29vcbGxs7OztbW1t7e3ufn5+/v7/f39////////wSM8MnnJDJ16scKewfhNIWyPQ1hgMSDDIu2fMqghMyAoIvjFLaGAcFYKAiMhCDQ4BgGhUZmRAgIEjJEZnI4TC6Gw2fDWFoNBEIhtlkE3oEJQ7GVFLyTxovQnDgCAAEmPzoNBwkNCwQACwMAAE0KMY0JCAIFAAUPCQVbJJ0hD49sMgQxIQ4LmScjFhgcWxEAIfkECwYADwAsAAAAABAAEACDQEBAa2tri4uLpaWlra2ttbW1vb29xsbGzs7O1tbW3t7e5+fn7+/v9/f3////////BIzwyeckMnXqxwp7B+E0hbI9DWGAxIMMi7Z8yqCEzICgi+MUtoYBwVgoCI0FsMExDAqNzOgwIJgmC0RmcthZDIbDZ8MgDJ4GAqEQIw8EgsGEodhKuprGC6lxCAACMT86DVQKCQUBSgEBTAoxC1WMBwByN1skBQ4BAA+cCScLBDEAAA4LACsbIxKMFVETEQAh+QQLBgAPACwAAAAAEAAQAIM1NTVnZ2eBgYGlpaWtra21tbW9vb3GxsbOzs7W1tbe3t7n5+fv7+/39/f///////8EjfDJ5yQyderHCnsH4TSFsj0NYYDEgwyLtnzKoITMgKCL4xS2hgHBWCgIjQWwwTEMCo3M6PCMTRaIzCSRmFwMh8+mcTCADQRCwaphpFUTRkJr6U4arwBz4hgIBh8/TwoBMDcCDAcCAkwKMQYABQIBCAEtWFoMAAIOAQAPkyYbBwAmng4MAQcnIxKTFVETEQAh+QQLBgAPACwAAAAAEAAQAIMlJSVkZGSQkJClpaWtra21tbW9vb3GxsbOzs7W1tbe3t7n5+fv7+/39/f///////8Ei/DJ5yQyderHCnsH4TSFsj0NYYDEgwyLtnzKoITMgKCL4xS2hgHBWCgIjQWwwTEMCo3M6PCMTRaIzCSRmFwMh8+mcTCADQTCoLvpFFTegVaisEoYAQCAqXGGKXoCCwGCCwkCDAkDSA8lIAAEAgEJAQccCVp4AQ6SD5F2WwArkg4MAjsbIxIDAhVRExEAIfkECwYADwAsAAAAABAAEACDPj4+b29vkJCQpaWlra2ttbW1vb29xsbGzs7O1tbW3t7e5+fn7+/v9/f3////////BIrwyeckMnXqxwp7B+E0hbI9DWGAxIMMi7Z8yqCEzICgi+MUtoYBwVgoCI0FsMExDAqNzOjwjE0OgswkkZgEAIDAbtM4GAzYgPpw6hRU24JWorBKGAIwU+M8fBxfAgsCBAwMCQYNCQNIIGwJAG8CNV2HWg1qDgMCD04fGwtiD5sODARdGyMSThVRExEAIfkECwYADwAsAAAAABAAEACDPz8/c3NzkJCQpaWlra2ttbW1vb29xsbGzs7O1tbW3t7e5+fn7+/v9/f3////////BIfwyeckMnXqxwp7B+E0hbI9DWGAxIMMi3aYrxIyA4IujhMAA0bgwFgoCI1FYdB4LAQAAKNJaRwGhdjkIMhMEomJIEAOb6wGw+EXPZw6BdVEgdkotJLGABCgTgwDRBQ/QSoMDHQNCQNILjoKQwZZA2EMCV4NAl0GLVcfG09hnCMEZhojFnUNXhEAIfkECwYADwAsAAAAABAAEACDLi4ub29vjY2NpaWlra2ttbW1vb29xsbGzs7O1tbW3t7e5+fn7+/v9/f3////////BI3wyeckMnXqpwB6B+E0hbI9DACAxIMMi5aYB0DczPA1i+MEtkYgkFgoCLzCoPFIAAMNJqVxGBRik4MgM0kkJgOB2LShGgzaIfHEKBQIhskCwZUosJKGQSydGAYHDBQDAQUMBwkNDAoGDQkDSC5fCwMJCFeVKAlcJAUOISADghsLBDEhIwRfGyMWGA8NXBEAOw==" alt="loading" pagespeed_url_hash="1637830375" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+			<input value="Send Email" class="sharing_send" type="submit">
+			<a rel="nofollow" href="#cancel" class="sharing_cancel">Cancel</a>
+
+			<div class="errors errors-1" style="display: none;">
+				Post was not sent - check your email addresses!			</div>
+
+			<div class="errors errors-2" style="display: none;">
+				Email check failed, please try again			</div>
+
+			<div class="errors errors-3" style="display: none;">
+				Sorry, your blog cannot share posts by email.			</div>
+		</form>
+	</div></body></html>
+<!-- Dynamic page generated in 0.604 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2015-05-09 01:25:34 -->
+<!-- super cache -->

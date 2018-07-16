@@ -1,0 +1,852 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+
+	<meta name="WT.qs_dlk" content="VU2xXQrIZ24AABOnKIcAAAAP">
+
+	<meta name="WT.qs_shmv" content="hv20141022-allen.sf.quinstreet.net">
+
+	<meta name="inject_params" content="WT.qs_dlk=VU2xXQrIZ24AABOnKIcAAAAP&amp;">
+
+	<meta http-equiv="Set-Cookie" content="inject_params=WT.qs_dlk=VU2xXQrIZ24AABOnKIcAAAAP&amp;; path=/;  domain=databasejournal.com;">
+	<meta http-equiv="Set-Cookie" content="WMUUID=VU2xXQrIZ24AABOnKIcAAAAP; path=/;  domain=databasejournal.com;">
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
+<title>Exadata: When A Smart Scan Isn't — DatabaseJournal.com</title>
+<meta name="description" content="Exadata is known far and wide for Smart Scans, but sometimes Oracle can do better without one.&nbsp; Read on to see how to know when Oracle decided to not continue with a Smart Scan.">
+<meta name="keywords" content="Exadata, Oracle Database, smart scan, performance">
+<meta name="articleKey" content="175077210">
+    <link rel="alternate" media="only screen and (max-width: 640px)" href="http://mobile.databasejournal.com/features/oracle/exadata-when-a-smart-scan-isnt.html">
+<meta name="channel" content="IT">
+<meta name="authors" content="David Fitzjarrell">
+<meta name="date" content="20140717">
+<meta name="qs.quad.keywords" content="{keywords:&quot;935693|96040,109120|95880,97360|935613|95850&quot;,nodes:&quot;109120,935693&quot;}">
+<script src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/webtrends.js" async=""></script><script src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/beacon.js" async=""></script><script src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/controltag" async="" type="text/javascript"></script><script src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/tag.aspx" async="" type="text/javascript"></script><script language="javascript" src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/tx.js"></script>
+<link rel="alternate" type="application/rss+xml" title="Database Journal RSS Feed" href="http://www.databasejournal.com/icom_includes/feeds/dbjournal/xml_front-10.xml">
+
+<link type="text/css" rel="stylesheet" name="min-css" media="screen" href="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/a.css">
+			<link type="text/css" rel="stylesheet" name="min-css" media="screen" href="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/epfs.css">
+
+<script type="text/javascript" src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/dfp-common-min.js"></script>
+
+	<script type="text/javascript" src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/dfp-sync-min.js"></script><script src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/gpt.js"></script><script src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/check_359604.js" type="text/javascript" async=""></script><iframe class="uilzrdezgpgkplvssgwf" style="visibility: hidden; display: none;" src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/container.htm"></iframe>
+
+<!-- BEGIN ML/CCM Tag -->
+<script type="text/javascript">var mlCLID="50417";</script>
+<script type="text/javascript" src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/dfp-ml_ccm2-min.js"></script>
+<!-- END ML/CCM Tag -->
+
+	<!-- BEGIN Krux Tag -->
+	<script type="text/javascript" src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/dfp-krux-min.js"></script>
+	<script class="kxct" data-id="Jd_Jsceg" data-timing="async" data-version="1.9" type="text/javascript">
+		window.Krux||((Krux=function(){Krux.q.push(arguments)}).q=[]);
+		(function(){
+			var k=document.createElement('script');k.type='text/javascript';k.async=true;
+			var m,src=(m=location.href.match(/\bkxsrc=([^&]+)/))&&decodeURIComponent(m[1]);
+			k.src = /^https?:\/\/([a-z0-9_\-\.]+\.)?krxd\.net(:\d{1,5})?\//i.test(src) ? src : src === "disable" ? "" : (location.protocol==="https:"?"https:":"http:")+"//cdn.krxd.net/controltag?confid=Jd_Jsceg";
+			var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(k,s);
+		}());
+	</script>
+	<!-- END Krux Tag -->
+
+<meta name="DCSext.tax" content="product servers database vendor specific databases,audience purchase stage implementation,product it applications business intelligence analytics business performance management"><meta name="DCSext.qse_b2b_tax" content="product servers database vendor specific databases,audience purchase stage implementation,product it applications business intelligence analytics business performance management">
+<script type="text/javascript">
+	eval(function(p,a,c,k,e,d){e=function(c){return c};if(!''.replace(/^/,String)){while(c--){d[c]=k[c]||c}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('0 2=1(\'2\');0 3=1(\'3\');0 6=1(\'6\');0 4=1(\'4\');0 5=1(\'5\');',7,7,'var|gDFPC|dn|jf|ir|noer|dr'.split('|'),0,{}));
+
+		googletag.defineSlot('/5055/b2b/it/databasejournal/ciu',[[600,200],[300,200]],'ciu-1').addService(googletag.pubads()).setTargeting('pos','top');
+		googletag.defineSlot('/5055/b2b/it/databasejournal/ciu',[[600,200],[300,200]],'ciu-2').addService(googletag.pubads()).setTargeting('pos','low');
+		googletag.defineSlot('/5055/b2b/it/databasejournal/imu',[[300,250],[300,600]],'imu-1').addService(googletag.pubads()).setTargeting('pos','top');
+		googletag.defineSlot('/5055/b2b/it/databasejournal/imu',[[300,250],[300,600]],'imu-2').addService(googletag.pubads()).setTargeting('pos','mid');
+		googletag.defineSlot('/5055/b2b/it/databasejournal/imu',[300,250],'imu-3').addService(googletag.pubads()).setTargeting('pos','low');
+		googletag.defineSlot('/5055/b2b/it/databasejournal/lb',[728,90],'lb-1').addService(googletag.pubads()).setTargeting('pos','top');
+		googletag.defineSlot('/5055/b2b/it/databasejournal/lb',[728,90],'lb-2').addService(googletag.pubads()).setTargeting('pos','low');
+		googletag.defineSlot('/5055/b2b/it/databasejournal/sky',[160,600],'sky-1').addService(googletag.pubads()).setTargeting('pos','top');
+		googletag.defineOutOfPageSlot('/5055/b2b/it/databasejournal/wa','wa-1').addService(googletag.pubads());
+		if(mbw>1049){googletag.defineOutOfPageSlot('/5055/b2b/it/databasejournal/hero','hero-1').addService(googletag.pubads());}
+
+		googletag.pubads().setTargeting('kw',['Exadata','Oracle Database','smart scan','performance']);
+		googletag.pubads().setTargeting('tax',['product servers database vendor specific databases','audience purchase stage implementation','product it applications business intelligence analytics business performance management']);
+		googletag.pubads().setTargeting('path',['features','oracle','exadata-when-a-smart-scan-isnt.html']);
+		googletag.pubads().setTargeting('articlekey','175077210');
+		googletag.pubads().setTargeting('pagetype','other');
+		googletag.pubads().setTargeting('url','http://www.databasejournal.com/features/oracle/exadata-when-a-smart-scan-isnt.html');
+		if(mbw<641){googletag.pubads().setTargeting('pfm','mob');}else{googletag.pubads().setTargeting('pfm','des');}
+		googletag.pubads().setTargeting('env','prod');
+		googletag.pubads().setTargeting('wtdlk',''+myWTDLK+'');
+		if(typeof _ml!='undefined'&&_ml.us){if(_ml.us.tp&&_ml.us.tp.length>0){googletag.pubads().setTargeting('mlt',''+_ml.us.tp+'');}}
+		googletag.pubads().setTargeting('ksg',Krux.segments);
+		googletag.pubads().setTargeting('kuid',Krux.user);
+
+		eval(function(p,a,c,k,e,d){e=function(c){return c};if(!''.replace(/^/,String)){while(c--){d[c]=k[c]||c}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('0(5!=\'\'&&5!=\'2\'){1.3().4(\'5\',\'\'+5+\'\')}0(6!=\'\'&&6!=\'2\'){1.3().4(\'6\',\'\'+6+\'\')}0(9!=\'\'&&9!=\'2\'){1.3().4(\'9\',\'\'+9+\'\')}0(7!=\'\'&&7!=\'2\'){1.3().4(\'7\',\'\'+7+\'\')}0(8!=\'\'&&8!=\'2\'){1.3().4(\'8\',\'\'+8+\'\')}',10,10,'if|googletag|null|pubads|setTargeting|dn|jf|ir|noer|dr'.split('|'),0,{}))
+
+		googletag.pubads().enableSingleRequest();
+		googletag.pubads().collapseEmptyDivs();
+		googletag.pubads().enableSyncRendering();
+		googletag.disablePublisherConsole();
+
+		googletag.enableServices();
+</script><script type="text/javascript" src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/pubads_impl_60.js"></script>
+
+
+<!-- Begin comScore Tag -->
+<script>
+  var _comscore = _comscore || [];
+  _comscore.push({ c1: "2", c2: "17199065" });
+  (function() {
+    var s = document.createElement("script"), el = document.getElementsByTagName("script")[0]; s.async = true;
+    s.src = (document.location.protocol == "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js";
+    el.parentNode.insertBefore(s, el);
+  })();
+</script>
+<noscript>
+  <img src="http://b.scorecardresearch.com/p?c1=2&c2=17199065&cv=2.0&cj=1" alt=""/>
+</noscript>
+<!-- End comScore Tag -->
+<script src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/jquery.js"></script>
+<meta name="cache-creation-time" content="Fri May 8 18:35:58 PDT 2015">
+
+    <script>
+    window.webtrendsAsyncInit=function(){
+	var dcs=new Webtrends.dcs().init({
+	    dcsid:"dcsjcs4c610000k30qdw5a2wa_2d9q",
+	    domain:"www.qsstats.com",
+	    timezone:-8,
+	    i18n:true,
+	    offsite:true,
+	    download:true,
+	    downloadtypes:"xls,doc,pdf,txt,csv,zip,docx,xlsx,rar,gzip",
+	    anchor:true,
+	    javascript: true,
+	    onsitedoms:"databasejournal.com",
+	    fpcdom:".databasejournal.com",
+	    plugins:{
+		//hm:{src:"//s.webtrends.com/js/webtrends.hm.js"}
+	    }
+	    }).track();
+    };
+    (function(){
+	var s=document.createElement("script"); s.async=true; s.src="/imageserver/common/v10/webtrends.min.js";    
+	var s2=document.getElementsByTagName("script")[0]; s2.parentNode.insertBefore(s,s2);
+    }());
+    </script>
+    <noscript><img alt="dcsimg" id="dcsimg" width="1" height="1" src="//www.qsstats.com/dcsjcs4c610000k30qdw5a2wa_2d9q/njs.gif?dcsuri=/index.php/features/oracle/exadata-when-a-smart-scan-isnt.html&amp;WT.js=No&amp;WT.tv=10.4.1&amp;dcssip=www.databasejournal.com&amp;WT.qs_dlk=VU2xXQrIZ24AABOnKIcAAAAP&"/></noscript>
+<script src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/VqQfUF5N_qmdDNeTohpsDpzetGKNVH6zuA1_uFQDRlk.js" charset="UTF-8" type="text/javascript"></script><style type="text/css">.recaptchatable td img{display:block}.recaptchatable .recaptcha_r1_c1{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') 0 -63px no-repeat;width:318px;height:9px}.recaptchatable .recaptcha_r2_c1{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') -18px 0 no-repeat;width:9px;height:57px}.recaptchatable .recaptcha_r2_c2{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') -27px 0 no-repeat;width:9px;height:57px}.recaptchatable .recaptcha_r3_c1{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') 0 0 no-repeat;width:9px;height:63px}.recaptchatable .recaptcha_r3_c2{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') -18px -57px no-repeat;width:300px;height:6px}.recaptchatable .recaptcha_r3_c3{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') -9px 0 no-repeat;width:9px;height:63px}.recaptchatable .recaptcha_r4_c1{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') -43px 0 no-repeat;width:171px;height:49px}.recaptchatable .recaptcha_r4_c2{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') -36px 0 no-repeat;width:7px;height:57px}.recaptchatable .recaptcha_r4_c4{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') -214px 0 no-repeat;width:97px;height:57px}.recaptchatable .recaptcha_r7_c1{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') -43px -49px no-repeat;width:171px;height:8px}.recaptchatable .recaptcha_r8_c1{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') -43px -49px no-repeat;width:25px;height:8px}.recaptchatable .recaptcha_image_cell center img{height:57px}.recaptchatable .recaptcha_image_cell center{height:57px}.recaptchatable .recaptcha_image_cell{background-color:white;height:57px}#recaptcha_area,#recaptcha_table{width:318px!important}.recaptchatable,#recaptcha_area tr,#recaptcha_area td,#recaptcha_area th{margin:0!important;border:0!important;padding:0!important;border-collapse:collapse!important;vertical-align:middle!important}.recaptchatable *{margin:0;padding:0;border:0;font-family:helvetica,sans-serif;font-size:8pt;color:black;position:static;top:auto;left:auto;right:auto;bottom:auto}.recaptchatable #recaptcha_image{position:relative;margin:auto}.recaptchatable #recaptcha_image #recaptcha_challenge_image{display:block}.recaptchatable #recaptcha_image #recaptcha_ad_image{display:block;position:absolute;top:0}.recaptchatable img{border:0!important;margin:0!important;padding:0!important}.recaptchatable a,.recaptchatable a:hover{cursor:pointer;outline:none;border:0!important;padding:0!important;text-decoration:none;color:blue;background:none!important;font-weight:normal}.recaptcha_input_area{position:relative!important;width:153px!important;height:45px!important;margin-left:7px!important;margin-right:7px!important;background:none!important}.recaptchatable label.recaptcha_input_area_text{margin:0!important;padding:0!important;position:static!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;background:none!important;height:auto!important;width:auto!important}.recaptcha_theme_red label.recaptcha_input_area_text,.recaptcha_theme_white label.recaptcha_input_area_text{color:black!important}.recaptcha_theme_blackglass label.recaptcha_input_area_text{color:white!important}.recaptchatable #recaptcha_response_field{width:153px!important;position:relative!important;bottom:7px!important;padding:0!important;margin:15px 0 0 0!important;font-size:10pt}.recaptcha_theme_blackglass #recaptcha_response_field,.recaptcha_theme_white #recaptcha_response_field{border:1px solid gray}.recaptcha_theme_red #recaptcha_response_field{border:1px solid #cca940}.recaptcha_audio_cant_hear_link{font-size:7pt;color:black}.recaptchatable{line-height:1!important}#recaptcha_instructions_error{color:red!important}.recaptcha_only_if_privacy{float:right;text-align:right}#recaptcha-ad-choices{position:absolute;height:15px;top:0;right:0}#recaptcha-ad-choices img{height:15px}.recaptcha-ad-choices-collapsed{width:30px;height:15px;display:block}.recaptcha-ad-choices-expanded{width:75px;height:15px;display:none}#recaptcha-ad-choices:hover .recaptcha-ad-choices-collapsed{display:none}#recaptcha-ad-choices:hover .recaptcha-ad-choices-expanded{display:block}
+
+.recaptcha_is_showing_audio .recaptcha_only_if_image,.recaptcha_isnot_showing_audio .recaptcha_only_if_audio,.recaptcha_had_incorrect_sol .recaptcha_only_if_no_incorrect_sol,.recaptcha_nothad_incorrect_sol .recaptcha_only_if_incorrect_sol{display:none !important}</style><script src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/reload" type="text/javascript"></script></head>
+<body>
+<div id="page">
+<!-- QUAD send start -->
+<!-- QS-AD: 'wa' start -->
+<script language="JavaScript">
+	var t=displayDFPTag("wa");
+	document.write(t);
+
+</script><div id="wa-1" style="height: 0px;">
+	<script type="text/javascript">
+		googletag.display('wa-1');
+	</script><script type="text/javascript" src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/ads"></script>
+</div>
+<style type="text/css">#wa-1_ad_container { height: 0px; }</style>
+
+<!-- QS-AD: 'wa' end --><!-- QUAD send end -->
+<style type="text/css">
+<!--
+body { margin: 0; padding: 0;}
+.brandLogo a img { border: none;}
+.globalHeader { font: 100%/1.4 Arial, Helvetica, sans-serif; height: 25px; background-color: #111; background-image: url(/icom_includes/toolbars/globaltoolbar/img/header-bg.jpg); background-repeat: repeat-x;	background-position: center top;}
+.globalHeader .brandLogo { padding: 4px 0 0 .5em; float: left; }
+.globalHeader .brandLogo p { color: #666; font-family: Arial, sans-serif; font-size: 11px; padding: 0; margin: 0;}
+.globalHeader .login-register { text-align: right; padding: 4px .5em 0 .5em; /*float: right;*/}
+.globalHeader .login-register img{ cursor:pointer;}
+.globalHeader .logout { text-align: right;  }
+.globalHeader .logout .greeting span{ color: #797979; font-family: Arial, sans-serif; font-size: 13px; padding: 0; margin: 0;}
+.globalHeader .logout .greeting a{ color: #797979 !important; font-family: Arial, sans-serif; padding: 0; font-size: 13px; margin: 0;}
+.logout-link img{ cursor:pointer;margin-top:3px; margin-right:5px;}
+.clearfloat { clear:both; height:0;	font-size: 1px;	line-height: 0px;} 
+-->
+</style>
+<div class="globalHeader" id="ITBE-ACLHeader" style="display: block;"><div class="brandLogo"><p><a href="http://www.databasejournal.com/about-itbe"><img src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/logo-itbe.png" alt="www.itbusinessedge.com" align="absmiddle" height="17" width="239"></a></p></div><div class="login-register" id="itbe-login-register" style="display:block;"><a href="http://www.databasejournal.com/accountManagement?formType=loginForm" alt="Login Form" title="Login Form"><img src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/login-itbe.png" alt="Login" border="0" height="16" width="41"></a>&nbsp;<a href="http://www.databasejournal.com/accountManagement?formType=registrationForm" alt="Registration Form" title="Registration Form"><img src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/register-itbe.png" alt="Register" border="0" height="16" width="56"></a></div><div class="logout" id="itbe-logout" style="display:none;"><span class="logout-link"><a href="http://www.databasejournal.com/accountManagement?logout=true&amp;formType=logoutForm" alt="Logout" title="Logout"><img src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/logout-itbe.png" alt="Logout" border="0" height="16" width="41"></a></span></div><div class="clearfloat"></div></div>
+<div class="globalHeader" id="ITBE-NonACLHeader" style="display:none;"></div>
+<div class="globalHeader" id="Developer.com-ACLHeader" style="display:none;"></div>
+<div class="globalHeader" id="Developer.com-NonACLHeader" style="display:none;"></div>
+<div class="globalHeader" id="Developer.com-CustomToolbar" style="display:none;"></div>
+<div class="globalHeader" id="developerBrandForum" style="display:none;"></div>
+<div class="globalHeader" id="itbeBrandForum-CustomToolbar" style="display:none;"></div>
+<div class="globalHeader" id="itbeBrandForum" style="display:none;"></div>
+<div class="globalHeader" id="ZDE-ACLHeader" style="display:none;"></div>
+<div class="globalHeader" id="ZDE-NonACLHeader" style="display:none;"></div>
+<div class="globalHeader" id="BASELINE-ACLHeader" style="display:none;"></div>
+<div class="globalHeader" id="BASELINE-NonACLHeader" style="display:none;"></div>
+<div class="globalHeader" id="CINSIDER-ACLHeader" style="display:none;"></div>
+<div class="globalHeader" id="CINSIDER-NonACLHeader" style="display:none;"></div>
+<div class="globalHeader" id="CIOINSIGHT-ACLHeader" style="display:none;"></div>
+<div class="globalHeader" id="CIOINSIGHT-NonACLHeader" style="display:none;"></div>
+<div class="globalHeader" id="EWEEK-ACLHeader" style="display:none;"></div>
+<div class="globalHeader" id="EWEEK-NonACLHeader" style="display:none;"></div>
+<div class="globalHeader" id="WBG-ACLHeader" style="display:none;"></div>
+<script async="" language="Javascript" src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/brandingcode_new.js">
+</script>    <!--[if IE]>
+    <div id="ewgtcontainer" style="height: 20px;"></div>
+    <![endif]-->
+
+<!-- Top Navigation Start -->
+<table class="konafilter deferload" background="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/top-bg2.gif" border="0" cellpadding="0" cellspacing="0" width="100%">
+	<tbody><tr>
+		<td class="deferload" background="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/top-bg2.gif" valign="top" width="100%">
+			<table border="0" cellpadding="0" cellspacing="0" width="100%">
+				<tbody><tr>
+					<td valign="top" width="35">
+						<span class="sprite sprite-logo-left"></span>
+					</td>
+					<td class="deferload" background="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/top-bg2.gif" valign="top" width="357">
+						<a href="http://www.databasejournal.com/">
+						<img alt="Database Journal" src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/logo.gif" class="deferload" border="0" height="113" width="307"></a>
+					</td>
+					<td class="deferload" align="center" background="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/top-bg2.gif">
+						<!--Top ad start-->
+						<div class="konafilter topad">
+							<!-- QS-AD: 'lb' start -->
+<script language="JavaScript">
+	var t=displayDFPTag("lb");
+	document.write(t);
+
+</script><div style="display: none;" id="lb-1">
+	<script type="text/javascript">
+		googletag.display('lb-1');
+	</script>
+</div>
+
+<!-- QS-AD: 'lb' end -->						</div>
+						<!--Top ad end-->
+					</td>
+				</tr>
+			</tbody></table>
+		</td>
+	</tr>
+	<tr>
+		<td bgcolor="#000000">
+			<table bgcolor="#000000" border="0" cellpadding="8" cellspacing="1" width="100%">
+				<tbody><tr>
+					<td align="center" bgcolor="#FFFF99"><a href="http://www.databasejournal.com/features/mssql/" class="topnav">MS SQL</a></td>
+					<td align="center" bgcolor="#FFFF99"><a href="http://www.databasejournal.com/features/oracle/" class="topnav">Oracle</a></td>
+					<td align="center" bgcolor="#FFFF99"><a href="http://www.databasejournal.com/features/db2/" class="topnav">DB2</a></td>
+					<td align="center" bgcolor="#FFFF99"><a href="http://www.databasejournal.com/features/msaccess/" class="topnav">Access</a></td>
+					<td align="center" bgcolor="#FFFF99"><a href="http://www.databasejournal.com/features/mysql/" class="topnav">MySQL</a></td>
+					<td align="center" bgcolor="#FFFF99"><a href="http://www.databasejournal.com/features/postgresql/" class="topnav">PostgreSQL</a></td>
+					<td align="center" bgcolor="#FFFF99"><a href="http://www.databasejournal.com/features/sybase/" class="topnav">Sybase</a></td>
+					<td align="center" bgcolor="#FFFF99"><a href="http://www.databasejournal.com/features/php/" class="topnav">PHP</a></td>
+					<td align="center" bgcolor="#FFFF99"><a href="http://www.databasejournal.com/sqletc/" class="topnav">SQL Etc</a></td>
+					<td align="center" bgcolor="#FFFF99"><a href="http://www.databasejournal.com/scripts/" class="topnav">SQL Scripts &amp; Samples</a></td>
+					<td align="center" bgcolor="#FFFF99"><a href="http://www.databasejournal.com/links/" class="topnav">Links</a></td>
+					<td align="center" bgcolor="#FFFF99"><a href="http://forums.databasejournal.com/" class="topnav">Database Forum</a></td>
+					<!--<td bgcolor="#FFFF99"  align="center"></td>-->
+					<td align="center" bgcolor="#FFFF99"><a href="http://www.databasejournal.com/icom_includes/feeds/dbjournal/dbjournal-features-10.xml" class="noborder"><span class="sprite sprite-rss"></span></a></td>					
+				</tr>
+			</tbody></table>
+		</td>
+	</tr>
+</tbody></table>
+<!-- Top Navigation End --><table border="0" cellpadding="0" cellspacing="0" width="100%">
+	<tbody><tr>
+		<td class="deferload" background="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/nav-bg.gif" bgcolor="#ffcc00" valign="top" width="1%">
+			<table class="deferload" background="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/nav-bg.gif" bgcolor="#ffcc00" border="0" cellpadding="0" cellspacing="0" width="193">
+    <tbody><tr>
+        <td align="center"></td>
+    </tr>
+    <tr>
+        <td class="konafilter" align="left"><span class="sprite sprite-space"></span><br>
+            <table class="left_nav" bgcolor="#ffcc00" border="0" cellpadding="2" cellspacing="1" width="179">
+                <tbody>
+                <tr>
+                    <td align="left" bgcolor="#ffff99"><strong> <img src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/space.gif" border="0" height="1" width="3">                            » <a href="http://www.databasejournal.com/" class="topnav">Database Journal Home</a>                        </strong></td>
+                </tr>
+                <!--<tr>
+						<td bgcolor="#ffff99" align="left"><strong><img src="http://www.databasejournal.com/img/space.gif"  width="3"  height="1"  border="0" />						&raquo; <a href="http://www.databasejournal.com/video/" class="topnav">DBA Videos</a>						</strong>
+						</td>
+					</tr>-->
+                <tr>
+                    <td align="left" bgcolor="#ffff99"><strong><img src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/space.gif" border="0" height="1" width="3">                            » <a href="http://www.databasejournal.com/features/" class="topnav">Database Articles</a>                        </strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" bgcolor="#ffff99"><strong><img src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/space.gif" border="0" height="1" width="3">                            » <a href="http://www.databasejournal.com/features/article.php/3585206/DBJ-Series-Articles.htm" class="topnav">Database Tutorials</a>                        </strong>
+                    </td>
+                </tr>
+                                    <tr>
+                        <td align="left" bgcolor="#ffff99"><strong><img src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/space.gif" border="0" height="1" width="24">                                <a href="http://www.databasejournal.com/features/article.php/3593466/MS-SQL-Series.htm" class="topnav2">MS SQL</a>                            </strong>
+                        </td>
+                    </tr>
+                                    <tr>
+                        <td align="left" bgcolor="#ffff99"><strong><img src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/space.gif" border="0" height="1" width="24">                                <a href="http://www.databasejournal.com/features/article.php/3593471/Oracle-Series.htm" class="topnav2">Oracle</a>                            </strong>
+                        </td>
+                    </tr>
+                                    <tr>
+                        <td align="left" bgcolor="#ffff99"><strong><img src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/space.gif" border="0" height="1" width="24">                                <a href="http://www.databasejournal.com/features/article.php/3593431/DB2-Series.htm" class="topnav2">DB2</a>                            </strong>
+                        </td>
+                    </tr>
+                                    <tr>
+                        <td align="left" bgcolor="#ffff99"><strong><img src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/space.gif" border="0" height="1" width="24">                                <a href="http://www.databasejournal.com/features/article.php/3593436/MS-Access-Series.htm" class="topnav2">MS Access</a>                            </strong>
+                        </td>
+                    </tr>
+                                    <tr>
+                        <td align="left" bgcolor="#ffff99"><strong><img src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/space.gif" border="0" height="1" width="24">                                <a href="http://www.databasejournal.com/features/article.php/3593441/MySQL-Series.htm" class="topnav2">MySQL</a>                            </strong>
+                        </td>
+                    </tr>
+                
+                <tr>
+                    <td align="left" bgcolor="#ffff99"><strong><img src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/space.gif" border="0" height="1" width="3">                            » <span style="color: #666; font-size: 8pt; font-family: Verdana,Helvetica,sans-serif">RESOURCES</span></strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" bgcolor="#ffff99"><strong><img src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/space.gif" border="0" height="1" width="24">                            <a href="http://products.databasejournal.com/" class="topnav2">Database Tools</a>                        </strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" bgcolor="#ffff99"><strong><img src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/space.gif" border="0" height="1" width="24">                            <a href="http://www.databasejournal.com/scripts/" class="topnav2">SQL Scripts &amp; Samples</a>                        </strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" bgcolor="#ffff99"><strong><img src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/space.gif" border="0" height="1" width="24">                            <a href="http://www.databasejournal.com/links/" class="topnav2">Links</a>                        </strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" bgcolor="#ffff99"><strong><img src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/space.gif" border="0" height="1" width="3">                            » <a href="http://forums.databasejournal.com/" class="topnav">Database Forum</a>                        </strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" bgcolor="#ffff99"><strong><img src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/space.gif" border="0" height="1" width="3">                            » <a href="http://www.databasejournal.com/sitemap.php" class="topnav">Sitemap</a>                        </strong>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <img src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/space.gif" border="0" height="6" width="1">            <table bgcolor="#ffff99" border="0" cellpadding="4" cellspacing="1" width="179">
+                <tbody><tr>
+					<form action="/accountManagement?formType=registrationForm" method="POST"></form>
+						<td valign="top">
+							<span class="small1"><strong>Free Newsletters:</strong></span><br>
+							<span class="small1"><input name="list_names[]" value="it-database-daily-html" checked="checked" type="checkbox">
+								<a href="http://www.databasejournal.com/"><strong>Database</strong>Daily</a>&nbsp;&nbsp;<br>
+							</span>
+							<input name="Action" value="subscribe" type="hidden">
+							<input class="sprite sprite-subscribe" alt="" align="middle" border="0" hspace="0" type="image" vspace="4">
+						</td>
+					
+                </tr>
+            </tbody></table>
+            <img class="deferload" src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/space.gif" alt="" border="0" height="6" width="1">
+            <table bgcolor="#ffff99" border="0" cellpadding="4" cellspacing="1" width="179">
+                <tbody><tr>
+                    <td><center><span><strong>News Via RSS Feed</strong></span></center><br>
+                        <center><a href="http://www.databasejournal.com/icom_includes/feeds/dbjournal/dbjournal-features-10.xml" rel="nofollow" target="_blank"><span class="sprite sprite-xml"></span><span class="sprite sprite-rss"></span></a></center>
+                        <br>
+                        <center>
+                            <a href="http://twitter.com/DatabaseJournal" target="_blank" rel="nofollow">
+                                <img alt="follow us on Twitter" class="deferload" src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/twitterfollow-125x38.png" border="0" height="38" width="125">
+                            </a></center></td>
+                </tr>
+            </tbody></table>
+            <img class="deferload" src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/space.gif" alt="" border="0" height="6" width="1">
+            <table bgcolor="#ffff99" border="0" cellpadding="4" cellspacing="1" width="179">
+                <tbody><tr>
+                    <td align="center"><!-- QS-AD: 'sky' start -->
+<script language="JavaScript">
+	var t=displayDFPTag("sky");
+	document.write(t);
+
+</script><div style="display: none;" id="sky-1">
+	<script type="text/javascript">
+		googletag.display('sky-1');
+	</script>
+</div>
+
+<!-- QS-AD: 'sky' end --></td>
+                </tr>
+            </tbody></table>
+        </td>
+    </tr>
+</tbody></table>		</td>
+		<td bgcolor="#ffffff" valign="top" width="99%">
+			<table class="deferload" background="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/subnav-bg.gif" border="0" cellpadding="0" cellspacing="0" width="100%">
+	<tbody><tr>
+		<td>
+			<a href="http://www.databasejournal.com/" class="brands" target="_blank" rel="nofollow">Database Journal</a> |<a href="http://www.dbasupport.com/" class="brands" target="_blank" rel="nofollow">DBA Support</a> |<a href="http://www.sqlcourse.com/" class="brands" target="_blank" rel="nofollow">SQLCourse</a> |<a href="http://www.sqlcourse2.com/" class="brands" target="_blank" rel="nofollow">SQLCourse2</a>		</td>
+		<td width="250">
+			<div style="position: relative;">
+				<div style="position:absolute; margin-top: -12px;">
+					<form rel="nofollow" method="post" action="/postsearch" onsubmit="return validate_search(document.getElementById('search_query').value);" name="solrsearch">
+						<input id="search_query" name="search_query" style="float: left;margin-right: 10px;" size="20" maxlength="50" type="text">&nbsp;
+						<input class="sprite sprite-search" style="float: left;" name="submit" value="" align="top" border="0" hspace="0" type="image" vspace="0">
+					</form>
+				</div>
+			</div>
+		</td>
+	</tr>
+</tbody></table>			<table class="content" align="center" border="0" cellpadding="5" cellspacing="0" width="98%">
+				<tbody><tr>
+					<td valign="top">
+						<div class="ciuad"><!-- QS-AD: 'ciu' start -->
+<script language="JavaScript">
+	var t=displayDFPTag("ciu");
+	document.write(t);
+
+</script><div style="display: none;" id="ciu-1">
+	<script type="text/javascript">
+		googletag.display('ciu-1');
+	</script>
+</div>
+
+<!-- QS-AD: 'ciu' end --></div>
+							<div style="clear:both;"></div>
+						<div class="konafilter">
+															<h4>Featured Database Articles</h4>
+														<p>									</p><h2 class="containertitle"><a href="http://www.databasejournal.com/features/oracle/" class="containerlink">Oracle</a></h2>
+							   							<p></p>
+						</div>
+						<p>
+						Posted July 17, 2014						</p>
+						<div class="litcontent">
+							<h1>Exadata: When A Smart Scan Isn't</h1>
+						</div>
+
+														<p><strong>By <a href="http://www.databasejournal.com/feedback/http://www.databasejournal.com/features/oracle/exadata-when-a-smart-scan-isnt.html">David Fitzjarrell</a> </strong></p>
+						
+						<div class="litcontent"><!--content_start--> <p>Exadata is a 
+powerful system, able to provide exceptional performance. Much of this 
+peformance is due to Smart Scans, Exadata's mechanism for shifting the 
+workload to the storage cells and having them filter and reduce the 
+amount of data the database servers must process. Not every Smart Scan 
+that starts ends up completing, though. Oracle may decide that a 
+different path, one that doesn't include a Smart Scan, may be more 
+efficient. Certain conditions must be met and there is a metric that 
+records Smart Scan starts and another that records how many of those 
+starts actually execute Smart Scans. Let's look at why Oracle may decide
+ a Smart Scan isn't the 'smartest' route to the data and which metrics 
+you can use to see how many Smart Scans end up using another execution 
+path.</p>
+<p>Three conditions can trigger Oracle foregoing a smart scan: setting 
+optimizer_mode to either FIRST_ROWS or FIRST_ROWS_n or executing a query
+ using the 'where rownum' predicate. Oracle originally opts to do the 
+Smart Scan then can perform a few block I/O operations to see if that 
+pathway can satisfy the query more efficiently. When that happens a 
+metric, <strong><em>cell num fast response sessions</em></strong>, is 
+incremented. If the block I/O is indeed faster Oracle foregoes the Smart
+ Scan and completes the operation with conventional block I/O. If the 
+block I/O proves that correct results won't be returned to the calling 
+session in a timely fashion Oracle resumes the Smart Scan and continues 
+processing. Simply because this counter is incremented does not mean, by
+ itself, that Oracle didn't execute a Smart Scan. You'll need another 
+metric for that.</p>
+<p>When Oracle decides to return to Smart Scan execution another metric is incremented, <strong><em>cell num fast response sessions continuing to smart scan</em></strong>.
+ The same conditions that triggered the previous metric also apply here.
+ Thus when Oracle decides to forego a Smart Scan only the previous 
+metric, <strong><em>cell num fast response sessions</em></strong>, is incremented.</p>
+<p>It's fairly easy to see how many Smart Scans followed through and how many didn't with the following query:</p>
+<pre><span style="color: #3333ff;">
+select a.value smart_scan_started, b.value smart_scan_cont, a.value - b.value no_smart_scan
+from v$sysstat a, v$sysstat b
+where a.statistic#=262
+and b.statistic#=263
+/
+</span></pre>
+<div class="colLeft dimRelatedArticles_Ads">
+	<div class="section relatedArticles">
+		<div class="sectionHeader">
+			<h3>Related Articles</h3>
+		</div>
+		<div class="sectionContent">
+			<ul>
+				<li><a href="http://www.databasejournal.com/features/oracle/an-exadata-primer.html">An Exadata Primer</a></li>
+				<li><a href="http://www.databasejournal.com/features/oracle/exadata-survival-guide.html">Exadata Survival Guide</a></li>
+				<li><a href="http://www.databasejournal.com/features/oracle/monitoring-exadata-storage-servers-with-the-cellcli.html">Monitoring Exadata Storage Servers with the CellCLI</a></li>
+				<li><a href="http://www.databasejournal.com/features/oracle/monitoring-smart-flash-cache-activity-on-oracle-exadata.html">Monitoring Smart Flash Cache Activity on Oracle Exadata</a></li>
+				<li><a href="http://www.databasejournal.com/features/oracle/monitoring-smart-scans-in-oracle-exadata.html">Monitoring Smart Scans in Oracle Exadata</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<p>You may find that none of the Smart Scans that were started actually went on to finish:</p>
+<pre><span style="color: #3333ff;">
+SMART_SCAN_STARTED SMART_SCAN_CONT NO_SMART_SCAN
+------------------ --------------- -------------
+              1222               0          1222
+
+</span></pre>
+<p>Or you may find that all of them finished:</p>
+<pre><span style="color: #3333ff;">
+SMART_SCAN_STARTED SMART_SCAN_CONT NO_SMART_SCAN
+------------------ --------------- -------------
+               407             407             0
+
+</span></pre>
+<p>You may also find that some did, and some didn't, continue:</p>
+<pre><span style="color: #3333ff;">
+SMART_SCAN_STARTED SMART_SCAN_CONT NO_SMART_SCAN
+------------------ --------------- -------------
+                53              27            26
+
+</span></pre>
+<p>What is important to note is that simply because Oracle started a 
+Smart Scan then chose to not continue on with it doesn't indicate there 
+is any problem with your Exadata system. On the contrary it indicates 
+that Exadata is doing exactly what it's supposed to do, efficiently 
+return query results to the calling session. That may be through a Smart
+ Scan, it may be through conventional I/O. Think of it as adjusting your
+ route to a destination to avoid heavy traffic. If Oracle can get the 
+correct results through a few conventional I/O operations it will do so;
+ if a Smart Scan is necessary Oracle can again 'change gears' and resume
+ it to ensure correct data is sent to the calling session. It all comes 
+down to using the right tool for the job.</p>
+<p>Smart Scans are great when you need them; it's also good to know that
+ Oracle, on Exadata, can decide when to use them and when it's best not 
+to. It's also good to realize that when that happens it's not because of
+ a problem with Exadata. It's simply Oracle choosing the right method to
+ get the correct data. Sometimes the shorter path is the better path.</p>
+<p><strong><a href="http://www.databasejournal.com/article.php/159710/David-Fitzjarrell.htm">See all articles by David Fitzjarrell</a></strong></p><!--content_stop--></div>
+
+						
+					  	 <!-- close lt div -->
+
+                        <br>
+                                                <br>
+                        
+												<p></p>
+
+														<center>
+									<p><a href="http://www.databasejournal.com/features/oracle/archives/">Oracle Archives</a></p>
+								</center>
+						
+						<!-- START COMMENTING CODE -->
+							<p class="style1">
+	<noscript>Please enable Javascript in your browser, before you post the comment! Now Javascript is disabled.</noscript>
+</p>
+<a name="commentresponse">
+	<div id="comment_response"></div>
+</a>
+
+<div id="comment_error" class="error"></div>
+
+<div class="comment_wrapper">
+	<div style="font-weight: bold;"><font id="commentCount">0</font> Comments&nbsp;<a href="#comment_form" style="text-decoration: underline;">(click to add your comment)</a></div>
+	<div id="comment_pagination_top"></div>
+	<div id="comment_page_container"></div>
+	<div id="comment_pagination_bottom"></div>
+	<div id="comment_form">
+		<div style="border-bottom: 2px solid rgb(102, 102, 102); width: 100%; height: 20px; margin-bottom: 5px; clear: left;"></div>
+		<img class="deferload" src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/icon_comment.png" alt="" border="0">Comment and Contribute<p></p>
+	</div>
+	<div style="background-color:#EFEFEF;">
+	<p>&nbsp;</p>
+	<form id="commentform" name="commentform" method="post">
+
+		<p class="commenttext">
+			<input tabindex="1" size="22" id="author" name="author" type="text">
+			<label for="author">Your name/nickname</label>
+		</p>
+		<p class="commenttext">
+			<input tabindex="2" size="22" id="email" name="email" type="text">
+			<label for="email">Your email</label>
+		</p>
+		<p class="commenttext">
+			<input tabindex="3" size="22" id="blurbTitle" name="blurbTitle" type="text">
+			<label for="blurbTitle">Subject</label>
+		</p>
+		<p class="commenttext">			
+			<textarea id="commentdetails" name="commentdetails" onkeydown="limitText(this.form.commentdetails,this.form.countdown,1200);" onkeyup="limitText(this.form.commentdetails,this.form.countdown,1200);" style="overflow: auto; font-family: arial,helvetica,sans-serif; font-style: normal; font-variant: normal; font-weight: normal; font-size: 9pt; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none;" rows="10" cols="80" tabindex="4"></textarea><br>
+		<span style="font-size:8pt;margin-left:10px;">(Maximum characters: 1200). You have <input size="4" value="1200" name="countdown" type="text"> characters left.</span>
+		</p><p class="commenttext">
+		<script type="text/javascript" src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/challenge">
+</script><script type="text/javascript" src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/recaptcha.js"></script></p><div class=" recaptcha_nothad_incorrect_sol recaptcha_isnot_showing_audio" id="recaptcha_widget_div" style=""></div>
+
+	<noscript>
+  		<iframe src="http://api.recaptcha.net/noscript?k=6LcGycMSAAAAABCZvhPV7XiK5twSGp6lwOJ9_w3b" height="300" width="500" frameborder="0"></iframe><br/>
+  		<textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
+  		<input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>
+	</noscript>		<p></p>
+		<p>
+			<input value="Submit Your Comment" tabindex="6" id="submit" name="submit" onclick="return validate();" type="submit">&nbsp;<img class="deferload" src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/ajax-loader.gif" alt="" id="ajax_loading_img" style="vertical-align:middle;visibility:hidden;" align="middle" border="0">
+		</p>
+		<input id="key" value="187412010" name="key" type="hidden">
+		<input value="0" id="comment_parent" name="comment_parent" type="hidden">
+		<input value="0" id="totalComments" name="totalComments" type="hidden">
+	</form>
+	<p>&nbsp;</p>
+	</div>
+</div>						<!-- END COMMENTING CODE -->
+
+						<!-- <p></p>
+<p></p> -->
+						<br>
+						<div class="ciuad"></div>
+						<div style="clear:both;"></div>
+						
+						                                     <br clear="all">
+                                    
+
+<center><br clear="all">
+
+<table rowspacing="2" border="0" cellpadding="3" width="90%">
+	<tbody>
+		<tr>
+			<td colspan="4" class="forum_title" align="right" bgcolor="#000000">Latest
+			Forum Threads</td>
+		</tr>
+
+		<tr>
+			<td colspan="4" class="forum_subtitle" bgcolor="#FFCC00">Oracle			Forum</td>
+		</tr>
+		<tr bgcolor="#EBD57D">
+			<td align="center"><span><strong>Topic</strong></span></td>
+			<td align="center"><span><strong>By</strong></span></td>
+			<td align="center"><span><strong>Replies</strong></span></td>
+			<td align="center"><span><strong>Updated</strong></span></td>
+		</tr>
+		
+              <tr>
+                <td align="left" bgcolor="FEF0B7"><a href="http://forums.databasejournal.com/showthread.php?threadid=53255"><font face="verdana, arial, helvetica" size="-1">Oracle Data Mining: Classification</font></a></td>
+                <td align="left" bgcolor="EBD57D"><a href="http://forums.databasejournal.com/showthread.php?threadid=53255"><font face="verdana, arial, helvetica" size="-1">jan.hasller</font></a></td>
+                <td align="left" bgcolor="FEF0B7"><a href="http://forums.databasejournal.com/showthread.php?threadid=53255"><font face="verdana, arial, helvetica" size="-1">0</font></a></td>
+                <td align="left" bgcolor="EBD57D"><a href="http://forums.databasejournal.com/showthread.php?threadid=53255"><font face="verdana, arial, helvetica" size="-1">July 5th, 07:19 AM</font></a></td>
+              </tr>
+        
+              <tr>
+                <td align="left" bgcolor="FEF0B7"><a href="http://forums.databasejournal.com/showthread.php?threadid=53235"><font face="verdana, arial, helvetica" size="-1">Find duplicates - Unique IDs</font></a></td>
+                <td align="left" bgcolor="EBD57D"><a href="http://forums.databasejournal.com/showthread.php?threadid=53235"><font face="verdana, arial, helvetica" size="-1">Lava</font></a></td>
+                <td align="left" bgcolor="FEF0B7"><a href="http://forums.databasejournal.com/showthread.php?threadid=53235"><font face="verdana, arial, helvetica" size="-1">5</font></a></td>
+                <td align="left" bgcolor="EBD57D"><a href="http://forums.databasejournal.com/showthread.php?threadid=53235"><font face="verdana, arial, helvetica" size="-1">July 2nd, 08:30 AM</font></a></td>
+              </tr>
+        
+              <tr>
+                <td align="left" bgcolor="FEF0B7"><a href="http://forums.databasejournal.com/showthread.php?threadid=53187"><font face="verdana, arial, helvetica" size="-1">no matching unique or primary key</font></a></td>
+                <td align="left" bgcolor="EBD57D"><a href="http://forums.databasejournal.com/showthread.php?threadid=53187"><font face="verdana, arial, helvetica" size="-1">rcanter</font></a></td>
+                <td align="left" bgcolor="FEF0B7"><a href="http://forums.databasejournal.com/showthread.php?threadid=53187"><font face="verdana, arial, helvetica" size="-1">1</font></a></td>
+                <td align="left" bgcolor="EBD57D"><a href="http://forums.databasejournal.com/showthread.php?threadid=53187"><font face="verdana, arial, helvetica" size="-1">April 25th, 12:32 PM</font></a></td>
+              </tr>
+        
+              <tr>
+                <td align="left" bgcolor="FEF0B7"><a href="http://forums.databasejournal.com/showthread.php?threadid=53134"><font face="verdana, arial, helvetica" size="-1">Update values of one table based on condition of values in other table using Trigger</font></a></td>
+                <td align="left" bgcolor="EBD57D"><a href="http://forums.databasejournal.com/showthread.php?threadid=53134"><font face="verdana, arial, helvetica" size="-1">Gladiator</font></a></td>
+                <td align="left" bgcolor="FEF0B7"><a href="http://forums.databasejournal.com/showthread.php?threadid=53134"><font face="verdana, arial, helvetica" size="-1">3</font></a></td>
+                <td align="left" bgcolor="EBD57D"><a href="http://forums.databasejournal.com/showthread.php?threadid=53134"><font face="verdana, arial, helvetica" size="-1">February 29th, 06:01 PM</font></a></td>
+              </tr>
+        
+
+	</tbody>
+</table>
+<p></p>
+</center>
+										</td>
+				<td valign="top"><table align="right" border="0" cellpadding="0" cellspacing="3" width="125">
+	<tbody><tr align="center">
+	    <!--bob position-->
+        <td width="336">
+			<!-- QS-AD: 'imu' start -->
+<script language="JavaScript">
+	var t=displayDFPTag("imu");
+	document.write(t);
+
+</script><div style="display: none;" id="imu-1">
+	<script type="text/javascript">
+		googletag.display('imu-1');
+	</script>
+</div>
+
+<!-- QS-AD: 'imu' end -->			<br>
+			<div class="articlecategorysummary">
+    <iframe class="uilzrdezgpgkplvssgwf" id="whitePaperIFrame" scrolling="no" src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/a.htm" align="middle" frameborder="0" height="740"></iframe>
+</div>
+ <script type="text/javascript">
+	var updateIframe = false;
+	var t = 0;
+	function updateQMPIframe()
+	{
+		if(!updateIframe)
+		{
+			if($('#whitePaperIFrame').contents().find('.asset').length > 0)
+			{	
+				var height = $('#whitePaperIFrame').contents().find('.qmpContainer').height();
+				
+				var iframe = document.getElementById('whitePaperIFrame');
+				var iframeHeight = document.getElementById('whitePaperIFrame').height;
+				if(height>iframeHeight){
+					height = height + 5; //Add border pixels.
+					iframe.setAttribute( 'height', height);
+					clearTimeout(t);
+					updateIframe = true;
+				}
+			}
+			else
+			{
+				t = setTimeout('updateQMPIframe()', 3000);
+			}
+		}
+	}
+	updateQMPIframe();
+
+</script> <br>			<!-- QS-AD: 'imu' start -->
+<script language="JavaScript">
+	var t=displayDFPTag("imu");
+	document.write(t);
+
+</script><div style="display: none;" id="imu-2">
+	<script type="text/javascript">
+		googletag.display('imu-2');
+	</script>
+</div>
+
+<!-- QS-AD: 'imu' end -->			<br>
+		</td>
+    </tr>
+	</tbody></table></td>
+			</tr>
+		</tbody></table>
+	 </td>
+	</tr>
+</tbody></table><!-- DatabaseJournal: Begin Rocket Fuel Conversion Action Tracking Code Version 7 -->
+<script language="javascript">
+    function callImpressionTracker(img_url) {
+        var trackingPixel = new Image();
+        cachebuster=parseInt(Math.random()*99999999);  // cache buster
+        trackingPixel.src = img_url + "&ra=" + cachebuster;
+        document.body.appendChild(trackingPixel);
+    }
+    // Code for Action: DatabaseJournal - Quinstreet - Tracking
+    callImpressionTracker("http://20514677p.rfihub.com/ca.gif?rb=3335&ca=20514677")
+
+</script>
+<!-- End Rocket Fuel Conversion Action Tracking Code Version 7 -->
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tbody><tr>
+        <td class="deferload" background="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/btm-bg.gif" width="100%"><span class="sprite sprite-nav-btm"></span>
+		</td>
+    </tr>
+</tbody></table><br><br>
+<div class="konafilter">
+    <center>
+        <!-- OBJECT:index.footer -->
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tbody><tr>
+                <td align="center"><br>
+                    <!-- QS-AD: 'lb' start -->
+<script language="JavaScript">
+	var t=displayDFPTag("lb");
+	document.write(t);
+
+</script><div style="display: none;" id="lb-2">
+	<script type="text/javascript">
+		googletag.display('lb-2');
+	</script>
+</div>
+
+<!-- QS-AD: 'lb' end -->                    <br><br>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                                    </td>
+            </tr>
+        </tbody></table><br><br>
+		<!-- Google Analytics -->
+		<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		ga('create', 'UA-48210401-1', 'auto');
+		ga('send', 'pageview');
+		
+</script>
+		<!-- End Google Analytics -->		
+        <font face="arial, helvetica" size="-1"><style type="text/css">
+#developerBrand-footer{text-align:center;margin:0 auto}
+#footerlinks{font-size:12px;word-spacing:1px}
+#footerlinks a{color:#000;margin:5px 0 0}
+#itbeBrand-footer{text-align:center;margin:0 auto}
+#itbusinessedge-footer{text-align:center;margin:0 auto}
+#footercopyright{font-size:12px;margin:5px 0 0}
+#developerBrandForum-footer{text-align:center;margin:0 auto}
+#itbeBrandForum-footer{text-align:center;margin:0 auto}
+.footerLogoClass{text-align:center;margin:0 auto}
+</style>
+<div id="developerBrand-footer" style="display:none"></div>
+<div id="itbeBrand-footer" style=""><div id="itbelogo"><img src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/itbe.gif" border="0"></div><div id="footercopyright"> Property of Quinstreet Enterprise. </div><div id="footerlinks"><a rel="nofollow" href="http://www.databasejournal.com/terms">Terms of Service</a> | <a rel="nofollow" href="http://www.databasejournal.com/licensing">Licensing &amp; Reprints</a> | <a rel="nofollow" href="http://quinstreetenterprise.com/about_us" target="_blank">About Us</a> |  <a rel="nofollow" href="http://www.databasejournal.com/privacy">Privacy Policy</a> | <a rel="nofollow" href="http://quinstreetenterprise.com/about_us#contactus" target="_blank">Advertise</a><br>Copyright 2015 QuinStreet Inc. All Rights Reserved.<noscript>Copyright 2014 Quinstreet Inc. All right reserved.<noscript></div></noscript></div></div>
+<div id="itbusinessedge-footer" style="display:none"></div>
+<div id="zde-footer" style="display:none" class="footerLogoClass"></div>
+<div id="baseline-footer" style="display:none" class="footerLogoClass"></div>
+<div id="cinsider-footer" style="display:none" class="footerLogoClass"></div>
+<div id="cioinsight-footer" style="display:none" class="footerLogoClass"></div>
+<div id="eweek-footer" style="display:none" class="footerLogoClass"></div>
+<div id="enterpriseappstoday-footer" style="display:none" class="footerLogoClass"></div>
+<div id="eseminar-footer" style="display:none" class="footerLogoClass"></div>
+<div id="wbg-footer" style="display:none" class="footerLogoClass"></div>
+<div id="developerBrandForum-footer" style="display:none"></div>
+<div id="itbeBrandForum-footer" style="display:none"></div>
+<script async="" language="Javascript" src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/footerbrandingcode.js">
+</script>
+<!-- Google Classical Analytics -->
+<script src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/ga.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+<!--     hide from no js browsers
+delete Array.prototype.itemValidation;
+delete Array.prototype.isArray;
+var superTracker = _gat._getTracker("UA-2838492-1");
+superTracker._initData();
+superTracker._trackPageview();
+
+-->
+
+</script>
+<script type="text/javascript">
+<!--     hide from no js browsers
+   var site_name =  location.hostname;
+   if ( site_name.indexOf("www.") != 0 ) {
+     site_name  = "www."+site_name ;
+   }
+   document.write("<SCR" + "IPT LANGUAGE='JavaScript1.2' SRC='/icom_includes/footers/sites/"+ site_name +".js' TYPE='text/javascript'><\/SCR" + "IPT>");
+-->
+
+</script><script language="JavaScript1.2" src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/www.js" type="text/javascript"></script>
+<script type="text/javascript">
+<!--hide from no js browsers
+   pageTracker._initData();
+   pageTracker._trackPageview();
+   // -->
+
+</script>
+<!-- End Google Analytics --></font>
+    </center>
+</div>
+<br><br>
+<div style="margin:0px auto 0px auto;">
+    <!-- QS-AD: 'hero' start -->
+<script language="JavaScript">
+	var t=displayDFPTag("hero");
+	document.write(t);
+
+</script><div id="hero-1" style="height: 0px; display: none;">
+	<script type="text/javascript">
+		googletag.display('hero-1');
+	</script>
+</div>
+<style type="text/css">#hero-1_ad_container { height: 0px; }</style>
+
+<!-- QS-AD: 'hero' end --></div>
+<link href="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/css.css" rel="stylesheet" type="text/css">
+<div id="newuserregistrationpopup">
+    <div id="closepopup"><a class="close" href="#"><img class="deferload" src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/close_icon.png" alt="" border="0"></a></div>
+    <div id="thankuptext">Thanks for your registration, follow us on our social networks to keep up-to-date</div>
+    <div id="socialsharebtn">
+        <div id="socialbtns"><a href="http://o1.qnsr.com/cgi/r?WT.qs_dlk=VU2xXQrIZ24AABOnKIcAAAAP;;n=203;c=1459370;s=8986;x=7936;f=201411241658150;u=j;z=TIMESTAMP;k=https://www.facebook.com/pages/Database-Journal/35238861774" target="_blank"><img class="deferload" src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/user-register-popup-fb.png" border="0"></a></div>
+        <div id="socialbtns"><a href="http://o1.qnsr.com/cgi/r?WT.qs_dlk=VU2xXQrIZ24AABOnKIcAAAAP;;n=203;c=1459370;s=8986;x=7936;f=201411241658150;u=j;z=TIMESTAMP;k=https://twitter.com/DatabaseJournal" target="_blank"><img class="deferload" src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/user-register-popup-tw.png" border="0"></a></div>
+        <div id="socialbtns"><a href="http://o1.qnsr.com/cgi/r?WT.qs_dlk=VU2xXQrIZ24AABOnKIcAAAAP;;n=203;c=1459370;s=8986;x=7936;f=201411241658150;u=j;z=TIMESTAMP;k=https://www.linkedin.com/company/database-journal?trk=parent_company_logo" target="_blank"><img class="deferload" src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/user-register-popup-ln.png" border="0"></a></div>
+        <div id="socialbtns"><a href="http://o1.qnsr.com/cgi/r?WT.qs_dlk=VU2xXQrIZ24AABOnKIcAAAAP;;n=203;c=1459370;s=8986;x=7936;f=201411241658150;u=j;z=TIMESTAMP;k=https://plus.google.com/b/104642302297733803990/104642302297733803990/posts" target="_blank"><img class="deferload" src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/user-register-popup-gplus.png" border="0"></a></div>
+        <div id="socialbtns"><a href="http://o1.qnsr.com/cgi/r?WT.qs_dlk=VU2xXQrIZ24AABOnKIcAAAAP;;n=203;c=1459370;s=8986;x=7936;f=201411241658150;u=j;z=TIMESTAMP;k=http://www.databasejournal.com/icom_includes/feeds/dbjournal/dbjournal-features-10.xml" target="_blank"><img class="deferload" src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/user-register-popup-rss.png" border="0"></a></div>
+    </div>
+</div>
+</div><img src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/ca.gif">
+		<script type="text/javascript" src="Exadata%20%20When%20A%20Smart%20Scan%20Isn%27t%20%E2%80%94%20DatabaseJournal.com_files/a.js" defer="defer" async="">
+</script>
+
+
+</body></html>
